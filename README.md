@@ -3,6 +3,7 @@
 Some additions for QCoreApplication, QGuiApplication and QApplication.
 
 This project is composed of some libraries:
+
 | Library                      | Description                                         | Main dependency |
 |------------------------------|:----------------------------------------------------|-----------------|
 | CoreApplicationForNonQtUsage | Provide a QCoreApplication for a non Qt application | QtCore          |
@@ -51,6 +52,7 @@ if the required binaries are not distributed by Qt
 Using your own installed Qt5 library is also supported.
 
 Here are the available options:
+
 | Option           | Default | Possible Values  | Explanations |
 | -----------------|:------- |:----------------:|--------------|
 | shared           | True    |  [True, False]   | Build as shared library |

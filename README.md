@@ -90,3 +90,77 @@ Configure your project:
 cmake -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake-gui .
 ```
+
+## Project configuration without Conan
+
+Build MdtApplication (see below) and install it somewhere, for example in `~/opt/MdtApplication`.
+
+Create a build directory and cd to it:
+```bash
+mkdir build
+cd build
+```
+
+Configure your project:
+```bash
+cmake -DCMAKE_PREFIX_PATH=~/opt/MdtApplication -DCMAKE_BUILD_TYPE=Release ..
+cmake-gui .
+```
+
+Build your project:
+```bash
+cmake --build . --config Release
+```
+
+Note that the `--config Release` is only mandatory
+for multi configuration build systems, like MSVC.
+
+# Install MdtApplication
+
+This chapter covers only the installation of the library.
+To run the unit tests, see the next chapter.
+
+Get MdtApplication:
+```bash
+git clone git@gitlab.com:scandyna/mdtapplication.git
+```
+
+Create a build directory and cd to it:
+```bash
+mkdir build
+cd build
+```
+
+## Note about install prefix
+
+Some note on the `CMAKE_INSTALL_PREFIX`:
+ - To target a system wide installation on Linux, set it to `/usr` (`-DCMAKE_INSTALL_PREFIX=/usr`) .
+ - For other locations, spcecify also the <package-name>, (for example `-DCMAKE_INSTALL_PREFIX=~/opt/MdtApplication`).
+
+For details about that, see:
+ - https://scandyna.gitlab.io/mdt-cmake-modules/Modules/MdtInstallDirs.html
+ - https://cmake.org/cmake/help/latest/variable/CMAKE_INSTALL_PREFIX.html
+ - https://scandyna.gitlab.io/mdt-cmake-modules/Modules/MdtInstallLibrary.html
+
+## Configure MdtApplication with Conan
+
+Install the dependencies:
+```bash
+conan install -s build_type=Release --build=missing ..
+```
+
+Configure MdtApplication:
+```bash
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/opt/MdtApplication ..
+cmake-gui .
+```
+
+## Build and install MdtApplication
+
+To build and install, run:
+```cmd
+cmake --build . --target INSTALL --config Release
+```
+
+Note that the `--config Release` is only mandatory
+for multi configuration build systems, like MSVC.

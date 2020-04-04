@@ -135,9 +135,9 @@ cd build
 
 When using Conan for dependency management,
 it is recommended to use Conan profiles.
-This permits to have personal binary reepository,
+This permits to have personal binary repository,
 avoiding to recompile everything everytime.
-This become more important if Qt is managed by Conan.
+This becomes more important if Qt is managed by Conan.
 
 This requires modifications in the `settings.yml` Conan configuration,
 and also some profile files.
@@ -149,7 +149,7 @@ Some following sections will rely on Conan profiles.
 
 Some note on the `CMAKE_INSTALL_PREFIX`:
  - To target a system wide installation on Linux, set it to `/usr` (`-DCMAKE_INSTALL_PREFIX=/usr`) .
- - For other locations, spcecify also the <package-name>, (for example `-DCMAKE_INSTALL_PREFIX=~/opt/MdtApplication`).
+ - For other locations, spcecify also the `<package-name>`, (for example `-DCMAKE_INSTALL_PREFIX=~/opt/MdtApplication`).
 
 For details about that, see:
  - https://scandyna.gitlab.io/mdt-cmake-modules/Modules/MdtInstallDirs.html

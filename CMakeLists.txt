@@ -57,6 +57,18 @@ option(BUILD_CPP_API_DOC "Generate Doxyfile for C++ API documentation" OFF)
 mdt_set_available_build_types(Release Debug RelWithDebInfo MinSizeRel Instrumented)
 option(WARNING_AS_ERROR "Threat warnings as errors" OFF)
 
+# Provide LPO/LTO option if supported
+# Note: CMake before 3.9 does only support Intel compiler on Linux.
+#       Check documentation of the CheckIPOSupported module,
+#       and also CMP0069 policy.
+include(CheckIPOSupported)
+check_ipo_supported(RESULT HAVE_IPO_LTO)
+message("IPO supported: ${HAVE_IPO_LTO}")
+if(HAVE_IPO_LTO)
+  option(BUILD_USE_IPO_LTO "Use link-time optimization" OFF)
+endif()
+message("BUILD_USE_IPO_LTO: ${BUILD_USE_IPO_LTO}")
+
 mdt_get_available_optimization_levels(AVAILABLE_OPTIMIZATION_LEVELS)
 set(BUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL "" CACHE STRING "Set optimization level for Instrumented build")
 set_property(CACHE BUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL PROPERTY STRINGS ${AVAILABLE_OPTIMIZATION_LEVELS})

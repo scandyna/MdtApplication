@@ -2,9 +2,9 @@
 
 Some additions for QCoreApplication, QGuiApplication and QApplication.
 
-This project is composed of some libraries:
+This library is composed of some components:
 
-| Library                      | Description                                         | Main dependency |
+| Component                      | Description                                         | Main dependency |
 |------------------------------|:----------------------------------------------------|-----------------|
 | CoreApplicationForNonQtUsage | Provide a QCoreApplication for a non Qt application | QtCore          |
 | GuiApplicationForNonQtUsage  | Provide a QGuiApplication for a non Qt application  | QtGui           |

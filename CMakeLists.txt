@@ -230,10 +230,10 @@ if(BUILD_TESTS)
   enable_testing()
 endif()
 
+if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE)
+  add_subdirectory(libs/CoreApplicationForNonQtUsage)
+endif()
 
-# add_subdirectory(libs/UicNumber)
-
-# if(ENABLE_QT_SUPPORT)
-#   add_subdirectory(libs/UicNumber_Qt)
-#   add_subdirectory(libs/UicNumber_QtGui)
-# endif()
+if(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
+  add_subdirectory(libs/GuiApplicationForNonQtUsage)
+endif()

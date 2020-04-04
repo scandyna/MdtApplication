@@ -45,9 +45,14 @@ class MdtApplicationConan(ConanFile):
     cmake = CMake(self)
     cmake.definitions["CMAKE_TOOLCHAIN_FILE"] = "%s/conan_paths.cmake" % (self.build_folder)
     cmake.definitions["WARNING_AS_ERROR"] = "ON"
+
+    if self.options.gui:
+      cmake.definitions["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "ON"
+
     if self.settings.compiler == "gcc" or self.settings.compiler == "clang":
       if self.settings.compiler.sanitizer == "Thread":
         cmake.definitions["SANITIZER_ENABLE_THREAD"] = "ON"
+
     return cmake
 
 

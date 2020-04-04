@@ -210,13 +210,13 @@ set(CMAKE_AUTOUIC ON)
 # Sources and tests
 #######################
 
-# if(BUILD_TESTS)
-#   add_library(Mdt_Catch2Main STATIC Catch2Main.cpp)
-#   target_link_libraries(Mdt_Catch2Main PUBLIC Catch2::Catch2)
-#   add_library(Mdt::Catch2Main ALIAS Mdt_Catch2Main)
-# 
-#   enable_testing()
-# endif()
+if(BUILD_TESTS)
+  add_library(Mdt_Catch2Main STATIC Catch2Main.cpp)
+  target_link_libraries(Mdt_Catch2Main PUBLIC Catch2::Catch2)
+  add_library(Mdt::Catch2Main ALIAS Mdt_Catch2Main)
+
+  enable_testing()
+endif()
 
 
 # add_subdirectory(libs/UicNumber)

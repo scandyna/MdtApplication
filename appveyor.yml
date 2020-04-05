@@ -46,6 +46,11 @@ configuration:
   - Debug
 
 install:
+  # Yet a other hack to enable long path support (>250 chars).. See https://github.com/appveyor/ci/issues/3129
+  - ps: Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
+  - ps: Start-Sleep -s 10
+  - ps: Restart-Computer -Force
+  - ps: Start-Sleep -s 10
   - set PATH=C:\Python38;C:\Python38\Scripts;%PATH%
   - pip3 install conan
   - conan --version

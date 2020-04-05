@@ -132,7 +132,7 @@ test_linux_clang6.0_x86_64_libc++_release:
 # conan install will get the recipe for a given package on the first remote it finds
 # if binaries for this recipe, with settings and options, does not exist in this remote,
 # conan will fail (it will not try other remotes)
-.build_linux_conan_qt_core:
+.build_linux_tsan:
   stage: build
   before_script:
     - conan config install --source-folder conan https://gitlab.com/scandyna/conan-config.git
@@ -140,8 +140,9 @@ test_linux_clang6.0_x86_64_libc++_release:
   script:
     - mkdir build
     - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o use_conan_qt=True -o build_tests=True -o MdtApplication:gui=False ..
-    - cmake -G"Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
+    - conan install --profile $CONAN_PROFILE -o use_conan_qt=True -o build_tests=True -o MdtApplication:gui=False ..
+    - cmake -G"Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DWARNING_AS_ERROR=ON -DSANITIZER_ENABLE_THREAD=ON
+                               -DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL=-O1
                                -DCMAKE_C_COMPILER=$C_COMPILER -DCMAKE_CXX_COMPILER=$CXX_COMPILER $CMAKE_EXTRA_CACHE_ENTRIES
                                -DBUILD_SHARED_LIBS=ON -DBUILD_USE_IPO_LTO=ON
                                -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON
@@ -154,8 +155,9 @@ test_linux_clang6.0_x86_64_libc++_release:
     paths:
       - build
 
+
 # Here we have to get the binaries got with conan during build
-.test_linux_conan_qt_core:
+.test_linux_tsan:
   stage: test
   variables:
     DISPLAY: ":99"
@@ -165,8 +167,8 @@ test_linux_clang6.0_x86_64_libc++_release:
     - /etc/init.d/xdummy-server start
   script:
     - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o build_tests=True ..
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o use_conan_qt=True -o build_tests=True -o MdtApplication:gui=False -r scandyna ..
+    - conan install --profile $CONAN_PROFILE -o build_tests=True ..
+    - conan install --profile $CONAN_PROFILE -o use_conan_qt=True -o build_tests=True -o MdtApplication:gui=False -r scandyna ..
     - ctest --output-on-failure .
 
 
@@ -175,14 +177,12 @@ build_linux_clang6.0_x86_64_libc++_tsan:
     CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_core
     C_COMPILER: clang-6.0
     CXX_COMPILER: clang++-6.0
-    BUILD_TYPE: RelWithDebInfo
-    CMAKE_EXTRA_CACHE_ENTRIES: -DCMAKE_C_FLAGS_INIT=-stdlib=libc++ -DCMAKE_CXX_FLAGS_INIT=-stdlib=libc++ -DSANITIZER_ENABLE_THREAD=ON
-  extends: .build_linux_conan_qt_core
+    CMAKE_EXTRA_CACHE_ENTRIES: -DCMAKE_C_FLAGS_INIT=-stdlib=libc++ -DCMAKE_CXX_FLAGS_INIT=-stdlib=libc++
+  extends: .build_linux_tsan
 
 test_linux_clang6.0_x86_64_libc++_tsan:
   dependencies:
     - build_linux_clang6.0_x86_64_libc++_tsan
   variables:
     CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_core
-    BUILD_TYPE: RelWithDebInfo
-  extends: .test_linux_conan_qt_core
+  extends: .test_linux_tsan

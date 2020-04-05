@@ -22,21 +22,25 @@ cmake_minimum_required(VERSION 3.10)
 
 project(MdtApplicationTest)
 
-include(MdtAddTest)
-
-message("ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE: ${ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE}")
-message("ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE: ${ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE}")
-
 find_package(Threads REQUIRED)
-find_package(Mdt0 COMPONENTS CoreApplicationForNonQtUsage REQUIRED)
+find_package(MdtCMakeModules REQUIRED)
 
-if(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
-  find_package(Mdt0 COMPONENTS GuiApplicationForNonQtUsage REQUIRED)
-endif()
-
+include(MdtAddTest)
 
 enable_testing()
 
+# Conan does not propagate options to the test_package.
+# For example:
+# conan create . scandyna/testing -o MdtApplication:gui=True
+# In the test_package/conanfile.py , it seems not to be sanely possible
+# to check if the MdtApplication package was create with the gui option
+#
+# So, we expect that components depending on QtCore are allways available.
+# For other components, we check if they are available, then test if they can be used.
+
+find_package(Qt5 COMPONENTS Core REQUIRED)
+
+find_package(Mdt0 COMPONENTS CoreApplicationForNonQtUsage REQUIRED)
 mdt_add_test(
   NAME CoreApplicationForNonQtUsageTest
   TARGET coreApplicationForNonQtUsageTest
@@ -45,7 +49,10 @@ mdt_add_test(
     CoreApplicationForNonQtUsageTest.cpp
 )
 
-if(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
+
+find_package(Mdt0 OPTIONAL_COMPONENTS GuiApplicationForNonQtUsage)
+if(Mdt0GuiApplicationForNonQtUsage_FOUND)
+  find_package(Qt5 COMPONENTS Gui REQUIRED)
   mdt_add_test(
     NAME GuiApplicationForNonQtUsageTest
     TARGET guiApplicationForNonQtUsageTest

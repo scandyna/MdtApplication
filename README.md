@@ -34,6 +34,7 @@ cmake_minimum_required(VERSION 3.10)
 project(MyApp)
 
 find_package(Threads REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui REQUIRED)
 find_package(Mdt0 COMPONENTS GuiApplicationForNonQtUsage REQUIRED)
 
 add_executable(myApp myApp.cpp)

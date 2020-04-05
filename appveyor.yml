@@ -44,6 +44,7 @@ environment:
 
 configuration:
   - Debug
+  - Release
 
 install:
   # Yet a other hack to enable long path support (>250 chars).. See https://github.com/appveyor/ci/issues/3129

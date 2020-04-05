@@ -25,22 +25,26 @@
 #include <QObject>
 #include <QCoreApplication>
 
-class MDT_COREAPPLICATIONFORNONQTUSAGE_EXPORT CoreApplicationForNonQtUsageImpl : public QObject
-{
- Q_OBJECT
+namespace Mdt{
 
- public:
-
-  void registerApplication(QCoreApplication *app)
+  class MDT_COREAPPLICATIONFORNONQTUSAGE_EXPORT CoreApplicationForNonQtUsageImpl : public QObject
   {
-    Q_ASSERT(app != nullptr);
+  Q_OBJECT
 
-    connect(this, &Mdt::CoreApplicationForNonQtUsageImpl::invokeQuit, app, &QCoreApplication::quit, Qt::QueuedConnection);
-  }
+  public:
 
- Q_SIGNALS:
+    void registerApplication(QCoreApplication *app)
+    {
+      Q_ASSERT(app != nullptr);
 
-  void invokeQuit();
-};
+      connect(this, &Mdt::CoreApplicationForNonQtUsageImpl::invokeQuit, app, &QCoreApplication::quit, Qt::QueuedConnection);
+    }
+
+  Q_SIGNALS:
+
+    void invokeQuit();
+  };
+
+} // namespace Mdt{
 
 #endif // #ifndef MDT_CORE_APPLICATION_FOR_NON_QT_USAGE_IMPL_H

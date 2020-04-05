@@ -368,14 +368,14 @@ namespace Mdt{
     }
 
     /*! \brief Reference the worker
-    */
+     */
     Worker & worker()
     {
       return *mWorker;
     }
 
     /*! \brief Reference the worker
-    */
+     */
     const Worker & worker() const
     {
       return *mWorker;
@@ -408,7 +408,7 @@ namespace Mdt{
     bool mInitDone = false;
     std::mutex mMutex;
     std::condition_variable mInitDoneCondition;
-    QCoreApplicationForNonQtUsageImpl mImpl;
+    CoreApplicationForNonQtUsageImpl mImpl;
     std::atomic<Worker*> mWorker;
     std::thread mThread;
   };

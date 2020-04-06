@@ -137,6 +137,7 @@ endif()
 
 if(BUILD_TESTS)
   find_package(Catch2 REQUIRED)
+  find_package(Qt5 COMPONENTS Test REQUIRED)
 endif()
 
 #######################
@@ -237,4 +238,8 @@ endif()
 
 if(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
   add_subdirectory(libs/GuiApplicationForNonQtUsage)
+endif()
+
+if(BUILD_EXAMPLES)
+  add_subdirectory(examples)
 endif()

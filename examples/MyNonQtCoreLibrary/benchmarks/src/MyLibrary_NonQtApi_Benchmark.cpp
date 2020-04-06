@@ -18,4 +18,20 @@
  ** along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
-#include <catch2/catch.hpp>
+#define CATCH_CONFIG_ENABLE_BENCHMARKING
+#include "catch2/catch.hpp"
+#include "MyLibrary/MyLibrary_NonQtApi.h"
+
+using namespace MyLibrary;
+
+TEST_CASE("valueBenchmark")
+{
+  MyLibrary_NonQtApi lib;
+
+  lib.setValue("A");
+  std::string result;
+  BENCHMARK("A"){
+    result = lib.value();
+  };
+  REQUIRE( result == std::string("A") );
+}

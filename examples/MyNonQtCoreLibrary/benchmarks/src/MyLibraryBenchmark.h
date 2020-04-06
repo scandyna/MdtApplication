@@ -27,5 +27,6 @@ class MyLibraryBenchmark : public QObject
 
  private slots:
 
-  
+  void sendCommandBenchmark();
+  void valueBenchmark();
 };

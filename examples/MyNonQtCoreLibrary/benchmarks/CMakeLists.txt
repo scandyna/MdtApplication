@@ -21,17 +21,17 @@
 include(MdtAddTest)
 
 mdt_add_test(
-  NAME Examples_MyLibrary_Benchmark
-  TARGET examples_MyLibrary_Benchmark
-  DEPENDENCIES Examples_MyLibrary Qt5::Test
+  NAME MyNonQtCoreLibraryBenchmark
+  TARGET myNonQtCoreLibraryBenchmark
+  DEPENDENCIES MyNonQtCoreLibrary Qt5::Test
   SOURCE_FILES
     src/MyLibraryBenchmark.cpp
 )
 
 mdt_add_test(
-  NAME Examples_MyLibrary_NonQtApi_Benchmark
-  TARGET examples_MyLibrary_NonQtApi_Benchmark
-  DEPENDENCIES Examples_MyLibrary Catch2::Catch2
+  NAME MyNonQtCoreLibrary_NonQtApi_Benchmark
+  TARGET myNonQtCoreLibrary_NonQtApi_Benchmark
+  DEPENDENCIES MyNonQtCoreLibrary Mdt::Catch2Main
   SOURCE_FILES
     src/MyLibrary_NonQtApi_Benchmark.cpp
 )

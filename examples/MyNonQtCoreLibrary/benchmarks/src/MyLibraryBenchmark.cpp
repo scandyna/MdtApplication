@@ -19,5 +19,29 @@
  **
  ****************************************************************************/
 #include "MyLibraryBenchmark.h"
+#include "MyLibrary/MyLibrary_Api.h"
+
+using namespace MyLibrary;
+
+void MyLibraryBenchmark::sendCommandBenchmark()
+{
+  MyLibrary_Api lib;
+
+  QBENCHMARK{
+    QVERIFY( lib.sendCommand("CMD") == MyLibraryError::NoError );
+  }
+}
+
+void MyLibraryBenchmark::valueBenchmark()
+{
+  MyLibrary_Api lib;
+
+  lib.setValue("A");
+  std::string result;
+  QBENCHMARK{
+    result = lib.value();
+  }
+  QCOMPARE( result, std::string("A") );
+}
 
 QTEST_GUILESS_MAIN(MyLibraryBenchmark)

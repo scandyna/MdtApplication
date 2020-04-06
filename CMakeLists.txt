@@ -150,6 +150,12 @@ if(WIN32)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 endif()
 
+# Workaround for the "too many sections" error on some MinGW compiler
+# See: https://stackoverflow.com/questions/16596876/object-file-has-too-many-sections
+if(MINGW)
+  add_compile_options(-Wa,-mbig-obj)
+endif()
+
 #######################
 # Sanitizers
 #######################

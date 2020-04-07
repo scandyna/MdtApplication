@@ -174,7 +174,7 @@ test_linux_clang6.0_x86_64_libc++_release:
 
 build_linux_clang6.0_x86_64_libc++_tsan:
   variables:
-    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_core
+    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_gui_modules
     C_COMPILER: clang-6.0
     CXX_COMPILER: clang++-6.0
     CMAKE_EXTRA_CACHE_ENTRIES: -DCMAKE_C_FLAGS_INIT=-stdlib=libc++ -DCMAKE_CXX_FLAGS_INIT=-stdlib=libc++
@@ -184,7 +184,7 @@ test_linux_clang6.0_x86_64_libc++_tsan:
   dependencies:
     - build_linux_clang6.0_x86_64_libc++_tsan
   variables:
-    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_core
+    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_gui_modules
   extends: .test_linux_tsan
 
 

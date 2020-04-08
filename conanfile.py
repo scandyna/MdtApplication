@@ -37,8 +37,11 @@ class MdtApplicationConan(ConanFile):
     if self.options.build_tests:
       self.requires("Catch2/[>=2.11.1]@catchorg/stable")
 
+    # The main usage of using conan Qt package is for TSan builds
+    # Building 5.14.x causes currently problems (8.04.2020)
+    # As workaround, try fix a known version that we can build
     if self.options.use_conan_qt:
-      self.requires("qt/[>=5.12.5]@bincrafters/stable")
+      self.requires("qt/5.12.7@bincrafters/stable")
 
 
   def configure_cmake(self):

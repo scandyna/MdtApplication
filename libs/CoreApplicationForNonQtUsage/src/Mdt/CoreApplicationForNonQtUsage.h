@@ -338,7 +338,7 @@ namespace Mdt{
   template<typename Worker>
   class CoreApplicationForNonQtUsage
   {
-  public:
+   public:
 
     /*! \brief Construct a core application
     *

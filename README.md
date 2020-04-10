@@ -343,7 +343,7 @@ This is what I experieced on Ubuntu 18.04 with those default compilers.
 
 Install the required dependencies:
 ```bash
-conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_gui_network -o use_conan_qt=True -o build_tests=True  ..
+conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_gui_modules -o use_conan_qt=True -o build_tests=True  ..
 ```
 
 Configure MdtApplication:

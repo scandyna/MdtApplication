@@ -42,6 +42,8 @@ class MdtApplicationConan(ConanFile):
     # As workaround, try fix a known version that we can build
     if self.options.use_conan_qt:
       self.requires("qt/5.12.7@bincrafters/stable")
+      if self.options.gui:
+        self.options["qt"].GUI = True
 
 
   def configure_cmake(self):

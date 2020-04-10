@@ -74,9 +74,9 @@ before_build:
 build_script:
   - mkdir build
   - cd build
-  - conan install --profile %conan_profile_filename% -s build_type=%configuration% -o build_tests=True -o MdtApplication:gui=False ..
+  - conan install --profile %conan_profile_filename% -s build_type=%configuration% -o build_tests=True -o MdtApplication:gui=True ..
   - cmake -G "%CMAKE_GENERATOR%" -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=%configuration% -DQT_PREFIX_PATH="%QT_PREFIX_PATH%"
-          -DBUILD_TESTS=ON -DBUILD_BENCHMARKS=ON -DWARNING_AS_ERROR=ON -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=OFF ..
+          -DBUILD_TESTS=ON -DBUILD_BENCHMARKS=ON -DWARNING_AS_ERROR=ON -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON ..
   - cmake --build . --config %configuration%
 
 test_script:
@@ -86,5 +86,5 @@ test_script:
 # Easy tasks made difficult..
 # See https://github.com/appveyor/ci/issues/2042
 after_test:
-  - IF DEFINED APPVEYOR_REPO_TAG_NAME set PATH=%QT_PREFIX_PATH%\bin;%PATH% && cd .. && conan create . scandyna/testing --profile %conan_profile_filename% -s build_type=%configuration% -o MdtApplication:gui=False %conan_create_extra_args% && conan upload MdtApplication/* --remote scandyna --all -c
+  - IF DEFINED APPVEYOR_REPO_TAG_NAME set PATH=%QT_PREFIX_PATH%\bin;%PATH% && cd .. && conan create . scandyna/testing --profile %conan_profile_filename% -s build_type=%configuration% -o MdtApplication:gui=True %conan_create_extra_args% && conan upload MdtApplication/* --remote scandyna --all -c
 

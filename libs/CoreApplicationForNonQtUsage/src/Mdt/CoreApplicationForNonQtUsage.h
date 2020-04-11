@@ -21,14 +21,8 @@
 #ifndef MDT_CORE_APPLICATION_FOR_NON_QT_USAGE_H
 #define MDT_CORE_APPLICATION_FOR_NON_QT_USAGE_H
 
-#include "CoreApplicationForNonQtUsageImpl.h"
+#include "Mdt/Impl/ApplicationForNonQtUsage.h"
 #include <QCoreApplication>
-#include <thread>
-#include <atomic>
-#include <memory>
-#include <chrono>
-#include <mutex>
-#include <condition_variable>
 
 namespace Mdt{
 
@@ -347,13 +341,7 @@ namespace Mdt{
     *  and finally call exec() to start a event loop,
     *  all in the context of the new thread.
     */
-    CoreApplicationForNonQtUsage()
-    : mWorker(nullptr),
-      mThread(run, this)
-    {
-      std::unique_lock<std::mutex> lock(mMutex);
-      mInitDoneCondition.wait(lock, [this](){return mInitDone;});
-    }
+    CoreApplicationForNonQtUsage() = default;
 
     /*! \brief Stop the thread
     *
@@ -361,56 +349,25 @@ namespace Mdt{
     *  then stop the thread.
     *  The instance of \a Worker will also be deleted.
     */
-    ~CoreApplicationForNonQtUsage()
-    {
-      mImpl.invokeQuit();
-      mThread.join();
-    }
+    ~CoreApplicationForNonQtUsage() = default;
 
     /*! \brief Reference the worker
      */
     Worker & worker()
     {
-      return *mWorker;
+      return mImpl.worker();
     }
 
     /*! \brief Reference the worker
      */
     const Worker & worker() const
     {
-      return *mWorker;
+      return mImpl.worker();
     }
 
-  private:
+   private:
 
-    static void run(CoreApplicationForNonQtUsage *instance)
-    {
-      std::unique_ptr<QCoreApplication> app;
-
-      {
-        std::lock_guard<std::mutex> lock(instance->mMutex);
-
-        int argc = 1;
-        const char* argv[2] = { "dummy", 0 };
-        app.reset( new QCoreApplication(argc, const_cast<char**>(argv)) );
-
-        instance->mWorker = new Worker;
-        instance->mImpl.registerApplication(app.get());
-        instance->mInitDone = true;
-      }
-      instance->mInitDoneCondition.notify_one();
-
-      app->exec();
-
-      delete instance->mWorker;
-    }
-
-    bool mInitDone = false;
-    std::mutex mMutex;
-    std::condition_variable mInitDoneCondition;
-    CoreApplicationForNonQtUsageImpl mImpl;
-    std::atomic<Worker*> mWorker;
-    std::thread mThread;
+    Impl::ApplicationForNonQtUsage<Worker, QCoreApplication> mImpl;
   };
 
 } // namespace Mdt{

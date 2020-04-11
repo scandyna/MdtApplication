@@ -22,12 +22,10 @@ include(GenerateExportHeader)
 include(MdtInstallLibrary)
 
 add_library(Mdt_CoreApplicationForNonQtUsage
-  Mdt/CoreApplicationForNonQtUsageImpl.cpp
   Mdt/CoreApplicationForNonQtUsage.cpp
 )
 add_library(Mdt::CoreApplicationForNonQtUsage ALIAS Mdt_CoreApplicationForNonQtUsage)
 
-target_compile_features(Mdt_CoreApplicationForNonQtUsage PUBLIC cxx_std_14)
 
 if(BUILD_USE_IPO_LTO)
   set_target_properties(Mdt_CoreApplicationForNonQtUsage
@@ -37,6 +35,7 @@ endif()
 
 target_link_libraries(Mdt_CoreApplicationForNonQtUsage
   PUBLIC
+    Mdt::Impl_ApplicationForNonQtUsage
     Qt5::Core
     Threads::Threads
 )

@@ -23,7 +23,8 @@
 namespace MyLibrary{
 
 MyLibrary_NonQtApi::MyLibrary_NonQtApi(QObject *parent)
- : QObject(parent)
+ : QObject(parent),
+   mApp({"myapp"})
 {
   connect(this, &MyLibrary_NonQtApi::invokeSendCommand, &mApp.worker(), &MyLibrary_NonQtApi_Worker::sendCommand, Qt::BlockingQueuedConnection);
   connect(&mApp.worker().libraryApi(), &MyLibrary_Api::responseReceived, this, &MyLibrary_NonQtApi::onResponseReceived, Qt::DirectConnection);

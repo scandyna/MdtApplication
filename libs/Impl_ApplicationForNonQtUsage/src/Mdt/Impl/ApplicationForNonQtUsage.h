@@ -22,12 +22,15 @@
 #define MDT_APPLICATION_FOR_NON_QT_USAGE_IMPL_APPLICATION_FOR_NON_QT_USAGE_H
 
 #include "ApplicationForNonQtUsageObject.h"
+#include "CommandLineArguments.h"
 #include <thread>
 #include <atomic>
 #include <memory>
 #include <chrono>
 #include <mutex>
 #include <condition_variable>
+#include <initializer_list>
+#include <cassert>
 
 namespace Mdt{ namespace Impl{
 
@@ -38,12 +41,25 @@ namespace Mdt{ namespace Impl{
   {
    public:
 
-    explicit ApplicationForNonQtUsage()
-    : mWorker(nullptr),
-      mThread(run, this)
+    ApplicationForNonQtUsage() = delete;
+
+    explicit ApplicationForNonQtUsage(const CommandLineArguments & args)
+     : mWorker(nullptr),
+       mCommandLineArguments(args),
+       mThread(run, this)
     {
       std::unique_lock<std::mutex> lock(mMutex);
       mInitDoneCondition.wait(lock, [this](){return mInitDone;});
+    }
+
+    explicit ApplicationForNonQtUsage(std::initializer_list<const char*> args)
+    : ApplicationForNonQtUsage( CommandLineArguments(args) )
+    {
+    }
+
+    explicit ApplicationForNonQtUsage(int argc, char **argv)
+    : ApplicationForNonQtUsage( CommandLineArguments(argc, argv) )
+    {
     }
 
     ~ApplicationForNonQtUsage()
@@ -66,14 +82,20 @@ namespace Mdt{ namespace Impl{
 
     static void run(ApplicationForNonQtUsage *instance)
     {
+      /*
+       * We have to instanciate commandLineArguments before app,
+       * so we can meet the requirement of Q[Core|Gui]Application,
+       * i.e. that arguments are valid the entire lifetime of app
+       */
+      CommandLineArguments commandLineArguments;
       std::unique_ptr<QApp> app;
 
       {
         std::lock_guard<std::mutex> lock(instance->mMutex);
 
-        int argc = 1;
-        const char* argv[2] = { "dummy", 0 };
-        app.reset( new QApp(argc, const_cast<char**>(argv)) );
+        commandLineArguments = instance->mCommandLineArguments;
+        assert( commandLineArguments.isCopy() );
+        app.reset( new QApp(commandLineArguments.argumentCountRef(), commandLineArguments.argumentVector()) );
 
         instance->mWorker = new Worker;
         instance->mObject.registerApplication(app.get());
@@ -91,6 +113,7 @@ namespace Mdt{ namespace Impl{
     std::condition_variable mInitDoneCondition;
     ApplicationForNonQtUsageObject mObject;
     std::atomic<Worker*> mWorker;
+    CommandLineArguments mCommandLineArguments;
     std::thread mThread;
   };
 

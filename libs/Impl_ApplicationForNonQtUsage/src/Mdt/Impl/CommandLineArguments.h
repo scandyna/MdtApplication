@@ -54,6 +54,7 @@ namespace Mdt{ namespace Impl{
       mArgv = new char*[mArgc+1];
       int row = 0;
       for(const auto str : args){
+        assert(str != nullptr);
         mArgv[row] = duplicateString(str);
         ++row;
       }
@@ -163,6 +164,8 @@ namespace Mdt{ namespace Impl{
 
     static char *duplicateString(const char *sourceString)
     {
+      assert(sourceString != nullptr);
+
       char *outString;
       const int len = strlen(sourceString);
       outString = new char[len+1];

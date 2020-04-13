@@ -21,6 +21,14 @@
 include(MdtAddTest)
 
 mdt_add_test(
+  NAME Impl_CommandLineArgumentsTest
+  TARGET impl_CommandLineArgumentsTest
+  DEPENDENCIES Mdt::Impl_ApplicationForNonQtUsage Mdt::Catch2Main
+  SOURCE_FILES
+    src/Impl_CommandLineArgumentsTest.cpp
+)
+
+mdt_add_test(
   NAME Impl_ApplicationForNonQtUsageTest
   TARGET impl_ApplicationForNonQtUsageTest
   DEPENDENCIES Mdt::Impl_ApplicationForNonQtUsage Mdt::Catch2Main

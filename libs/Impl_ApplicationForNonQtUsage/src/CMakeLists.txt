@@ -22,6 +22,7 @@ include(GenerateExportHeader)
 include(MdtInstallLibrary)
 
 add_library(Mdt_Impl_ApplicationForNonQtUsage
+  Mdt/Impl/CommandLineArguments.cpp
   Mdt/Impl/ApplicationForNonQtUsage.cpp
   Mdt/Impl/ApplicationForNonQtUsageObject.cpp
 )

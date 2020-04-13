@@ -20,5 +20,7 @@
  ****************************************************************************/
 
 /*! \page example_MyNonQtCoreLibrary Using QCoreApplication in a non Qt application
+ *
+ * This example is currently described in Mdt::CoreApplicationForNonQtUsage
  */
 

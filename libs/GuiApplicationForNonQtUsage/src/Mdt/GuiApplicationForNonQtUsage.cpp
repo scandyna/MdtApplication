@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2019-2020 Philippe Steinmann.
+ ** Copyright (C) 2020-2020 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -18,21 +18,4 @@
  ** along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
-
-/*! \page example_MyNonQtGuiLibrary Using QGuiApplication in a non Qt application
- *
- * The most part is explained in the \ref example_MyNonQtCoreLibrary example.
- *
- * Imagine we have to generate report in various formats, like html and PDF.
- * Using Qt, QTextDocument provides the required functionality,
- * but it is part of Qt Gui.
- *
- * First, we have a API that we can use directly in a Qt application:
- * MyNonQtGuiLibrary::MyLibrary_Api
- *
- * To use this API from a non Qt application, a other one is created,
- * that reflects the first: MyNonQtGuiLibrary::MyLibrary_NonQtApi
- *
- * Inbetween we have also a worker: MyNonQtGuiLibrary::MyLibrary_NonQtApi_Worker
- */
-
+#include "GuiApplicationForNonQtUsage.h"

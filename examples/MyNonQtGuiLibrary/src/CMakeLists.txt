@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2020-2020 Philippe Steinmann.
+# Copyright (C) 2019-2020 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -18,12 +18,30 @@
 # along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
 #
 ########################################################################################
-include(MdtAddTest)
+include(GenerateExportHeader)
 
-mdt_add_test(
-  NAME GuiApplicationForNonQtUsageTest
-  TARGET guiApplicationForNonQtUsageTest
-  DEPENDENCIES Mdt::GuiApplicationForNonQtUsage Mdt::Catch2Main
-  SOURCE_FILES
-    src/GuiApplicationForNonQtUsageTest.cpp
+add_library(MyNonQtGuiLibrary
+  MyNonQtGuiLibrary/MyLibrary_NonQtApi.cpp
+  MyNonQtGuiLibrary/MyLibrary_NonQtApi_Worker.cpp
+  MyNonQtGuiLibrary/MyLibrary_Api.cpp
 )
+
+
+if(BUILD_USE_IPO_LTO)
+  set_target_properties(MyNonQtGuiLibrary
+    PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE
+  )
+endif()
+
+target_link_libraries(MyNonQtGuiLibrary
+  PUBLIC
+    Mdt::GuiApplicationForNonQtUsage
+)
+
+target_include_directories(MyNonQtGuiLibrary
+  PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+)
+
+generate_export_header(MyNonQtGuiLibrary)

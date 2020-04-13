@@ -21,9 +21,17 @@
 include(MdtAddTest)
 
 mdt_add_test(
-  NAME GuiApplicationForNonQtUsageTest
-  TARGET guiApplicationForNonQtUsageTest
-  DEPENDENCIES Mdt::GuiApplicationForNonQtUsage Mdt::Catch2Main
+  NAME MyNonQtGuiLibrary_Benchmark
+  TARGET myNonQtGuiLibrary_Benchmark
+  DEPENDENCIES MyNonQtGuiLibrary Qt5::Test Qt5::Gui
   SOURCE_FILES
-    src/GuiApplicationForNonQtUsageTest.cpp
+    src/MyNonQtGuiLibrary_Benchmark.cpp
+)
+
+mdt_add_test(
+  NAME MyNonQtGuiLibrary_NonQtApi_Benchmark
+  TARGET myNonQtGuiLibrary_NonQtApi_Benchmark
+  DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt5::Gui
+  SOURCE_FILES
+    src/MyNonQtGuiLibrary_NonQtApi_Benchmark.cpp
 )

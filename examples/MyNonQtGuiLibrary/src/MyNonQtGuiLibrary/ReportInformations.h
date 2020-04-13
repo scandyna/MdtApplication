@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2019-2020 Philippe Steinmann.
+ ** Copyright (C) 2020-2020 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -18,21 +18,48 @@
  ** along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
+#ifndef MY_NON_QT_GUI_LIBRARY_REPORT_INFORMATIONS_H
+#define MY_NON_QT_GUI_LIBRARY_REPORT_INFORMATIONS_H
 
-/*! \page example_MyNonQtGuiLibrary Using QGuiApplication in a non Qt application
- *
- * The most part is explained in the \ref example_MyNonQtCoreLibrary example.
- *
- * Imagine we have to generate report in various formats, like html and PDF.
- * Using Qt, QTextDocument provides the required functionality,
- * but it is part of Qt Gui.
- *
- * First, we have a API that we can use directly in a Qt application:
- * MyNonQtGuiLibrary::MyLibrary_Api
- *
- * To use this API from a non Qt application, a other one is created,
- * that reflects the first: MyNonQtGuiLibrary::MyLibrary_NonQtApi
- *
- * Inbetween we have also a worker: MyNonQtGuiLibrary::MyLibrary_NonQtApi_Worker
- */
+#include "mynonqtguilibrary_export.h"
+#include <QDate>
+#include <QString>
 
+namespace MyNonQtGuiLibrary{
+
+  /*! \brief Holds informations to generate a report
+   */
+  class MYNONQTGUILIBRARY_EXPORT ReportInformations
+  {
+   public:
+
+    /*! \brief Get this report date
+     */
+    QDate date() const
+    {
+      return mDate;
+    }
+
+    /*! \brief Set the title
+     */
+    void setTitle(const QString & title)
+    {
+      mTitle = title;
+    }
+
+    /*! \brief Get the title
+     */
+    QString title() const
+    {
+      return mTitle;
+    }
+
+   private:
+
+    QDate mDate = QDate::currentDate();
+    QString mTitle;
+  };
+
+} // namespace MyNonQtGuiLibrary
+
+#endif // #ifndef MY_NON_QT_GUI_LIBRARY_REPORT_INFORMATIONS_H

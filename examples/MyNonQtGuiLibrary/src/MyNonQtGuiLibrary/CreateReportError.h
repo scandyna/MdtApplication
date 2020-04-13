@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2019-2020 Philippe Steinmann.
+ ** Copyright (C) 2020-2020 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -18,21 +18,31 @@
  ** along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
+#ifndef MY_NON_QT_GUI_LIBRARY_CREATE_REPORT_ERROR_H
+#define MY_NON_QT_GUI_LIBRARY_CREATE_REPORT_ERROR_H
 
-/*! \page example_MyNonQtGuiLibrary Using QGuiApplication in a non Qt application
- *
- * The most part is explained in the \ref example_MyNonQtCoreLibrary example.
- *
- * Imagine we have to generate report in various formats, like html and PDF.
- * Using Qt, QTextDocument provides the required functionality,
- * but it is part of Qt Gui.
- *
- * First, we have a API that we can use directly in a Qt application:
- * MyNonQtGuiLibrary::MyLibrary_Api
- *
- * To use this API from a non Qt application, a other one is created,
- * that reflects the first: MyNonQtGuiLibrary::MyLibrary_NonQtApi
- *
- * Inbetween we have also a worker: MyNonQtGuiLibrary::MyLibrary_NonQtApi_Worker
- */
+#include "mynonqtguilibrary_export.h"
+#include <QString>
+#include <QByteArray>
+#include <stdexcept>
 
+namespace MyNonQtGuiLibrary{
+
+  /*! \brief Create report error
+   */
+  class MYNONQTGUILIBRARY_EXPORT CreateReportError : public std::runtime_error
+  {
+   public:
+
+    /*! \brief Create a report error
+     */
+    explicit CreateReportError(const QString & what)
+     : runtime_error( what.toLocal8Bit().toStdString() )
+    {
+    }
+
+  };
+
+} // namespace MyNonQtGuiLibrary
+
+#endif // #ifndef MY_NON_QT_GUI_LIBRARY_CREATE_REPORT_ERROR_H

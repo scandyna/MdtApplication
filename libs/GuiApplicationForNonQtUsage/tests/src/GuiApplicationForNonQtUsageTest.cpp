@@ -18,21 +18,22 @@
  ** along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
+#include "Mdt/GuiApplicationForNonQtUsage"
+#include <catch2/catch.hpp>
+#include <QLatin1String>
 
-/*! \page example_MyNonQtGuiLibrary Using QGuiApplication in a non Qt application
- *
- * The most part is explained in the \ref example_MyNonQtCoreLibrary example.
- *
- * Imagine we have to generate report in various formats, like html and PDF.
- * Using Qt, QTextDocument provides the required functionality,
- * but it is part of Qt Gui.
- *
- * First, we have a API that we can use directly in a Qt application:
- * MyNonQtGuiLibrary::MyLibrary_Api
- *
- * To use this API from a non Qt application, a other one is created,
- * that reflects the first: MyNonQtGuiLibrary::MyLibrary_NonQtApi
- *
- * Inbetween we have also a worker: MyNonQtGuiLibrary::MyLibrary_NonQtApi_Worker
- */
+class BasicToyWorker
+{
+};
 
+TEST_CASE("ConstructDestructTest")
+{
+  Mdt::GuiApplicationForNonQtUsage<BasicToyWorker> app({"testapp","-platform","minimal"});
+}
+
+TEST_CASE("ConstructDestructMultipleTimeTest")
+{
+  for(int i = 0; i < 5; ++i){
+    Mdt::GuiApplicationForNonQtUsage<BasicToyWorker> app({"testapp","-platform","minimal"});
+  }
+}

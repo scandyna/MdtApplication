@@ -20,6 +20,7 @@
  ****************************************************************************/
 #include "MyNonQtGuiLibrary_Benchmark.h"
 #include "MyNonQtGuiLibrary/MyLibrary_Api.h"
+#include "Mdt/Impl/CommandLineArguments.h"
 #include <QGuiApplication>
 #include <QLatin1String>
 
@@ -58,7 +59,8 @@ void MyNonQtGuiLibraryBenchmark::reportTitleBenchmark()
 
 int main(int argc, char **argv)
 {
-  QGuiApplication app(argc, argv);
+  Mdt::Impl::CommandLineArguments args({"MyNonQtGuiLibraryBenchmark","-platform","minimal"});
+  QGuiApplication app(args.argumentCountRef(), args.argumentVector());
   MyNonQtGuiLibraryBenchmark benchmark;
 
   return QTest::qExec(&benchmark, argc, argv);

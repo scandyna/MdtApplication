@@ -18,37 +18,13 @@
  ** along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
-#include "CoreApplicationForNonQtUsageTest.h"
 #include "Mdt/CoreApplicationForNonQtUsage.h"
-#include <catch2/catch.hpp>
-#include <QLatin1String>
 
 class BasicToyWorker
 {
 };
 
-TEST_CASE("ConstructDestructTest")
+int main(int argc, char **argv)
 {
-  Mdt::CoreApplicationForNonQtUsage<BasicToyWorker> app({"testapp"});
-}
-
-TEST_CASE("ConstructDestructMultipleTimeTest")
-{
-  for(int i = 0; i < 5; ++i){
-    Mdt::CoreApplicationForNonQtUsage<BasicToyWorker> app({"testapp"});
-  }
-}
-
-
-TEST_CASE("Basic test")
-{
-  MyPlugin plugin;
-
-  plugin.setValue(6);
-  REQUIRE( plugin.value() == 6 );
-
-  REQUIRE( plugin.data().id() == 0 );
-  REQUIRE( plugin.readData(QLatin1String("a")) );
-  REQUIRE( plugin.data().id() != 0 );
-  REQUIRE( plugin.data().name().size() > 0 );
+  Mdt::CoreApplicationForNonQtUsage<BasicToyWorker> app(argc, argv);
 }

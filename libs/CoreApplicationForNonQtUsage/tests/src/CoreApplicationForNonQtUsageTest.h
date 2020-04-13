@@ -155,7 +155,8 @@ class MyPlugin : public QObject
  public:
 
   explicit MyPlugin(QObject *parent = nullptr)
-   : QObject(parent)
+   : QObject(parent),
+     mApp({"myplugin"})
   {
     connect(this, &MyPlugin::readDataImpl, &mApp.worker(), &MyPluginWorker::readData, Qt::BlockingQueuedConnection);
     connect(this, &MyPlugin::setValueImpl, &mApp.worker(), &MyPluginWorker::setValue, Qt::BlockingQueuedConnection);

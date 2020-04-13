@@ -23,6 +23,7 @@
 
 #include "Mdt/Impl/ApplicationForNonQtUsage.h"
 #include <QCoreApplication>
+#include <initializer_list>
 
 namespace Mdt{
 
@@ -174,7 +175,8 @@ namespace Mdt{
    * The constructor of MyLibrary_NonQtApi makes some signal and slots connections:
    * \code
    * MyLibrary_NonQtApi::MyLibrary_NonQtApi(QObject *parent)
-   *  : QObject(parent)
+   *  : QObject(parent),
+   *    mApp({"myappname"})
    * {
    *   connect(this, &MyLibrary_NonQtApi::invokeSendCommand, &mApp.worker(), &MyLibrary_NonQtApi_Worker::sendCommand, Qt::BlockingQueuedConnection);
    *   connect(&mApp.worker().libraryApi(), &MyLibrary_Api::responseReceived, this, &MyLibrary_NonQtApi::onResponseReceived, Qt::DirectConnection);
@@ -183,6 +185,11 @@ namespace Mdt{
    *   connect(this, &MyLibrary_NonQtApi::invokeValue, &mApp.worker(), &MyLibrary_NonQtApi_Worker::value, Qt::BlockingQueuedConnection);
    * }
    * \endcode
+   *
+   * Notice that the constructor does not get the standard \a argc and \a argv
+   * arguments usually provided in the main() function of a C/C++ program,
+   * so we provid our application name only.
+   * See the constructors documentation of Mdt::CoreApplicationForNonQtUsage for more details.
    *
    * Here is the implementation of MyLibrary_NonQtApi::sendCommand():
    * \code
@@ -335,20 +342,42 @@ namespace Mdt{
    public:
 
     /*! \brief Construct a core application
-    *
-    * Will start a new thread,
-    *  then instanciate \a Worker and QCoreApplication
-    *  and finally call exec() to start a event loop,
-    *  all in the context of the new thread.
-    */
-    CoreApplicationForNonQtUsage() = default;
+     *
+     * This overload can be used if you don't have access
+     * to the command line arguments provided in
+     * the main() function of a C/C++ application.
+     *
+     * \pre At least 1 argument must be provided (which is the command name)
+     * \note This constructor takes care to add the required null pointer after the last argument.
+     * \sa https://www.gnu.org/software/libc/manual/html_node/Program-Arguments.html
+     * \sa CoreApplicationForNonQtUsage(int, char**)
+     */
+    explicit CoreApplicationForNonQtUsage(std::initializer_list<const char*> args)
+     : mImpl(args)
+    {
+    }
+
+    /*! \brief Construct a core application
+     *
+     * Will start a new thread,
+     *  then instanciate \a Worker and QCoreApplication
+     *  with a copy of \a argc and a copy of the content of \a argv
+     *  and finally call exec() to start a event loop,
+     *  all in the context of the new thread.
+     *
+     * \pre At least 1 argument must be provided (which is the command name)
+     */
+    explicit CoreApplicationForNonQtUsage(int argc, char **argv)
+     : mImpl(argc, argv)
+    {
+    }
 
     /*! \brief Stop the thread
-    *
-    * Will first quit the Qt event loop,
-    *  then stop the thread.
-    *  The instance of \a Worker will also be deleted.
-    */
+     *
+     * Will first quit the Qt event loop,
+     *  then stop the thread.
+     *  The instance of \a Worker will also be deleted.
+     */
     ~CoreApplicationForNonQtUsage() = default;
 
     /*! \brief Reference the worker

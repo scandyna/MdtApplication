@@ -27,3 +27,11 @@ mdt_add_test(
   SOURCE_FILES
     src/CoreApplicationForNonQtUsageTest.cpp
 )
+
+mdt_add_test(
+  NAME CoreApplicationForNonQtUsageMainArgsTest
+  TARGET coreApplicationForNonQtUsageMainArgsTest
+  DEPENDENCIES Mdt::CoreApplicationForNonQtUsage
+  SOURCE_FILES
+    src/CoreApplicationForNonQtUsageMainArgsTest.cpp
+)

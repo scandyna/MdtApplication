@@ -49,7 +49,7 @@ namespace Mdt{ namespace Impl{
      : mArgc(args.size()),
        mIsCopy(true)
     {
-      assert(args.size() >= std::size_t{1});
+      assert(static_cast<int>(args.size()) >= 1);
 
       mArgv = new char*[mArgc+1];
       int row = 0;

@@ -1,5 +1,4 @@
 
-
 # NOTE: to build the PATH:
 #  - Should not double quote them
 #  - Never build the PATH on conditions using cmd (probably the default if not specified)

@@ -46,7 +46,7 @@ namespace Mdt{ namespace Impl{
      * \sa https://www.gnu.org/software/libc/manual/html_node/Program-Arguments.html
      */
     explicit CommandLineArguments(std::initializer_list<const char*> args)
-     : mArgc(args.size()),
+     : mArgc( static_cast<int>(args.size()) ),
        mIsCopy(true)
     {
       assert(static_cast<int>(args.size()) >= 1);

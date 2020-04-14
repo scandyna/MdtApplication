@@ -24,7 +24,7 @@
 #include "mdt_impl_applicationfornonqtusage_export.h"
 #include <initializer_list>
 #include <cassert>
-#include <string.h>
+#include <cstring>
 
 namespace Mdt{ namespace Impl{
 
@@ -167,9 +167,9 @@ namespace Mdt{ namespace Impl{
       assert(sourceString != nullptr);
 
       char *outString;
-      const int len = strlen(sourceString);
+      const auto len = std::strlen(sourceString);
       outString = new char[len+1];
-      strcpy(outString, sourceString);
+      std::strcpy(outString, sourceString);
 
       return outString;
     }

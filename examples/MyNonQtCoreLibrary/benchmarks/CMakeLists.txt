@@ -23,7 +23,7 @@ include(MdtAddTest)
 mdt_add_test(
   NAME MyNonQtCoreLibraryBenchmark
   TARGET myNonQtCoreLibraryBenchmark
-  DEPENDENCIES MyNonQtCoreLibrary Qt5::Test
+  DEPENDENCIES MyNonQtCoreLibrary Qt5::Core Qt5::Test
   SOURCE_FILES
     src/MyLibraryBenchmark.cpp
 )
@@ -31,7 +31,7 @@ mdt_add_test(
 mdt_add_test(
   NAME MyNonQtCoreLibrary_NonQtApi_Benchmark
   TARGET myNonQtCoreLibrary_NonQtApi_Benchmark
-  DEPENDENCIES MyNonQtCoreLibrary Mdt::Catch2Main
+  DEPENDENCIES MyNonQtCoreLibrary Qt5::Core Mdt::Catch2Main
   SOURCE_FILES
     src/MyLibrary_NonQtApi_Benchmark.cpp
 )

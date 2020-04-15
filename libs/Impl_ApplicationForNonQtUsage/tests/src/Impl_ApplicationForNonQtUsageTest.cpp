@@ -20,4 +20,20 @@
  ****************************************************************************/
 #include "Mdt/Impl/ApplicationForNonQtUsage.h"
 #include "catch2/catch.hpp"
+#include <QCoreApplication>
 
+class BasicToyWorker
+{
+};
+
+TEST_CASE("ConstructDestructTest")
+{
+  Mdt::Impl::ApplicationForNonQtUsage<BasicToyWorker, QCoreApplication> app({"testapp"});
+}
+
+TEST_CASE("ConstructDestructMultipleTimeTest")
+{
+  for(int i = 0; i < 5; ++i){
+    Mdt::Impl::ApplicationForNonQtUsage<BasicToyWorker, QCoreApplication> app({"testapp"});
+  }
+}

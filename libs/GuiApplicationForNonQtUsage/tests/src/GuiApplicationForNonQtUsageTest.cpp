@@ -28,12 +28,12 @@ class BasicToyWorker
 
 TEST_CASE("ConstructDestructTest")
 {
-  Mdt::GuiApplicationForNonQtUsage<BasicToyWorker> app({"testapp","-platform","minimal"});
+  Mdt::GuiApplicationForNonQtUsage<BasicToyWorker> app({"testapp","-platform","offscreen"});
 }
 
 TEST_CASE("ConstructDestructMultipleTimeTest")
 {
   for(int i = 0; i < 5; ++i){
-    Mdt::GuiApplicationForNonQtUsage<BasicToyWorker> app({"testapp","-platform","minimal"});
+    Mdt::GuiApplicationForNonQtUsage<BasicToyWorker> app({"testapp","-platform","offscreen"});
   }
 }

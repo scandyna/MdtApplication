@@ -23,18 +23,44 @@
 #include "Mdt/Impl/CommandLineArguments.h"
 #include <QGuiApplication>
 #include <QLatin1String>
+#include <QTemporaryDir>
+#include <QString>
+#include <cassert>
 
 using namespace MyNonQtGuiLibrary;
 
+class TestReportDirectory
+{
+ public:
+
+  TestReportDirectory()
+  {
+    assert( mDir.isValid() );
+    mDirPath = mDir.path();
+  }
+
+  const QString & path() const noexcept
+  {
+    return mDirPath;
+  }
+
+ private:
+
+  QTemporaryDir mDir;
+  QString mDirPath;
+};
+
+
 void MyNonQtGuiLibraryBenchmark::createReportBenchmark()
 {
+  TestReportDirectory dir;
   MyLibrary_Api lib;
 
   ReportInformations reportInformations;
   reportInformations.setTitle(QLatin1String("Test title"));
 
   QBENCHMARK{
-    lib.createReport(reportInformations);
+    lib.createReport(reportInformations, dir.path());
   }
 
   QCOMPARE( lib.reportTitle(), QLatin1String("Test title") );
@@ -42,12 +68,13 @@ void MyNonQtGuiLibraryBenchmark::createReportBenchmark()
 
 void MyNonQtGuiLibraryBenchmark::reportTitleBenchmark()
 {
+  TestReportDirectory dir;
   MyLibrary_Api lib;
 
   ReportInformations reportInformations;
   reportInformations.setTitle(QLatin1String("Test title"));
 
-  lib.createReport(reportInformations);
+  lib.createReport(reportInformations, dir.path());
 
   QString reportTitle;
   QBENCHMARK{

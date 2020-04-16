@@ -21,12 +21,18 @@
 #include "MyLibrary_Api.h"
 #include <QTextCursor>
 #include <QTextBlock>
+#include <QDir>
 
 namespace MyNonQtGuiLibrary{
 
-void MyLibrary_Api::createReport(const ReportInformations & info)
+void MyLibrary_Api::createReport(const ReportInformations & info, const QString & reportDirectoryPath)
 {
   mDocument.clear();
+
+  QDir dir(reportDirectoryPath);
+  if( !dir.exists() ){
+    throw CreateReportError(tr("Directory '%1' does not exist").arg(reportDirectoryPath));
+  }
 
   QTextCursor cursor(&mDocument);
   cursor.insertText( info.title() );

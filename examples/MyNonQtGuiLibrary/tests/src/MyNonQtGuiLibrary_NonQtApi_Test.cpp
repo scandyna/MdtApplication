@@ -21,16 +21,20 @@
 #include "catch2/catch.hpp"
 #include "MyNonQtGuiLibrary/MyLibrary_NonQtApi.h"
 #include <QLatin1String>
+#include <QTemporaryDir>
 
 using namespace MyNonQtGuiLibrary;
 
 TEST_CASE("createReport")
 {
+  QTemporaryDir dir;
+  REQUIRE( dir.isValid() );
+
   MyLibrary_NonQtApi lib;
 
   ReportInformations reportInformations;
   reportInformations.setTitle(QLatin1String("Test title"));
 
-  lib.createReport(reportInformations);
+  lib.createReport(reportInformations, dir.path());
   REQUIRE( lib.reportTitle() == QLatin1String("Test title") );
 }

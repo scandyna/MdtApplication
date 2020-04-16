@@ -27,6 +27,9 @@
 #include "Mdt/GuiApplicationForNonQtUsage"
 #include "mynonqtguilibrary_export.h"
 #include <QObject>
+#include <QString>
+#include <exception>
+#include <stdexcept>
 
 namespace MyNonQtGuiLibrary{
 
@@ -48,7 +51,7 @@ namespace MyNonQtGuiLibrary{
      *
      * \sa MyLibrary_Api::createReport()
      */
-    void createReport(const ReportInformations & info);
+    void createReport(const ReportInformations & info, const QString & reportDirectoryPath);
 
     /*! \brief Get the title of the report
      *
@@ -65,7 +68,7 @@ namespace MyNonQtGuiLibrary{
 
     /*! \brief Call to invoke MyLibrary_Api::createReport() in its thread context
      */
-    void invokeCreateReport(const ReportInformations & info);
+    void invokeCreateReport(std::exception_ptr & eptr, const ReportInformations & info, const QString & reportDirectoryPath);
 
     /*! \brief Call to invoke MyLibrary_Api::reportTitle() in its thread context
      */

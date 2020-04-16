@@ -30,9 +30,14 @@ MyLibrary_NonQtApi::MyLibrary_NonQtApi(QObject *parent)
   connect(this, &MyLibrary_NonQtApi::invokeReportTitle, &mApp.worker(), &MyLibrary_NonQtApi_Worker::reportTitle, Qt::BlockingQueuedConnection);
 }
 
-void MyLibrary_NonQtApi::createReport(const ReportInformations & info)
+void MyLibrary_NonQtApi::createReport(const ReportInformations & info, const QString & reportDirectoryPath)
 {
-  invokeCreateReport(info);
+  std::exception_ptr eptr;
+
+  invokeCreateReport(eptr, info, reportDirectoryPath);
+  if(eptr){
+    std::rethrow_exception(eptr);
+  }
 }
 
 } // namespace MyNonQtGuiLibrary

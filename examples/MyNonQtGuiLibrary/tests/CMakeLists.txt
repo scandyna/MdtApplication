@@ -27,3 +27,15 @@ mdt_add_test(
   SOURCE_FILES
     src/MyNonQtGuiLibrary_NonQtApi_Test.cpp
 )
+
+# Exceptions are not supported by TSan
+# https://github.com/google/sanitizers/issues/485
+if(NOT SANITIZER_ENABLE_THREAD)
+  mdt_add_test(
+    NAME MyNonQtGuiLibrary_NonQtApi_ErrorTest
+    TARGET myNonQtGuiLibrary_NonQtApi_ErrorTest
+    DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt5::Gui
+    SOURCE_FILES
+      src/MyNonQtGuiLibrary_NonQtApi_ErrorTest.cpp
+  )
+endif()

@@ -25,6 +25,8 @@
 #include "mynonqtguilibrary_export.h"
 #include <QObject>
 #include <QString>
+#include <exception>
+#include <stdexcept>
 
 namespace MyNonQtGuiLibrary{
 
@@ -46,12 +48,14 @@ namespace MyNonQtGuiLibrary{
    public slots:
 
     /*! \brief Maps MyLibrary_Api::createReport() to a slot signature
-     *
-     * \todo Exceptions !
      */
-    void createReport(const ReportInformations & info)
+    void createReport(std::exception_ptr & eptr, const ReportInformations & info, const QString & reportDirectoryPath)
     {
-      mLib.createReport(info);
+      try{
+        mLib.createReport(info, reportDirectoryPath);
+      }catch(...){
+        eptr = std::current_exception();
+      }
     }
 
     /*! \brief Maps MyLibrary_Api::reportTitle() to a slot signature

@@ -22,18 +22,23 @@
 #include "catch2/catch.hpp"
 #include "MyNonQtGuiLibrary/MyLibrary_NonQtApi.h"
 #include <QLatin1String>
+#include <QTemporaryDir>
 
 using namespace MyNonQtGuiLibrary;
 
 TEST_CASE("createReportBenchmark")
 {
+  QTemporaryDir dir;
+  REQUIRE( dir.isValid() );
+  const QString dirPath = dir.path();
+
   MyLibrary_NonQtApi lib;
 
   ReportInformations reportInformations;
   reportInformations.setTitle(QLatin1String("Test title"));
 
   BENCHMARK("Test title"){
-    lib.createReport(reportInformations);
+    lib.createReport(reportInformations, dirPath);
   };
 
   REQUIRE( lib.reportTitle() == QLatin1String("Test title") );
@@ -41,12 +46,16 @@ TEST_CASE("createReportBenchmark")
 
 TEST_CASE("reportTitleBenchmark")
 {
+  QTemporaryDir dir;
+  REQUIRE( dir.isValid() );
+  const QString dirPath = dir.path();
+
   MyLibrary_NonQtApi lib;
 
   ReportInformations reportInformations;
   reportInformations.setTitle(QLatin1String("Test title"));
 
-  lib.createReport(reportInformations);
+  lib.createReport(reportInformations, dirPath);
 
   QString reportTitle;
   BENCHMARK("Test title"){

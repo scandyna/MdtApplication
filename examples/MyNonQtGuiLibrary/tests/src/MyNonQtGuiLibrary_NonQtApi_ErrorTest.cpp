@@ -18,43 +18,19 @@
  ** along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
-#ifndef MY_NON_QT_GUI_LIBRARY_MY_LIBRARY_API_H
-#define MY_NON_QT_GUI_LIBRARY_MY_LIBRARY_API_H
+#include "catch2/catch.hpp"
+#include "MyNonQtGuiLibrary/MyLibrary_NonQtApi.h"
+#include <QLatin1String>
+#include <QTemporaryDir>
 
-#include "ReportInformations.h"
-#include "CreateReportError.h"
-#include "mynonqtguilibrary_export.h"
-#include <QObject>
-#include <QTextDocument>
-#include <QString>
+using namespace MyNonQtGuiLibrary;
 
-namespace MyNonQtGuiLibrary{
+TEST_CASE("createReport_except")
+{
+  MyLibrary_NonQtApi lib;
 
-  /*! \brief Some API to the business logic
-   */
-  class MYNONQTGUILIBRARY_EXPORT MyLibrary_Api : public QObject
-  {
-    Q_OBJECT
+  ReportInformations reportInformations;
+  reportInformations.setTitle(QLatin1String("Test title"));
 
-   public:
-
-    /*! \brief Create a report
-     *
-     * \exception CreateReportError
-     *
-     * \todo Try to generate a PDF (test rendering on surface)
-     */
-    void createReport(const ReportInformations & info, const QString & reportDirectoryPath);
-
-    /*! \brief Get the title of the report
-     */
-    QString reportTitle() const;
-
-   private:
-
-    QTextDocument mDocument;
-  };
-
-} // namespace MyNonQtGuiLibrary
-
-#endif // #ifndef MY_NON_QT_GUI_LIBRARY_MY_LIBRARY_API_H
+  REQUIRE_THROWS( lib.createReport(reportInformations, QLatin1String("/Some/Probably/I/Hope/Non/Existing/Path")) );
+}

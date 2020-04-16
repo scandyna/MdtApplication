@@ -22,6 +22,8 @@
 #include <QTextCursor>
 #include <QTextBlock>
 #include <QDir>
+#include <QPdfWriter>
+#include <QLatin1String>
 
 namespace MyNonQtGuiLibrary{
 
@@ -36,6 +38,11 @@ void MyLibrary_Api::createReport(const ReportInformations & info, const QString 
 
   QTextCursor cursor(&mDocument);
   cursor.insertText( info.title() );
+
+  const QString filePath = QDir::cleanPath( dir.path() + QLatin1String("/report.pdf") );
+  QPdfWriter pdfWriter(filePath);
+
+  mDocument.print(&pdfWriter);
 }
 
 QString MyLibrary_Api::reportTitle() const

@@ -24,7 +24,7 @@ namespace MyNonQtGuiLibrary{
 
 MyLibrary_NonQtApi::MyLibrary_NonQtApi(QObject *parent)
  : QObject(parent),
-   mApp({"mynonqtguiapp","-platform","minimal"})
+   mApp({"mynonqtguiapp","-platform","offscreen"})
 {
   connect(this, &MyLibrary_NonQtApi::invokeCreateReport, &mApp.worker(), &MyLibrary_NonQtApi_Worker::createReport, Qt::BlockingQueuedConnection);
   connect(this, &MyLibrary_NonQtApi::invokeReportTitle, &mApp.worker(), &MyLibrary_NonQtApi_Worker::reportTitle, Qt::BlockingQueuedConnection);

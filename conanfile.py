@@ -14,7 +14,7 @@ class MdtApplicationConan(ConanFile):
              "use_conan_qt": [True, False],
              "build_tests": [True, False]}
   default_options = {"shared": True,
-                     "gui": False,
+                     "gui": True,
                      "use_conan_qt": False,
                      "build_tests": False}
   requires = "MdtCMakeModules/[>=0.14.3]@scandyna/testing"

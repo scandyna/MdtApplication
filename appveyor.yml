@@ -85,5 +85,5 @@ test_script:
 # Easy tasks made difficult..
 # See https://github.com/appveyor/ci/issues/2042
 after_test:
-  - IF DEFINED APPVEYOR_REPO_TAG_NAME set PATH=%QT_PREFIX_PATH%\bin;%PATH% && cd .. && conan create . scandyna/testing --profile %conan_profile_filename% -s build_type=%configuration% -o MdtApplication:gui=True %conan_create_extra_args% && conan upload MdtApplication/* --remote scandyna --all -c
+  - IF DEFINED APPVEYOR_REPO_TAG_NAME set PATH=%QT_PREFIX_PATH%\bin;%PATH% && cd .. && conan create . scandyna/testing --profile %conan_profile_filename% -s build_type=%configuration% %conan_create_extra_args% && conan upload MdtApplication/* --remote scandyna --all -c
 

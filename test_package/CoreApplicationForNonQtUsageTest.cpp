@@ -19,7 +19,7 @@ class BasicToyWorker
 
 int main(int argc, char *argv[])
 {
-  Mdt::CoreApplicationForNonQtUsage<BasicToyWorker> app;
+  Mdt::CoreApplicationForNonQtUsage<BasicToyWorker> app({"testapp"});
 
   return 0;
 }

@@ -41,8 +41,6 @@ namespace MyNonQtGuiLibrary{
     /*! \brief Create a report
      *
      * \exception CreateReportError
-     *
-     * \todo Try to generate a PDF (test rendering on surface)
      */
     void createReport(const ReportInformations & info, const QString & reportDirectoryPath);
 

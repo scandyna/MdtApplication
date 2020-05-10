@@ -35,3 +35,6 @@ mdt_add_test(
   SOURCE_FILES
     src/CoreApplicationForNonQtUsageMainArgsTest.cpp
 )
+
+get_test_property(CoreApplicationForNonQtUsageTest ENVIRONMENT testEnv)
+message("CoreApplicationForNonQtUsageTest ENV: ${testEnv}")

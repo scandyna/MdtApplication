@@ -38,8 +38,8 @@ mdt_add_test(
     src/MyLibrary_NonQtApi_Test.cpp
 )
 
-get_test_property(MyNonQtCoreLibraryTest ENVIRONMENT testEnv)
-message("MyNonQtCoreLibraryTest ENV: ${testEnv}")
+# get_test_property(MyNonQtCoreLibraryTest ENVIRONMENT testEnv)
+# message("MyNonQtCoreLibraryTest ENV: ${testEnv}")
 
-get_test_property(MyNonQtCoreLibrary_NonQtApi_Test ENVIRONMENT testEnv)
-message("MyNonQtCoreLibrary_NonQtApi_Test ENV: ${testEnv}")
+# get_test_property(MyNonQtCoreLibrary_NonQtApi_Test ENVIRONMENT testEnv)
+# message("MyNonQtCoreLibrary_NonQtApi_Test ENV: ${testEnv}")

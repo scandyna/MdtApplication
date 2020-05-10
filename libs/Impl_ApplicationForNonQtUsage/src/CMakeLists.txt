@@ -23,7 +23,7 @@ include(MdtInstallLibrary)
 
 add_library(Mdt_Impl_ApplicationForNonQtUsage STATIC
   Mdt/Impl/CommandLineArguments.cpp
-  Mdt/Impl/ApplicationForNonQtUsage.cpp
+#   Mdt/Impl/ApplicationForNonQtUsage.cpp
   Mdt/Impl/ApplicationForNonQtUsageObject.cpp
 )
 add_library(Mdt::Impl_ApplicationForNonQtUsage ALIAS Mdt_Impl_ApplicationForNonQtUsage)

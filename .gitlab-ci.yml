@@ -20,7 +20,7 @@ stages:
     - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o build_tests=True -o MdtApplication:gui=True ..
     - cmake -G"Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
                                -DCMAKE_C_COMPILER=$C_COMPILER -DCMAKE_CXX_COMPILER=$CXX_COMPILER $CMAKE_EXTRA_CACHE_ENTRIES
-                               -DBUILD_SHARED_LIBS=ON -DBUILD_USE_IPO_LTO=ON
+                               -DBUILD_SHARED_LIBS=ON -DBUILD_USE_IPO_LTO=OFF
                                -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_BENCHMARKS=ON
                                -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
                                -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON

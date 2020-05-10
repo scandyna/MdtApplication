@@ -28,12 +28,10 @@ mdt_add_test(
     src/MyLibraryTest.cpp
 )
 
-# TODO: Qt5::Core seems not to be added to the ENVIRONMENT
-#       maybe a bug in mdt_add_test()
 mdt_add_test(
   NAME MyNonQtCoreLibrary_NonQtApi_Test
   TARGET myNonQtCoreLibrary_NonQtApi_Test
-  DEPENDENCIES MyNonQtCoreLibrary Mdt::Catch2Main Qt5::Core
+  DEPENDENCIES MyNonQtCoreLibrary Mdt::Catch2Main
   SOURCE_FILES
     src/MyLibrary_NonQtApi_Test.cpp
 )

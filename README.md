@@ -69,10 +69,22 @@ In your source directory, create a `conanfile.txt`:
 MdtApplication/x.y.z@scandyna/testing
 
 [generators]
-cmake_paths
+cmake
+virtualenv
 
 [options]
 MdtApplication:gui=True
+```
+
+Update your CMakeLists to use the conanbuildinfo.cmake
+(recommended, because it then handles important details
+like using the correct libstdc++/libc++ library,
+and does some checks):
+```cmake
+if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  conan_basic_setup(NO_OUTPUT_DIRS)
+endif()
 ```
 
 Create a build directory and cd to it:
@@ -86,10 +98,20 @@ Install the dependencies:
 conan install -s build_type=Release --build=missing ..
 ```
 
+Activate the build environment:
+```bash
+source activate.sh
+```
+
 Configure your project:
 ```bash
 cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake-gui .
+```
+
+To restore the standard environment:
+```bash
+source deactivate.sh
 ```
 
 ## Project configuration without Conan

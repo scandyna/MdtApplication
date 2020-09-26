@@ -18,6 +18,7 @@ stages:
     - mkdir build
     - cd build
     - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o build_tests=True -o MdtApplication:gui=True ..
+    - source activate.sh
     - cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
                                -DBUILD_SHARED_LIBS=ON -DBUILD_USE_IPO_LTO=OFF
                                -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_BENCHMARKS=ON
@@ -25,6 +26,7 @@ stages:
                                -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
                                ..
     - make -j4
+    - source deactivate.sh
   artifacts:
     expire_in: 1 day
     paths:
@@ -122,6 +124,7 @@ test_linux_clang6.0_x86_64_libc++_release:
     - mkdir build
     - cd build
     - conan install --profile $CONAN_PROFILE -o use_conan_qt=True -o build_tests=True -o MdtApplication:gui=True ..
+    - source activate.sh
     - cmake -G"Unix Makefiles" -DWARNING_AS_ERROR=ON -DSANITIZER_ENABLE_THREAD=ON
                                -DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL=-O1
                                -DBUILD_SHARED_LIBS=ON -DBUILD_USE_IPO_LTO=OFF
@@ -130,6 +133,7 @@ test_linux_clang6.0_x86_64_libc++_release:
                                -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
                                ..
     - make -j4
+    - source deactivate.sh
   artifacts:
     expire_in: 1 day
     paths:

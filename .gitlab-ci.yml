@@ -178,7 +178,7 @@ test_linux_clang6.0_x86_64_libc++_tsan:
     - conan remote update scandyna https://api.bintray.com/conan/scandyna/public-conan --insert 0 # Check for package in scandyna first
     - conan user -p $BINTRAY_API_KEY -r scandyna scandyna
   script:
-    - conan create . scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE
+    - conan create . scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE $CONAN_EXTRA_ARGUMENTS
     - conan upload MdtApplication/* --remote scandyna --all -c
 
 
@@ -207,18 +207,21 @@ deploy_linux_gcc7_x86_64_relwithdebinfo:
 deploy_linux_clang6.0_x86_64_libc++_debug:
   variables:
     CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_gui_modules
+    CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
     BUILD_TYPE: Debug
   extends: .deploy_linux_conan
 
 deploy_linux_clang6.0_x86_64_libc++_release:
   variables:
     CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_gui_modules
+    CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
     BUILD_TYPE: Release
   extends: .deploy_linux_conan
 
 deploy_linux_clang6.0_x86_64_libc++_relwithdebinfo:
   variables:
     CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_gui_modules
+    CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
     BUILD_TYPE: RelWithDebInfo
   extends: .deploy_linux_conan
 

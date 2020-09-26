@@ -1,0 +1,6 @@
+
+# Prevent conan upload sporadically fail on Windows
+# For more details, see:
+# - https://github.com/conan-io/conan-package-tools/issues/192
+# - https://git-scm.com/docs/gitattributes#_eol
+conanfile.py  text eol=lf

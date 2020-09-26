@@ -48,6 +48,10 @@ class MdtApplicationConan(ConanFile):
         self.options["qt"].GUI = True
 
 
+  def package_id(self):
+    del self.info.options.build_tests
+
+
   def configure_cmake(self):
     cmake = CMake(self)
     cmake.definitions["FROM_CONAN_PROJECT_VERSION"] = self.version

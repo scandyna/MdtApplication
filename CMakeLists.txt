@@ -20,14 +20,23 @@
 ########################################################################################
 cmake_minimum_required(VERSION 3.10)
 
-##################################################################
-# Project definition with versionning got from git tag or by Conan
-##################################################################
-
 # CMAKE_PREFIX_PATH is empty before any call to project()
 # Because set_project_version() does not exist,
 # we call the project command twice (is there a cleaner solution?)
 project(MdtApplication)
+
+#######################
+# Conan
+#######################
+
+if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  conan_basic_setup(NO_OUTPUT_DIRS)
+endif()
+
+##################################################################
+# Project definition with versionning got from git tag or by Conan
+##################################################################
 
 find_package(Git REQUIRED)
 find_package(MdtCMakeModules REQUIRED)
@@ -38,7 +47,7 @@ set(INITIAL_PROJECT_VERSION)
 if(FROM_CONAN_PROJECT_VERSION)
   set(INITIAL_PROJECT_VERSION ${FROM_CONAN_PROJECT_VERSION})
 else()
-  mdt_cmake_project_version_from_git_tag(INITIAL_PROJECT_VERSION DEFAULT_VERSION 0.1.0)
+  mdt_cmake_project_version_from_git_tag(INITIAL_PROJECT_VERSION DEFAULT_VERSION 0.0.1)
 endif()
 
 project(MdtApplication VERSION ${INITIAL_PROJECT_VERSION})
@@ -71,11 +80,9 @@ option(WARNING_AS_ERROR "Threat warnings as errors" OFF)
 #       and also CMP0069 policy.
 include(CheckIPOSupported)
 check_ipo_supported(RESULT HAVE_IPO_LTO)
-message("IPO supported: ${HAVE_IPO_LTO}")
 if(HAVE_IPO_LTO)
   option(BUILD_USE_IPO_LTO "Use link-time optimization" OFF)
 endif()
-message("BUILD_USE_IPO_LTO: ${BUILD_USE_IPO_LTO}")
 
 mdt_get_available_optimization_levels(AVAILABLE_OPTIMIZATION_LEVELS)
 set(BUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL "" CACHE STRING "Set optimization level for Instrumented build")
@@ -262,3 +269,12 @@ endif()
 if(BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
+
+
+#######################
+# Debug
+#######################
+
+message("CMAKE_CXX_FLAGS:${CMAKE_CXX_FLAGS}")
+message("IPO supported: ${HAVE_IPO_LTO}")
+message("BUILD_USE_IPO_LTO: ${BUILD_USE_IPO_LTO}")

@@ -88,7 +88,7 @@ conan install -s build_type=Release --build=missing ..
 
 Configure your project:
 ```bash
-cmake -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake-gui .
 ```
 
@@ -166,7 +166,7 @@ conan install -s build_type=Release --build=missing ..
 
 Configure MdtApplication:
 ```bash
-cmake -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/opt/MdtApplication ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/opt/MdtApplication ..
 cmake-gui .
 ```
 
@@ -198,7 +198,7 @@ conan install --profile windows_gcc7_x86_64 -s build_type=Release --build=missin
 
 Configure the project:
 ```bash
-cmake -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX=C:\some\path -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DQT_PREFIX_PATH="C:\Qt\5.13\mingw73_64" -DCMAKE_BUILD_TYPE=Release ..
+cmake -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX=C:\some\path -DQT_PREFIX_PATH="C:\Qt\5.13\mingw73_64" -DCMAKE_BUILD_TYPE=Release ..
 cmake-gui .
 ```
 
@@ -240,7 +240,7 @@ conan install --profile windows_msvc15_x86_64 -s build_type=Release --build=miss
 
 Configure:
 ```cmd
-cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_INSTALL_PREFIX=C:\some\path -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DQT_PREFIX_PATH="C:\Qt\5.13\msvc2017_64"  ..
+cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_INSTALL_PREFIX=C:\some\path -DQT_PREFIX_PATH="C:\Qt\5.13\msvc2017_64"  ..
 cmake-gui .
 ```
 
@@ -283,7 +283,7 @@ conan install -s build_type=RelWithDebInfo -o build_tests=True --build=missing .
 
 Configure MdtApplication:
 ```bash
-cmake -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TESTS=ON ..
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TESTS=ON ..
 cmake-gui .
 ```
 
@@ -296,7 +296,7 @@ conan install -s build_type=RelWithDebInfo -o build_tests=True --build=missing .
 
 Configure MdtApplication:
 ```bash
-cmake -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TESTS=ON ..
+cmake -DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TESTS=ON ..
 cmake-gui .
 ```
 
@@ -326,7 +326,7 @@ conan install --profile linux_clang6.0_x86_64_libc++ -s build_type=RelWithDebInf
 
 Configure MdtApplication:
 ```bash
-cmake -DCMAKE_C_COMPILER=clang-6.0 -DCMAKE_CXX_COMPILER=clang++-6.0 -DCMAKE_C_FLAGS_INIT=-stdlib=libc++ -DCMAKE_CXX_FLAGS_INIT=-stdlib=libc++ -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake ..
+cmake -DCMAKE_C_COMPILER=clang-6.0 -DCMAKE_CXX_COMPILER=clang++-6.0 ..
 cmake-gui .
 ```
 
@@ -348,7 +348,7 @@ conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_gui_modules -o use_
 
 Configure MdtApplication:
 ```bash
-cmake -DCMAKE_C_COMPILER=clang-6.0 -DCMAKE_CXX_COMPILER=clang++-6.0 -DCMAKE_C_FLAGS_INIT=-stdlib=libc++ -DCMAKE_CXX_FLAGS_INIT=-stdlib=libc++ -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=Instrumented -DSANITIZER_ENABLE_THREAD=ON ..
+cmake -DCMAKE_C_COMPILER=clang-6.0 -DCMAKE_CXX_COMPILER=clang++-6.0 -DCMAKE_BUILD_TYPE=Instrumented -DSANITIZER_ENABLE_THREAD=ON ..
 cmake-gui .
 ```
 

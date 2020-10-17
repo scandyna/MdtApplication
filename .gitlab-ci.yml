@@ -275,6 +275,7 @@ deploy_linux_clang6.0_x86_64_libc++_relwithdebinfo:
                                 -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_BENCHMARKS=ON
                                 -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
                                 -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
+                                ..
     - cmake --build . --config $BUILD_TYPE -j4
     - ./deactivate
   artifacts:

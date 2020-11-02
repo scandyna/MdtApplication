@@ -18,7 +18,7 @@
 # along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
 #
 ########################################################################################
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 
 # CMAKE_PREFIX_PATH is empty before any call to project()
 # Because set_project_version() does not exist,
@@ -162,6 +162,7 @@ endif()
 
 # On Windows, RPATH do not exist
 # To be able to run tests, we have to put all binaries in the same directory
+# TODO: should remove to face the bug !
 if(WIN32)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 endif()

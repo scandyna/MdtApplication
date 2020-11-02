@@ -33,12 +33,12 @@ namespace Mdt{ namespace Impl{
 
    public:
 
-    void registerApplication(QCoreApplication *app)
-    {
-      Q_ASSERT(app != nullptr);
-
-      connect(this, &Mdt::Impl::ApplicationForNonQtUsageObject::invokeQuit, app, &QCoreApplication::quit, Qt::QueuedConnection);
-    }
+    void registerApplication(QCoreApplication *app);
+//     {
+//       Q_ASSERT(app != nullptr);
+//
+//       connect(this, &Mdt::Impl::ApplicationForNonQtUsageObject::invokeQuit, app, &QCoreApplication::quit, Qt::QueuedConnection);
+//     }
 
   Q_SIGNALS:
 

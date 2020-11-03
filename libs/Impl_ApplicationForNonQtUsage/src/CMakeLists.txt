@@ -21,7 +21,7 @@
 include(GenerateExportHeader)
 include(MdtInstallLibrary)
 
-add_library(Mdt_Impl_ApplicationForNonQtUsage OBJECT
+add_library(Mdt_Impl_ApplicationForNonQtUsage STATIC
   Mdt/Impl/CommandLineArguments.cpp
 #   Mdt/Impl/ApplicationForNonQtUsage.cpp
   Mdt/Impl/ApplicationForNonQtUsageObject.cpp
@@ -56,7 +56,7 @@ target_include_directories(Mdt_Impl_ApplicationForNonQtUsage
 #    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 # )
 
-set_property(TARGET Mdt_Impl_ApplicationForNonQtUsage PROPERTY POSITION_INDEPENDENT_CODE ON)
+# set_property(TARGET Mdt_Impl_ApplicationForNonQtUsage PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 generate_export_header(Mdt_Impl_ApplicationForNonQtUsage)
 

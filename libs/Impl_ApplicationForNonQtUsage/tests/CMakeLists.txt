@@ -28,15 +28,6 @@ mdt_add_test(
     src/Impl_CommandLineArgumentsTest.cpp
 )
 
-# mdt_add_test(
-#   NAME Impl_CommandLineArgumentsTest
-#   TARGET impl_CommandLineArgumentsTest
-#   DEPENDENCIES Mdt::Catch2Main
-#   SOURCE_FILES
-#     $<TARGET_OBJECTS:Mdt::Impl_ApplicationForNonQtUsage>
-#     src/Impl_CommandLineArgumentsTest.cpp
-# )
-
 mdt_add_test(
   NAME Impl_ApplicationForNonQtUsageTest
   TARGET impl_ApplicationForNonQtUsageTest
@@ -44,12 +35,3 @@ mdt_add_test(
   SOURCE_FILES
     src/Impl_ApplicationForNonQtUsageTest.cpp
 )
-
-# mdt_add_test(
-#   NAME Impl_ApplicationForNonQtUsageTest
-#   TARGET impl_ApplicationForNonQtUsageTest
-#   DEPENDENCIES Mdt::Catch2Main
-#   SOURCE_FILES
-#     $<TARGET_OBJECTS:Mdt::Impl_ApplicationForNonQtUsage>
-#     src/Impl_ApplicationForNonQtUsageTest.cpp
-# )

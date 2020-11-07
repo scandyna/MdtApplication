@@ -21,12 +21,6 @@
 include(GenerateExportHeader)
 include(MdtInstallLibrary)
 
-
-# add_library(Mdt_GuiApplicationForNonQtUsage INTERFACE)
-# add_library(Mdt_GuiApplicationForNonQtUsage
-#   $<TARGET_OBJECTS:Mdt::Impl_ApplicationForNonQtUsage>
-#   Mdt/GuiApplicationForNonQtUsage.cpp
-# )
 add_library(Mdt_GuiApplicationForNonQtUsage
   Mdt/GuiApplicationForNonQtUsage.cpp
 )
@@ -47,13 +41,6 @@ target_link_libraries(Mdt_GuiApplicationForNonQtUsage
     Threads::Threads
 )
 
-# target_include_directories(Mdt_GuiApplicationForNonQtUsage
-#   PUBLIC
-#    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-#    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-#    $<BUILD_INTERFACE:$<TARGET_PROPERTY:Mdt::Impl_ApplicationForNonQtUsage,INTERFACE_INCLUDE_DIRECTORIES>>
-# )
-
 target_include_directories(Mdt_GuiApplicationForNonQtUsage
   PUBLIC
    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
@@ -62,22 +49,6 @@ target_include_directories(Mdt_GuiApplicationForNonQtUsage
 
 generate_export_header(Mdt_GuiApplicationForNonQtUsage)
 
-# mdt_install_interface_library(
-#   TARGET Mdt_GuiApplicationForNonQtUsage
-#   LIBRARY_DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#   INCLUDES_DIRECTORY .
-#   INCLUDES_FILE_WITHOUT_EXTENSION
-# #   ADDITIONAL_INCLUDES_FILES "${CMAKE_CURRENT_BINARY_DIR}/mdt_algorithms_export.h"
-#   INCLUDES_DESTINATION ${MDT_INSTALL_INCLUDEDIR}
-#   EXPORT_NAME GuiApplicationForNonQtUsage
-#   EXPORT_NAMESPACE Mdt${PROJECT_VERSION_MAJOR}::
-#   INSTALL_NAMESPACE ${MDT_INSTALL_PACKAGE_NAME}
-#   FIND_PACKAGE_PATHS ..
-#   VERSION ${PROJECT_VERSION}
-#   VERSION_COMPATIBILITY ExactVersion
-#   DEVELOPMENT_COMPONENT Mdt_GuiApplicationForNonQtUsage_Dev
-# )
-
 mdt_install_library(
   TARGET Mdt_GuiApplicationForNonQtUsage
   RUNTIME_DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -85,7 +56,6 @@ mdt_install_library(
   ARCHIVE_DESTINATION ${CMAKE_INSTALL_LIBDIR}
   INCLUDES_DIRECTORY .
   INCLUDES_FILE_WITHOUT_EXTENSION
-#   ADDITIONAL_INCLUDES_FILES "${CMAKE_CURRENT_BINARY_DIR}/mdt_guiapplicationfornonqtusage_export.h"
   INCLUDES_DESTINATION ${MDT_INSTALL_INCLUDEDIR}
   EXPORT_NAME GuiApplicationForNonQtUsage
   EXPORT_NAMESPACE Mdt${PROJECT_VERSION_MAJOR}::

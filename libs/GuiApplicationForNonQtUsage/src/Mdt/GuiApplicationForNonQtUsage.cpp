@@ -24,7 +24,7 @@
 
 #if defined Q_CC_MSVC
 
-namespace Mdt{ namespace Impl{ namespace Workaround{
+namespace Mdt{ namespace Impl{ namespace Workaround{ namespace GuiApplicationForNonQtUsage{
 
   /*
    * Workaround to force MSVC to generate a .lib
@@ -35,6 +35,6 @@ namespace Mdt{ namespace Impl{ namespace Workaround{
   {
   }
 
-}}} // namespace Mdt{ namespace Impl{ namespace Workaround{
+}}}} // namespace Mdt{ namespace Impl{ namespace Workaround{ namespace GuiApplicationForNonQtUsage{
 
 #endif // #if defined Q_CC_MSVC

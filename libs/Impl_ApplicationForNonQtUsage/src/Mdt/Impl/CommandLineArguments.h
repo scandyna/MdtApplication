@@ -21,7 +21,6 @@
 #ifndef MDT_APPLICATION_FOR_NON_QT_USAGE_IMPL_COMMAND_LINE_ARGUMENTS_H
 #define MDT_APPLICATION_FOR_NON_QT_USAGE_IMPL_COMMAND_LINE_ARGUMENTS_H
 
-// #include "mdt_impl_applicationfornonqtusage_export.h"
 #include <initializer_list>
 #include <cassert>
 #include <cstring>
@@ -30,7 +29,7 @@ namespace Mdt{ namespace Impl{
 
   /*! \internal Helper class to init and copy command line arguments
    */
-  class /*MDT_IMPL_APPLICATIONFORNONQTUSAGE_EXPORT*/ CommandLineArguments
+  class CommandLineArguments
   {
    public:
 

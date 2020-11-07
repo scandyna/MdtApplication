@@ -21,13 +21,12 @@
 #ifndef MDT_APPLICATION_FOR_NON_QT_USAGE_IMPL_APPLICATION_FOR_NON_QT_USAGE_OBJECT_H
 #define MDT_APPLICATION_FOR_NON_QT_USAGE_IMPL_APPLICATION_FOR_NON_QT_USAGE_OBJECT_H
 
-// #include "mdt_impl_applicationfornonqtusage_export.h"
 #include <QObject>
 #include <QCoreApplication>
 
 namespace Mdt{ namespace Impl{
 
-  class /*MDT_IMPL_APPLICATIONFORNONQTUSAGE_EXPORT*/ ApplicationForNonQtUsageObject : public QObject
+  class ApplicationForNonQtUsageObject : public QObject
   {
     Q_OBJECT
 

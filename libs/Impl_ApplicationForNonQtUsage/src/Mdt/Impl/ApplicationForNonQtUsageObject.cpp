@@ -19,14 +19,3 @@
  **
  ****************************************************************************/
 #include "ApplicationForNonQtUsageObject.h"
-
-// namespace Mdt{ namespace Impl{
-// 
-// void ApplicationForNonQtUsageObject::registerApplication(QCoreApplication *app)
-// {
-//   Q_ASSERT(app != nullptr);
-// 
-//   connect(this, &Mdt::Impl::ApplicationForNonQtUsageObject::invokeQuit, app, &QCoreApplication::quit, Qt::QueuedConnection);
-// }
-
-//}} // namespace Mdt{ namespace Impl{

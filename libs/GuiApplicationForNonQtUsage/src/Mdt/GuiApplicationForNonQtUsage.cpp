@@ -19,3 +19,22 @@
  **
  ****************************************************************************/
 #include "GuiApplicationForNonQtUsage.h"
+#include "mdt_guiapplicationfornonqtusage_export.h"
+#include <QtGlobal>
+
+#if defined Q_CC_MSVC
+
+namespace Mdt{ namespace Impl{ namespace Workaround{
+
+  /*
+   * Workaround to force MSVC to generate a .lib
+   * See https://gitlab.com/scandyna/mdtapplication/-/issues/1
+   */
+  MDT_GUIAPPLICATIONFORNONQTUSAGE_EXPORT
+  void fakeFunctionToGenerateSymbolsToExport()
+  {
+  }
+
+}}} // namespace Mdt{ namespace Impl{ namespace Workaround{
+
+#endif // #if defined Q_CC_MSVC

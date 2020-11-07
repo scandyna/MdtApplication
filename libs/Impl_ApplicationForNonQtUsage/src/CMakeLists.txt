@@ -56,16 +56,18 @@ target_include_directories(Mdt_Impl_ApplicationForNonQtUsage
 #    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 # )
 
-# set_property(TARGET Mdt_Impl_ApplicationForNonQtUsage PROPERTY POSITION_INDEPENDENT_CODE ON)
+if(BUILD_SHARED_LIBS)
+  set_property(TARGET Mdt_Impl_ApplicationForNonQtUsage PROPERTY POSITION_INDEPENDENT_CODE ON)
+endif()
 
-generate_export_header(Mdt_Impl_ApplicationForNonQtUsage)
+# generate_export_header(Mdt_Impl_ApplicationForNonQtUsage)
 
 mdt_install_interface_library(
   TARGET Mdt_Impl_ApplicationForNonQtUsage
   LIBRARY_DESTINATION ${CMAKE_INSTALL_LIBDIR}
   INCLUDES_DIRECTORY .
 #   INCLUDES_FILE_WITHOUT_EXTENSION
-  ADDITIONAL_INCLUDES_FILES "${CMAKE_CURRENT_BINARY_DIR}/mdt_impl_applicationfornonqtusage_export.h"
+#   ADDITIONAL_INCLUDES_FILES "${CMAKE_CURRENT_BINARY_DIR}/mdt_impl_applicationfornonqtusage_export.h"
   INCLUDES_DESTINATION ${MDT_INSTALL_INCLUDEDIR}
   EXPORT_NAME Impl_ApplicationForNonQtUsage
   EXPORT_NAMESPACE Mdt${PROJECT_VERSION_MAJOR}::

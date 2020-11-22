@@ -25,13 +25,16 @@
  *   a application class should be instanciated.
  *
  *  To reduce dependencies, several application classes exists:
- *  |           Class            |                    Description                                    |   Main dependencies  |
- *  | :------------------------- | :---------------------------------------------------------------- | :------------------- |
- *  | Mdt::CoreApplicationForNonQtUsage | Provide a QCoreApplication for a non Qt application        | QtCore               |
- *  | Mdt::GuiApplicationForNonQtUsage  | Provide a QGuiApplication for a non Qt application         | QtGui                |
+ *  |           Class                   |                    Description                      |   Main dependencies  |
+ *  | :-------------------------------- | :-------------------------------------------------- | :------------------- |
+ *  | Mdt::CoreApplicationForNonQtUsage | Provide a QCoreApplication for a non Qt application | QtCore               |
+ *  | Mdt::GuiApplicationForNonQtUsage  | Provide a QGuiApplication for a non Qt application  | QtGui                |
  *
  * \ref example_MyNonQtCoreLibrary
  *
  * \ref example_MyNonQtGuiLibrary
  *
+ *
+ * It could be required to create a console application with support of the Qt event loop.
+ * This can be done with Mdt::AbstractConsoleApplicationMainFunction .
  */

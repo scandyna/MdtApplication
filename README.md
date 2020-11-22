@@ -8,6 +8,7 @@ This library is composed of some components:
 |------------------------------|:----------------------------------------------------|-----------------|
 | CoreApplicationForNonQtUsage | Provide a QCoreApplication for a non Qt application | QtCore          |
 | GuiApplicationForNonQtUsage  | Provide a QGuiApplication for a non Qt application  | QtGui           |
+| ConsoleApplication           | Helpers to create console application with Qt       | QtCore          |
 
 # Usage
 

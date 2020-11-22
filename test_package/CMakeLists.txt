@@ -40,7 +40,17 @@ enable_testing()
 
 find_package(Qt5 COMPONENTS Core REQUIRED)
 
-find_package(Mdt0 COMPONENTS CoreApplicationForNonQtUsage REQUIRED)
+find_package(Mdt0 COMPONENTS ConsoleApplication CoreApplicationForNonQtUsage REQUIRED)
+
+mdt_add_test(
+  NAME ConsoleApplicationTest
+  TARGET consoleApplicationTest
+  DEPENDENCIES Mdt0::ConsoleApplication
+  SOURCE_FILES
+    ConsoleApplicationTest.cpp
+    ConsoleApplicationTestMainFunction.cpp
+)
+
 mdt_add_test(
   NAME CoreApplicationForNonQtUsageTest
   TARGET coreApplicationForNonQtUsageTest

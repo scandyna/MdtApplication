@@ -255,6 +255,8 @@ if(BUILD_TESTS)
   enable_testing()
 endif()
 
+add_subdirectory(libs/ConsoleApplication)
+
 if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
   add_subdirectory(libs/Impl_ApplicationForNonQtUsage)
 endif()

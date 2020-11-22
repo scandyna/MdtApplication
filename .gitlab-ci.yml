@@ -73,7 +73,7 @@ stages:
   image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-gui:latest
   script:
     - cd build
-    - ctest --output-on-failure .
+    - ctest . --output-on-failure --verbose
 
 
 build_linux_gcc7_x86_64_debug:
@@ -294,7 +294,7 @@ deploy_linux_clang6.0_x86_64_libc++_relwithdebinfo:
   script:
     - cd build
     - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o build_tests=True -o MdtApplication:gui=True ..
-    - ctest --output-on-failure --build-config $BUILD_TYPE .
+    - ctest . --output-on-failure --build-config $BUILD_TYPE --verbose
 
 .deploy_windows_conan:
   extends:

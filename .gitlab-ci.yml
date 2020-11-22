@@ -52,7 +52,7 @@ stages:
   script:
     - mkdir build
     - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o build_tests=True -o MdtApplication:gui=True ..
+    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o MdtApplication:gui=True ..
     - source activate.sh
     - cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
                                -DBUILD_SHARED_LIBS=ON -DBUILD_USE_IPO_LTO=OFF
@@ -160,7 +160,7 @@ test_linux_clang6.0_x86_64_libc++_release:
   script:
     - mkdir build
     - cd build
-    - conan install --profile $CONAN_PROFILE -o use_conan_qt=True -o build_tests=True -o MdtApplication:gui=True ..
+    - conan install --profile $CONAN_PROFILE -o use_conan_qt=True -o MdtApplication:gui=True ..
     - source activate.sh
     - cmake -G"Unix Makefiles" -DWARNING_AS_ERROR=ON -DSANITIZER_ENABLE_THREAD=ON
                                -DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL=-O1
@@ -186,8 +186,8 @@ test_linux_clang6.0_x86_64_libc++_release:
     - conan remote update scandyna https://api.bintray.com/conan/scandyna/public-conan --insert 0 # Check for package in scandyna first
   script:
     - cd build
-    - conan install --profile $CONAN_PROFILE -o build_tests=True ..
-    - conan install --profile $CONAN_PROFILE -o use_conan_qt=True -o build_tests=True -o MdtApplication:gui=True -r scandyna ..
+    - conan install --profile $CONAN_PROFILE ..
+    - conan install --profile $CONAN_PROFILE -o use_conan_qt=True -o MdtApplication:gui=True -r scandyna ..
     - ctest --output-on-failure .
 
 
@@ -267,7 +267,7 @@ deploy_linux_clang6.0_x86_64_libc++_relwithdebinfo:
   script:
     - mkdir build
     - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o build_tests=True -o MdtApplication:gui=True ..
+    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o MdtApplication:gui=True ..
     - ./activate
     - cmake -G"$CMAKE_GENERATOR" $CMAKE_GENERATOR_EXTRA_ARGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
                                 -DCMAKE_PREFIX_PATH="$QT_PREFIX_PATH"
@@ -293,7 +293,7 @@ deploy_linux_clang6.0_x86_64_libc++_relwithdebinfo:
     - conan remote update scandyna https://api.bintray.com/conan/scandyna/public-conan --insert 0 # Check for package in scandyna first
   script:
     - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o build_tests=True -o MdtApplication:gui=True ..
+    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o MdtApplication:gui=True ..
     - ctest . --output-on-failure --build-config $BUILD_TYPE --verbose
 
 .deploy_windows_conan:

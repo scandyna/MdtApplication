@@ -11,13 +11,11 @@ class MdtApplicationConan(ConanFile):
   settings = "os", "compiler", "build_type", "arch"
   options = {"shared": [True, False],
              "gui": [True, False],
-             "use_conan_qt": [True, False],
-             "build_tests": [True, False]}
+             "use_conan_qt": [True, False]}
   default_options = {"shared": True,
                      "gui": True,
-                     "use_conan_qt": False,
-                     "build_tests": False}
-  requires = "MdtCMakeModules/[0.14.12]@scandyna/testing"
+                     "use_conan_qt": False}
+  build_requires = "MdtCMakeModules/[>=0.14.12]@scandyna/testing", "Catch2/[>=2.11.1]@catchorg/stable"
   generators = "cmake", "cmake_paths", "virtualenv"
   exports_sources = "libs/*", "CMakeLists.txt", "conanfile.py", "COPYING", "COPYING.LESSER"
   # If no_copy_source is False, conan copies sources to build directory and does in-source build,
@@ -36,9 +34,6 @@ class MdtApplicationConan(ConanFile):
 
   def requirements(self):
 
-    if self.options.build_tests:
-      self.requires("Catch2/[>=2.11.1]@catchorg/stable")
-
     # The main usage of using conan Qt package is for TSan builds
     # Building 5.14.x causes currently problems (8.04.2020)
     # As workaround, try fix a known version that we can build
@@ -46,10 +41,6 @@ class MdtApplicationConan(ConanFile):
       self.requires("qt/5.12.7@bincrafters/stable")
       if self.options.gui:
         self.options["qt"].GUI = True
-
-
-  def package_id(self):
-    del self.info.options.build_tests
 
 
   def configure_cmake(self):

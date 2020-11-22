@@ -60,7 +60,6 @@ Here are the available options:
 | shared           | True    |  [True, False]   | Build as shared library |
 | gui              | True    |  [True, False]   | Include the libraries that depends on QtGui |
 | use_conan_qt     | False   |  [True, False]   | Use [conan Qt](https://github.com/bincrafters/conan-qt) as conan dependency |
-| build_tests      | False   |  [True, False]   | If True, will also require Catch2 |
 
 
 
@@ -301,7 +300,7 @@ Otherwise, see the documentation of the dependencies.
 
 Install the dependencies:
 ```bash
-conan install -s build_type=RelWithDebInfo -o build_tests=True --build=missing ..
+conan install -s build_type=RelWithDebInfo --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -314,7 +313,7 @@ cmake-gui .
 
 Install the dependencies:
 ```bash
-conan install -s build_type=RelWithDebInfo -o build_tests=True --build=missing ..
+conan install -s build_type=RelWithDebInfo --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -344,7 +343,7 @@ ctest . --output-on-failure -C Instrumented -j4
 
 Install the dependencies:
 ```bash
-conan install --profile linux_clang6.0_x86_64_libc++ -s build_type=RelWithDebInfo -o build_tests=True --build=missing ..
+conan install --profile linux_clang6.0_x86_64_libc++ -s build_type=RelWithDebInfo --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -366,7 +365,7 @@ This is what I experieced on Ubuntu 18.04 with those default compilers.
 
 Install the required dependencies:
 ```bash
-conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_gui_modules -o use_conan_qt=True -o build_tests=True  ..
+conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_gui_modules -o use_conan_qt=True ..
 ```
 
 Configure MdtApplication:

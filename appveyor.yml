@@ -73,7 +73,7 @@ before_build:
 build_script:
   - mkdir build
   - cd build
-  - conan install --profile %conan_profile_filename% -s build_type=%configuration% -o build_tests=True -o MdtApplication:gui=True ..
+  - conan install --profile %conan_profile_filename% -s build_type=%configuration% -o MdtApplication:gui=True ..
   - cmake -G "%CMAKE_GENERATOR%" -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -DCMAKE_BUILD_TYPE=%configuration% -DQT_PREFIX_PATH="%QT_PREFIX_PATH%"
           -DBUILD_TESTS=ON -DBUILD_BENCHMARKS=ON -DBUILD_EXAMPLES=ON -DWARNING_AS_ERROR=ON -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON ..
   - cmake --build . --config %configuration%

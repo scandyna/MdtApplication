@@ -391,6 +391,13 @@ git tag x.y.z
 conan create . scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE
 ```
 
+To create a package with a explicit version,
+go out of the source tree:
+```bash
+git tag x.y.z
+conan create path/to/MdtApplication/source/ x.y.z@scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE
+```
+
 Above examples will generate a package that uses the Qt version that is installed on the system,
 or passed to the `CMAKE_PREFIX_PATH` of your build.
 

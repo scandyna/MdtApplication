@@ -40,6 +40,8 @@ enable_testing()
 
 find_package(Qt5 COMPONENTS Core REQUIRED)
 
+set(CMAKE_AUTOMOC ON)
+
 find_package(Mdt0 COMPONENTS ConsoleApplication CoreApplicationForNonQtUsage REQUIRED)
 
 mdt_add_test(

@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QCoreApplication>
+#include <cassert>
 
 namespace Mdt{ namespace Impl{
 
@@ -34,7 +35,7 @@ namespace Mdt{ namespace Impl{
 
     void registerApplication(QCoreApplication *app)
     {
-      Q_ASSERT(app != nullptr);
+      assert(app != nullptr);
 
       connect(this, &Mdt::Impl::ApplicationForNonQtUsageObject::invokeQuit, app, &QCoreApplication::quit, Qt::QueuedConnection);
     }

@@ -24,6 +24,7 @@
 #include "mdt_consoleapplication_export.h"
 #include <QObject>
 #include <QStringList>
+#include <cassert>
 
 namespace Mdt{
 

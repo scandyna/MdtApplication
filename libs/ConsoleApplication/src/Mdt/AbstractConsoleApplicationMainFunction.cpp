@@ -21,6 +21,7 @@
 #include "AbstractConsoleApplicationMainFunction.h"
 #include <QCoreApplication>
 #include <QTimer>
+#include <cassert>
 
 namespace Mdt{
 
@@ -33,7 +34,7 @@ AbstractConsoleApplicationMainFunction::AbstractConsoleApplicationMainFunction(Q
 
 QStringList AbstractConsoleApplicationMainFunction::getArguments()
 {
-  Q_ASSERT(QCoreApplication::instance() != nullptr);
+  assert(QCoreApplication::instance() != nullptr);
 
   return QCoreApplication::arguments();
 }
@@ -44,7 +45,7 @@ void AbstractConsoleApplicationMainFunction::aboutToQuit()
 
 void AbstractConsoleApplicationMainFunction::run()
 {
-  Q_ASSERT(QCoreApplication::instance() != nullptr);
+  assert(QCoreApplication::instance() != nullptr);
 
   int retCode = runMain();
   QCoreApplication::exit(retCode);

@@ -39,6 +39,9 @@ namespace Mdt{
    *  public:
    *
    *   explicit MyMainFunction(QObject* parent = nullptr);
+   *
+   *  private:
+   *
    *   int runMain() override;
    * };
    * \endcode

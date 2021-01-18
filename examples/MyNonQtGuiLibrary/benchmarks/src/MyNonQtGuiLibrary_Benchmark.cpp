@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2020-2020 Philippe Steinmann.
+ ** Copyright (C) 2020-2021 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -20,7 +20,7 @@
  ****************************************************************************/
 #include "MyNonQtGuiLibrary_Benchmark.h"
 #include "MyNonQtGuiLibrary/MyLibrary_Api.h"
-#include "Mdt/Impl/CommandLineArguments.h"
+#include "Mdt/CommandLineArguments.h"
 #include <QGuiApplication>
 #include <QLatin1String>
 #include <QTemporaryDir>
@@ -86,7 +86,7 @@ void MyNonQtGuiLibraryBenchmark::reportTitleBenchmark()
 
 int main(int argc, char **argv)
 {
-  Mdt::Impl::CommandLineArguments args({"MyNonQtGuiLibraryBenchmark","-platform","minimal"});
+  Mdt::CommandLineArguments args({"MyNonQtGuiLibraryBenchmark","-platform","minimal"});
   QGuiApplication app(args.argumentCountRef(), args.argumentVector());
   MyNonQtGuiLibraryBenchmark benchmark;
 

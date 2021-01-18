@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2020-2020 Philippe Steinmann.
+ ** Copyright (C) 2020-2021 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -22,7 +22,7 @@
 #define MDT_APPLICATION_FOR_NON_QT_USAGE_IMPL_APPLICATION_FOR_NON_QT_USAGE_H
 
 #include "ApplicationForNonQtUsageObject.h"
-#include "CommandLineArguments.h"
+#include "Mdt/CommandLineArguments.h"
 #include <thread>
 #include <atomic>
 #include <memory>

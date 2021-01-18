@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2020-2020 Philippe Steinmann.
+ ** Copyright (C) 2020-2021 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -18,16 +18,16 @@
  ** along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
-#ifndef MDT_APPLICATION_FOR_NON_QT_USAGE_IMPL_COMMAND_LINE_ARGUMENTS_H
-#define MDT_APPLICATION_FOR_NON_QT_USAGE_IMPL_COMMAND_LINE_ARGUMENTS_H
+#ifndef MDT_APPLICATION_COMMAND_LINE_ARGUMENTS_H
+#define MDT_APPLICATION_COMMAND_LINE_ARGUMENTS_H
 
 #include <initializer_list>
 #include <cassert>
 #include <cstring>
 
-namespace Mdt{ namespace Impl{
+namespace Mdt{
 
-  /*! \internal Helper class to init and copy command line arguments
+  /*! \brief Helper class to init and copy command line arguments
    */
   class CommandLineArguments
   {
@@ -187,6 +187,6 @@ namespace Mdt{ namespace Impl{
     bool mIsCopy = false;
   };
 
-}} // namespace Mdt{ namespace Impl{
+} // namespace Mdt{
 
-#endif // #ifndef MDT_APPLICATION_FOR_NON_QT_USAGE_IMPL_COMMAND_LINE_ARGUMENTS_H
+#endif // #ifndef MDT_APPLICATION_COMMAND_LINE_ARGUMENTS_H

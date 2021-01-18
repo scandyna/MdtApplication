@@ -21,49 +21,44 @@
 include(GenerateExportHeader)
 include(MdtInstallLibrary)
 
-add_library(Mdt_Impl_ApplicationForNonQtUsage STATIC
-#   Mdt/Impl/CommandLineArguments.cpp
-#   Mdt/Impl/ApplicationForNonQtUsage.cpp
-  Mdt/Impl/ApplicationForNonQtUsageObject.cpp
-)
-add_library(Mdt::Impl_ApplicationForNonQtUsage ALIAS Mdt_Impl_ApplicationForNonQtUsage)
+add_library(Mdt_CommandLineArguments INTERFACE)
+add_library(Mdt::CommandLineArguments ALIAS Mdt_CommandLineArguments)
 
-target_compile_features(Mdt_Impl_ApplicationForNonQtUsage PUBLIC cxx_std_14)
+target_compile_features(Mdt_CommandLineArguments INTERFACE cxx_std_14)
 
-if(BUILD_USE_IPO_LTO)
-  set_target_properties(Mdt_Impl_ApplicationForNonQtUsage
-    PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE
-  )
-endif()
+# if(BUILD_USE_IPO_LTO)
+#   set_target_properties(Mdt_Impl_ApplicationForNonQtUsage
+#     PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE
+#   )
+# endif()
 
-target_link_libraries(Mdt_Impl_ApplicationForNonQtUsage
-  PUBLIC
-    Mdt::CommandLineArguments
-    Qt5::Core
-    Threads::Threads
-)
+# target_link_libraries(Mdt_Impl_ApplicationForNonQtUsage
+#   PUBLIC
+#     Qt5::Core
+#     Threads::Threads
+# )
 
-target_include_directories(Mdt_Impl_ApplicationForNonQtUsage
-  PUBLIC
+target_include_directories(Mdt_CommandLineArguments
+  INTERFACE
    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+#    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 )
 
-if(BUILD_SHARED_LIBS)
-  set_property(TARGET Mdt_Impl_ApplicationForNonQtUsage PROPERTY POSITION_INDEPENDENT_CODE ON)
-endif()
+# if(BUILD_SHARED_LIBS)
+#   set_property(TARGET Mdt_Impl_ApplicationForNonQtUsage PROPERTY POSITION_INDEPENDENT_CODE ON)
+# endif()
 
 
 mdt_install_interface_library(
-  TARGET Mdt_Impl_ApplicationForNonQtUsage
+  TARGET Mdt_CommandLineArguments
   LIBRARY_DESTINATION ${CMAKE_INSTALL_LIBDIR}
   INCLUDES_DIRECTORY .
   INCLUDES_DESTINATION ${MDT_INSTALL_INCLUDEDIR}
-  EXPORT_NAME Impl_ApplicationForNonQtUsage
+  EXPORT_NAME CommandLineArguments
   EXPORT_NAMESPACE Mdt${PROJECT_VERSION_MAJOR}::
   INSTALL_NAMESPACE ${MDT_INSTALL_PACKAGE_NAME}
   FIND_PACKAGE_PATHS ..
   VERSION ${PROJECT_VERSION}
   VERSION_COMPATIBILITY ExactVersion
-  DEVELOPMENT_COMPONENT Mdt_Impl_ApplicationForNonQtUsage_Dev
+  DEVELOPMENT_COMPONENT MdtApplication_Dev
 )

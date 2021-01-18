@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2021 Philippe Steinmann.
+# Copyright (C) 2019-2020 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -21,9 +21,9 @@
 include(MdtAddTest)
 
 mdt_add_test(
-  NAME Impl_ApplicationForNonQtUsageTest
-  TARGET impl_ApplicationForNonQtUsageTest
-  DEPENDENCIES Mdt::Impl_ApplicationForNonQtUsage Mdt::Catch2Main
+  NAME CommandLineArgumentsTest
+  TARGET commandLineArgumentsTest
+  DEPENDENCIES Mdt::CommandLineArguments Mdt::Catch2Main
   SOURCE_FILES
-    src/Impl_ApplicationForNonQtUsageTest.cpp
+    src/CommandLineArgumentsTest.cpp
 )

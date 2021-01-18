@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2019-2020 Philippe Steinmann.
+ ** Copyright (C) 2019-2021 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -21,7 +21,9 @@
 
 /*! \mainpage Overview
  *
- *  In the main() function of a Mdt/Qt based application,
+ * \section QApplication_like_classes QApplication like classes
+ *
+ *  In the %main() function of a Mdt/Qt based application,
  *   a application class should be instanciated.
  *
  *  To reduce dependencies, several application classes exists:
@@ -35,6 +37,15 @@
  * \ref example_MyNonQtGuiLibrary
  *
  *
+ * \section console_application Console based application
+ *
  * It could be required to create a console application with support of the Qt event loop.
  * This can be done with Mdt::AbstractConsoleApplicationMainFunction .
+ *
+ * \section helpers Helpers
+ *
+ * It can happen that we have to pass custom arguments to QCoreApplication,
+ * for example in a test.
+ * Manipulating a char** arguments vector is not convenient.
+ * Using Mdt::CommandLineArguments can help for such case.
  */

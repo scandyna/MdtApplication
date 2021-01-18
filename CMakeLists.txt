@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2020 Philippe Steinmann.
+# Copyright (C) 2019-2021 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -257,6 +257,7 @@ if(BUILD_TESTS)
   enable_testing()
 endif()
 
+add_subdirectory(libs/CommandLineArguments)
 add_subdirectory(libs/ConsoleApplication)
 
 if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)

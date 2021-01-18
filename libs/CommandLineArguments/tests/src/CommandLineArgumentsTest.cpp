@@ -18,11 +18,11 @@
  ** along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
  **
  ****************************************************************************/
-#include "Mdt/Impl/CommandLineArguments.h"
+#include "Mdt/CommandLineArguments.h"
 #include "catch2/catch.hpp"
 #include <string>
 
-using namespace Mdt::Impl;
+using namespace Mdt;
 
 
 bool stringsAreEqual(const char *a, const char *b)

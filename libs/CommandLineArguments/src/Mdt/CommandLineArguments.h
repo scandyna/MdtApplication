@@ -24,6 +24,7 @@
 #include <initializer_list>
 #include <cassert>
 #include <cstring>
+#include <cstddef>
 
 namespace Mdt{
 
@@ -45,12 +46,12 @@ namespace Mdt{
      * \sa https://www.gnu.org/software/libc/manual/html_node/Program-Arguments.html
      */
     explicit CommandLineArguments(std::initializer_list<const char*> args)
-     : mArgc( static_cast<int>(args.size()) ),
+     : mArgc( static_cast<int>( args.size() ) ),
        mIsCopy(true)
     {
       assert(static_cast<int>(args.size()) >= 1);
 
-      mArgv = new char*[mArgc+1];
+      mArgv = new char*[static_cast<size_t>(mArgc+1)];
       int row = 0;
       for(const auto str : args){
         assert(str != nullptr);
@@ -175,7 +176,7 @@ namespace Mdt{
 
     void duplicateArgumentVector(char **argv)
     {
-      mArgv = new char*[mArgc+1];
+      mArgv = new char*[static_cast<size_t>(mArgc+1)];
       for(int row = 0; row < mArgc; ++row){
         mArgv[row] = duplicateString(argv[row]);
       }

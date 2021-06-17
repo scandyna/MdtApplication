@@ -15,7 +15,12 @@ class MdtApplicationConan(ConanFile):
   default_options = {"shared": True,
                      "gui": True,
                      "use_conan_qt": False}
-  build_requires = "MdtCMakeModules/[>=0.14.12]@scandyna/testing", "Catch2/[>=2.11.1]@catchorg/stable"
+  # TODO fix once issue solved
+  # Due to a issue using GitLab Conan repository,
+  # version ranges are not possible.
+  # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
+  build_requires = "MdtCMakeModules/0.14.18@scandyna/testing", "Catch2/2.11.1@catchorg/stable"
+  #build_requires = "MdtCMakeModules/[>=0.14.12]@scandyna/testing", "Catch2/[>=2.11.1]@catchorg/stable"
   generators = "cmake", "cmake_paths", "virtualenv"
   exports_sources = "libs/*", "CMakeLists.txt", "conanfile.py", "COPYING", "COPYING.LESSER"
   # If no_copy_source is False, conan copies sources to build directory and does in-source build,
@@ -37,10 +42,12 @@ class MdtApplicationConan(ConanFile):
     # The main usage of using conan Qt package is for TSan builds
     # Building 5.14.x causes currently problems (8.04.2020)
     # As workaround, try fix a known version that we can build
+    # Take a Qt version that we have in our Docker images
     if self.options.use_conan_qt:
-      self.requires("qt/5.12.7@bincrafters/stable")
-      if self.options.gui:
-        self.options["qt"].GUI = True
+      self.requires("qt/5.14.2@bincrafters/stable")
+      #self.requires("qt/5.12.7@bincrafters/stable")
+      #if self.options.gui:
+        #self.options["qt"].GUI = True
 
 
   def configure_cmake(self):

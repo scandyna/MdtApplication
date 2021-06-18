@@ -3,13 +3,16 @@ import os
 
 class MdtApplicationTest(ConanFile):
   settings = "os", "compiler", "build_type", "arch"
-  generators = "cmake_paths"
+  generators = "cmake"
   build_requires = "MdtCMakeModules/[>=0.14.12]@scandyna/testing"
 
   def configure_cmake(self):
     cmake = CMake(self)
 
-    cmake.definitions["CMAKE_TOOLCHAIN_FILE"] = "%s/conan_paths.cmake" % (self.build_folder)
+    if self.settings.compiler == "gcc" or self.settings.compiler == "clang":
+      if self.settings.compiler.sanitizer == "Thread":
+        cmake.definitions["SANITIZER_ENABLE_THREAD"] = "ON"
+        cmake.definitions["OPTIMIZATION_LEVEL_OPTION"] = "-O1"
 
     return cmake
 

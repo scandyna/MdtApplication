@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2020 Philippe Steinmann.
+# Copyright (C) 2019-2021 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -22,10 +22,18 @@ cmake_minimum_required(VERSION 3.10)
 
 project(MdtApplicationTest)
 
+if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  conan_basic_setup(NO_OUTPUT_DIRS)
+endif()
+
+
 find_package(Threads REQUIRED)
 find_package(MdtCMakeModules REQUIRED)
 
 include(MdtAddTest)
+include(MdtSanitizers)
+
 
 enable_testing()
 
@@ -44,6 +52,13 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(Mdt0 COMPONENTS ConsoleApplication CoreApplicationForNonQtUsage REQUIRED)
 
+
+if(SANITIZER_ENABLE_THREAD)
+  mdt_build_with_thread_sanitizer(BUILD_TYPES RelWithDebInfo)
+  add_compile_options($<$<CONFIG:RelWithDebInfo>:${OPTIMIZATION_LEVEL_OPTION}>)
+endif()
+
+
 mdt_add_test(
   NAME ConsoleApplicationTest
   TARGET consoleApplicationTest
@@ -61,8 +76,7 @@ mdt_add_test(
     CoreApplicationForNonQtUsageTest.cpp
 )
 
-
-find_package(Mdt0 OPTIONAL_COMPONENTS GuiApplicationForNonQtUsage)
+find_package(Mdt0 COMPONENTS GuiApplicationForNonQtUsage QUIET)
 if(Mdt0GuiApplicationForNonQtUsage_FOUND)
   find_package(Qt5 COMPONENTS Gui REQUIRED)
   mdt_add_test(

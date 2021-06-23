@@ -29,7 +29,6 @@ stages:
   script:
     # TODO: remove once in docker images
     - conan remote add scandyna https://gitlab.com/api/v4/projects/25668674/packages/conan
-    - conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
     - conan config install --source-folder conan https://gitlab.com/scandyna/conan-config.git
     #- conan remote update scandyna https://api.bintray.com/conan/scandyna/public-conan --insert 0 # Check for package in scandyna first
 

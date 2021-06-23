@@ -239,8 +239,7 @@ test_linux_clang6.0_x86_64_libc++_release:
     - !reference [.setup_conan, script]
   script:
     - cd build
-    #- conan install --profile $CONAN_PROFILE ..
-    - conan install --profile $CONAN_PROFILE -o MdtApplication:use_conan_qt=True -o MdtApplication:gui=True -r scandyna ..
+    - conan install --profile $CONAN_PROFILE -o MdtApplication:use_conan_qt=True -o MdtApplication:gui=True ..
     - ctest --output-on-failure .
 
 

@@ -322,6 +322,7 @@ deploy_linux_clang6.0_x86_64_debug:
   variables:
     CONAN_PROFILE: linux_clang6.0_x86_64_libstdc++11
     BUILD_TYPE: Debug
+    BUILD_SHARED_LIBS: "True"
   extends: .deploy_linux_conan
 
 deploy_linux_clang6.0_x86_64_release:
@@ -329,6 +330,7 @@ deploy_linux_clang6.0_x86_64_release:
   variables:
     CONAN_PROFILE: linux_clang6.0_x86_64_libstdc++11
     BUILD_TYPE: Release
+    BUILD_SHARED_LIBS: "True"
   extends: .deploy_linux_conan
 
 deploy_linux_clang6.0_x86_64_libc++_tsan:

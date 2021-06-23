@@ -339,23 +339,22 @@ To run the tests:
 ctest . --output-on-failure -C Instrumented -j4
 ```
 
-## Configure and build with Clang
+## Configure and build with Clang and libc++
 
-Install the dependencies:
-```bash
-conan install --profile linux_clang6.0_x86_64_libc++ -s build_type=RelWithDebInfo --build=missing ..
-```
+On Linux, the default compiler is probably gcc.
 
-Configure MdtApplication:
+To choose the correct compiler (and maybe other flags),
+Conan generates a script that can setup a build environment.
+
+The steps will be something like this:
 ```bash
-cmake -DCMAKE_C_COMPILER=clang-6.0 -DCMAKE_CXX_COMPILER=clang++-6.0 ..
+conan install --profile linux_clang6.0_x86_64_libc++_qt_widgets_modules -s build_type=Release -o MdtApplication:use_conan_qt=True --build=missing ..
+source activate.sh
+cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=ON ..
 cmake-gui .
-```
-
-Build and run the tests:
-```bash
-cmake --build . --config Instrumented
-ctest . --output-on-failure -C Instrumented
+cmake --build . --config Release
+ctest . --output-on-failure -C Release
+source deactivate.sh
 ```
 
 ## Configure and build with ThreaSanitizer
@@ -363,23 +362,16 @@ ctest . --output-on-failure -C Instrumented
 Gcc supports ThreaSanitizer, but Clang seems to give less false positive.
 This is what I experieced on Ubuntu 18.04 with those default compilers.
 
-Install the required dependencies:
+To build with TSan:
 ```bash
-conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_gui_modules -o use_conan_qt=True ..
-```
-
-Configure MdtApplication:
-```bash
-cmake -DCMAKE_C_COMPILER=clang-6.0 -DCMAKE_CXX_COMPILER=clang++-6.0 -DCMAKE_BUILD_TYPE=Instrumented -DSANITIZER_ENABLE_THREAD=ON ..
+conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules -s build_type=RelWithDebInfo -o MdtApplication:use_conan_qt=True --build=missing ..
+source activate.sh
+cmake -DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TESTS=ON -DSANITIZER_ENABLE_THREAD=ON ..
 cmake-gui .
-```
-
-Build and run the tests:
-```bash
 cmake --build . --config Instrumented
 ctest . --output-on-failure -C Instrumented
+source deactivate.sh
 ```
-
 
 # Create a Conan package
 

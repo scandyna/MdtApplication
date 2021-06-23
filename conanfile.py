@@ -19,7 +19,7 @@ class MdtApplicationConan(ConanFile):
   # Due to a issue using GitLab Conan repository,
   # version ranges are not possible.
   # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
-  build_requires = "MdtCMakeModules/0.14.18@scandyna/testing", "catch2/2.11.1"
+  build_requires = "MdtCMakeModules/0.14.18@scandyna/testing", "Catch2/2.11.1@catchorg/stable"
   #build_requires = "MdtCMakeModules/[>=0.14.12]@scandyna/testing", "Catch2/[>=2.11.1]@catchorg/stable"
   generators = "cmake", "cmake_paths", "virtualenv"
   exports_sources = "libs/*", "CMakeLists.txt", "conanfile.py", "COPYING", "COPYING.LESSER"

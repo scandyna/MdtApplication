@@ -53,7 +53,6 @@ class MdtApplicationConan(ConanFile):
   def configure_cmake(self):
     cmake = CMake(self)
     cmake.definitions["FROM_CONAN_PROJECT_VERSION"] = self.version
-    cmake.definitions["WARNING_AS_ERROR"] = "ON"
 
     if self.options.gui:
       cmake.definitions["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "ON"

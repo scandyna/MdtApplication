@@ -1,4 +1,5 @@
 from conans import ConanFile, CMake, tools
+from conans.errors import ConanInvalidConfiguration
 import os
 
 
@@ -34,7 +35,9 @@ class MdtApplicationConan(ConanFile):
   short_paths = True
 
   def set_version(self):
-    if os.path.exists(".git"):
+    if not self.version:
+      if not os.path.exists(".git"):
+        raise ConanInvalidConfiguration("could not get version from git tag.")
       git = tools.Git()
       self.version = "%s" % (git.get_tag())
 

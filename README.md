@@ -17,7 +17,7 @@ see [the API documentation](https://scandyna.gitlab.io/mdtapplication)
 
 ## Required tools and libraries
 
-Some tools and libraries are required to use MdtUicNumber:
+Some tools and libraries are required to use MdtApplication:
  - Git
  - CMake
  - Conan (optional)
@@ -31,7 +31,7 @@ For a overview how to install them, see https://gitlab.com/scandyna/build-and-in
 
 Update your CMakeLists.txt to use the required libraries:
 ```cmake
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 project(MyApp)
 
 find_package(Threads REQUIRED)
@@ -61,7 +61,8 @@ Here are the available options:
 | gui              | True    |  [True, False]   | Include the libraries that depends on QtGui |
 | use_conan_qt     | False   |  [True, False]   | Use [conan Qt](https://github.com/bincrafters/conan-qt) as conan dependency |
 
-
+TODO: use_conan_qt should be True by default !
+TODO: update link to Qt
 
 In your source directory, create a `conanfile.txt`:
 ```conan
@@ -76,6 +77,7 @@ virtualenv
 MdtApplication:gui=True
 ```
 
+# TODO: remove
 Update your CMakeLists to use the conanbuildinfo.cmake
 (recommended, because it then handles important details
 like using the correct libstdc++/libc++ library,
@@ -93,6 +95,7 @@ mkdir build
 cd build
 ```
 
+# TODO: profile build ...
 Install the dependencies:
 ```bash
 conan install -s build_type=Release --build=missing ..
@@ -285,93 +288,14 @@ cmake --build . --target INSTALL --config Release
 
 # Work on MdtApplication
 
-This chapter is like the previous (Install MdtApplication),
-but covers some more details, like the dependencies and options to run the unit tests.
+## Build
 
-## Required tools and libraries
+See [BUILD](BUILD.md).
 
-The dependencies are the same as in previous chapter plus those:
- - [Catch2](https://github.com/catchorg/Catch2)
+## Create Conan package
 
-If you use Conan, nothing has to be installed explicitely.
-Otherwise, see the documentation of the dependencies.
+See [README](packaging/conan/README.md) in the conan packaging folder.
 
-## Configure MdtApplication
-
-Install the dependencies:
-```bash
-conan install -s build_type=RelWithDebInfo --build=missing ..
-```
-
-Configure MdtApplication:
-```bash
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TESTS=ON ..
-cmake-gui .
-```
-
-## Configure and build with ASan and UBSan
-
-Install the dependencies:
-```bash
-conan install -s build_type=RelWithDebInfo --build=missing ..
-```
-
-Configure MdtApplication:
-```bash
-cmake -DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TESTS=ON ..
-cmake-gui .
-```
-
-Set the various options, like `BUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL`,
-`BUILD_TYPE_INSTRUMENTED_USE_DEBUG_SYMBOLS` and `BUILD_TYPE_INSTRUMENTED_DEFINE_NDEBUG`.
-
-Build:
-```bash
-cmake --build . --config Instrumented
-```
-or:
-```bash
-make -j4
-```
-
-To run the tests:
-```bash
-ctest . --output-on-failure -C Instrumented -j4
-```
-
-## Configure and build with Clang and libc++
-
-On Linux, the default compiler is probably gcc.
-
-To choose the correct compiler (and maybe other flags),
-Conan generates a script that can setup a build environment.
-
-The steps will be something like this:
-```bash
-conan install --profile linux_clang6.0_x86_64_libc++_qt_widgets_modules -s build_type=Release -o MdtApplication:use_conan_qt=True --build=missing ..
-source activate.sh
-cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=ON ..
-cmake-gui .
-cmake --build . --config Release
-ctest . --output-on-failure -C Release
-source deactivate.sh
-```
-
-## Configure and build with ThreaSanitizer
-
-Gcc supports ThreaSanitizer, but Clang seems to give less false positive.
-This is what I experieced on Ubuntu 18.04 with those default compilers.
-
-To build with TSan:
-```bash
-conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules -s build_type=RelWithDebInfo -o MdtApplication:use_conan_qt=True --build=missing ..
-source activate.sh
-cmake -DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TESTS=ON -DSANITIZER_ENABLE_THREAD=ON ..
-cmake-gui .
-cmake --build . --config Instrumented
-ctest . --output-on-failure -C Instrumented
-source deactivate.sh
-```
 
 # Create a Conan package
 

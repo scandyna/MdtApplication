@@ -2,13 +2,16 @@
 
 Some additions for QCoreApplication, QGuiApplication and QApplication.
 
+TODO: maybe: This project is composed of some libraries:
+
 This library is composed of some components:
 
-| Component                    | Description                                         | Main dependency |
-|------------------------------|:----------------------------------------------------|-----------------|
-| CoreApplicationForNonQtUsage | Provide a QCoreApplication for a non Qt application | QtCore          |
-| GuiApplicationForNonQtUsage  | Provide a QGuiApplication for a non Qt application  | QtGui           |
-| ConsoleApplication           | Helpers to create console application with Qt       | QtCore          |
+| Component                    | Description                                          | Main dependency |
+|------------------------------|:-----------------------------------------------------|-----------------|
+| CoreApplicationForNonQtUsage | Provide a QCoreApplication for a non Qt application  | QtCore          |
+| GuiApplicationForNonQtUsage  | Provide a QGuiApplication for a non Qt application   | QtGui           |
+| ConsoleApplication           | Helpers to create console application with Qt        | QtCore          |
+| CommandLineArguments         | Helper class to init and copy command line arguments | None
 
 # Usage
 
@@ -44,25 +47,21 @@ target_link_libraries(myApp Mdt0::GuiApplicationForNonQtUsage)
 
 ## Project configuration using Conan
 
-MdtApplication has at least those dependencies:
- - [mdt-cmake-modules](https://gitlab.com/scandyna/mdt-cmake-modules)
- - Qt5
-
-Qt5 can be installed using Conan, which can be usefull
-if the required binaries are not distributed by Qt
-(such a case will be discussed later).
-Using your own installed Qt5 library is also supported.
-
 Here are the available options:
 
 | Option           | Default | Possible Values  | Explanations |
 | -----------------|:------- |:----------------:|--------------|
 | shared           | True    |  [True, False]   | Build as shared library |
 | gui              | True    |  [True, False]   | Include the libraries that depends on QtGui |
-| use_conan_qt     | False   |  [True, False]   | Use [conan Qt](https://github.com/bincrafters/conan-qt) as conan dependency |
+| use_conan_qt     | True    |  [True, False]   | Use [conan Qt](https://conan.io/center/qt) as conan dependency |
 
-TODO: use_conan_qt should be True by default !
-TODO: update link to Qt
+You may want to use a official [Qt distribution](https://www.qt.io/download) for your prjects.
+In that case, the `use_conan_qt` option can be used:
+```bash
+conan <command> ... -o MdtApplication:use_conan_qt=False ...
+```
+In such case, you have to care yourself to use the same qt distribution (arch, version, etc..)
+for each part of your projects.
 
 In your source directory, create a `conanfile.txt`:
 ```conan
@@ -70,24 +69,26 @@ In your source directory, create a `conanfile.txt`:
 MdtApplication/x.y.z@scandyna/testing
 
 [generators]
-cmake
-virtualenv
-
-[options]
-MdtApplication:gui=True
+CMakeDeps
+CMakeToolchain
+VirtualBuildEnv
 ```
 
-# TODO: remove
-Update your CMakeLists to use the conanbuildinfo.cmake
-(recommended, because it then handles important details
-like using the correct libstdc++/libc++ library,
-and does some checks):
-```cmake
-if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-  include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-  conan_basic_setup(NO_OUTPUT_DIRS)
-endif()
-```
+## Using Conan profiles
+
+When using Conan for dependency management,
+it is recommended to use Conan profiles.
+This permits to have personal binary repository,
+avoiding to recompile everything everytime.
+This becomes more important if Qt is managed by Conan.
+
+This requires modifications in the `settings.yml` Conan configuration,
+and also some profile files.
+See my [conan-config repository](https://gitlab.com/scandyna/conan-config) for more informations.
+
+Some following sections will rely on Conan profiles.
+
+## Build your project using Conan
 
 Create a build directory and cd to it:
 ```bash
@@ -157,19 +158,6 @@ mkdir build
 cd build
 ```
 
-## Using Conan profiles
-
-When using Conan for dependency management,
-it is recommended to use Conan profiles.
-This permits to have personal binary repository,
-avoiding to recompile everything everytime.
-This becomes more important if Qt is managed by Conan.
-
-This requires modifications in the `settings.yml` Conan configuration,
-and also some profile files.
-See my [conan-config repository](https://gitlab.com/scandyna/conan-config) for more informations.
-
-Some following sections will rely on Conan profiles.
 
 ## Note about install prefix
 
@@ -297,7 +285,7 @@ See [BUILD](BUILD.md).
 See [README](packaging/conan/README.md) in the conan packaging folder.
 
 
-# Create a Conan package
+# Create a Conan package OLD
 
 The package version is picked up from git tag.
 If working on MdtApplication, go to the root of the source tree:

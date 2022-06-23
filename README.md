@@ -103,7 +103,7 @@ On Windows:
 
 For a list of available packages,
 and also some other details,
-see [README](packaging/conan/README.md).
+see [Conan packages README](packaging/conan/README.md).
 
 ## Manual install
 
@@ -129,21 +129,6 @@ Some tools and libraries are required to use MdtApplication:
  - Qt5
 
 For a overview how to install them, see https://gitlab.com/scandyna/build-and-install-cpp
-
-## CMake project description
-
-Update your CMakeLists.txt to use the required libraries:
-```cmake
-cmake_minimum_required(VERSION 3.15)
-project(MyApp)
-
-find_package(Threads REQUIRED)
-find_package(Qt5 COMPONENTS Core Gui REQUIRED)
-find_package(Mdt0 COMPONENTS GuiApplicationForNonQtUsage REQUIRED)
-
-add_executable(myApp myApp.cpp)
-target_link_libraries(myApp Mdt0::GuiApplicationForNonQtUsage)
-```
 
 ## Project configuration using Conan
 

@@ -2,12 +2,7 @@
 
 # Use MdtApplication Conan packages
 
-| Component                    | Description                                          | Main dependency |
-|------------------------------|:-----------------------------------------------------|-----------------|
-| CoreApplicationForNonQtUsage | Provide a QCoreApplication for a non Qt application  | QtCore          |
-| GuiApplicationForNonQtUsage  | Provide a QGuiApplication for a non Qt application   | QtGui           |
-| ConsoleApplication           | Helpers to create console application with Qt        | QtCore          |
-| CommandLineArguments         | Helper class to init and copy command line arguments | None
+Below is a list of available packages for the various components of MdtApplication.
 
 You may want to use a official [Qt distribution](https://www.qt.io/download) for your prjects.
 In that case, the `use_conan_qt` option can be used:
@@ -90,16 +85,3 @@ To create a package without having a git tag:
 ```bash
 conan create packaging/conan/$LIBRARY x.y.z@scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE
 ```
-
-TODO: packages should ALLWAYS depend on Qt
-maybe use option to not depend on Qt to build to work on MdtApplication
-
-To create packages that does not depend on Conan Qt:
-```bash
-conan create . scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o MdtApplication:use_conan_qt=False
-```
-
-Above example will generate a package that uses the Qt version that is installed on the system,
-or passed to the `CMAKE_PREFIX_PATH` of your build.
-In that case, take care to build all libraries and the final executable
-with the same Qt distribution.

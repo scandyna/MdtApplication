@@ -125,32 +125,3 @@ See [BUILD](BUILD.md).
 ## Create Conan package
 
 See [README](packaging/conan/README.md) in the conan packaging folder.
-
-
-# Create a Conan package OLD
-
-The package version is picked up from git tag.
-If working on MdtApplication, go to the root of the source tree:
-```bash
-git tag x.y.z
-conan create . scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE
-```
-
-To create a package with a explicit version,
-go out of the source tree:
-```bash
-git tag x.y.z
-conan create path/to/MdtApplication/source/ x.y.z@scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE
-```
-
-Above examples will generate a package that uses the Qt version that is installed on the system,
-or passed to the `CMAKE_PREFIX_PATH` of your build.
-
-To create packages that depend on Conan Qt:
-```bash
-conan create . scandyna/testing -o MdtApplication:use_conan_qt=True
-```
-
-Because Qt offers binary compatibility,
-it should not be required to create package for each minor Qt version,
-but more a package per compiler and other things that breaks binary compatibility.

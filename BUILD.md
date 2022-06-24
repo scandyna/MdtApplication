@@ -48,8 +48,37 @@ cd build
 The recommended way is to use Conan to install the dependencies.
 The examples are based on that.
 
-See also some Conan specific informations,
-like using profiles and options, in the [README](README.md).
+### Conan options
+
+Here are the available options:
+
+| Option           | Default | Possible Values  | Explanations |
+| -----------------|:------- |:----------------:|--------------|
+| shared           | True    |  [True, False]   | Build as shared library |
+| gui              | True    |  [True, False]   | Include the libraries that depends on QtGui |
+| use_conan_qt     | True    |  [True, False]   | Use [conan Qt](https://conan.io/center/qt) as conan dependency |
+
+You may want to use a official [Qt distribution](https://www.qt.io/download) for your prjects.
+In that case, the `use_conan_qt` option can be used:
+```bash
+conan <command> ... -o MdtApplication:use_conan_qt=False ...
+```
+In such case, you have to care yourself to use the same qt distribution (arch, version, etc..)
+for each part of your projects.
+
+### Using Conan profiles
+
+When using Conan for dependency management,
+it is recommended to use Conan profiles.
+This permits to have personal binary repository,
+avoiding to recompile everything everytime.
+This becomes more important if Qt is managed by Conan.
+
+This requires modifications in the `settings.yml` Conan configuration,
+and also some profile files.
+See my [conan-config repository](https://gitlab.com/scandyna/conan-config) for more informations.
+
+Some following sections will rely on Conan profiles.
 
 ### Note about conan and new generators
 

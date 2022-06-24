@@ -27,6 +27,7 @@ Tools and libraries that are managed by Conan:
  - [Catch2](https://github.com/catchorg/Catch2)
  - Qt
  - [MdtCMakeModules](https://gitlab.com/scandyna/mdt-cmake-modules)
+ - [MdtCMakeConfig](https://gitlab.com/scandyna/mdtcmakeconfig)
 
 
 ## Get the source code
@@ -189,4 +190,23 @@ source deactivate_conanbuild.sh
 On Windows:
 ```bash
 .\deactivate_conanbuild
+```
+
+# Build the documentation
+
+TODO: adjust package name once modularized
+
+Install the dependencies:
+```bash
+conan install -o MdtApplication:use_conan_qt=False ..
+```
+
+Configure MdtApplication:
+```bash
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_CPP_API_DOC=ON ..
+```
+
+Build:
+```bash
+doxygen
 ```

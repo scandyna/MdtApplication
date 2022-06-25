@@ -80,10 +80,11 @@ cmake_dependent_option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArgument
 
 option(ENABLE_CONSOLE_APPLICATION "Enable ConsoleApplication" OFF)
 
-# option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArguments" OFF)
-# if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
-#   set(ENABLE_COMMAND_LINE_ARGUMENTS ON FORCE)
-# endif()
+if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_CONSOLE_APPLICATION)
+  set(REQUIRES_QT TRUE)
+else()
+  set(REQUIRES_QT FALSE)
+endif()
 
 option(BUILD_TESTS "Build the tests" OFF)
 option(BUILD_BENCHMARKS "Build the benchmarks" OFF)
@@ -162,8 +163,10 @@ add_qt5_to_cmake_prefix_path("${QT_PREFIX_PATH}")
 # Dependencies
 #######################
 
-find_package(Threads REQUIRED)
-find_package(Qt5 COMPONENTS Core REQUIRED)
+if(REQUIRES_QT)
+  find_package(Threads REQUIRED)
+  find_package(Qt5 COMPONENTS Core REQUIRED)
+endif()
 
 if(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
   find_package(Qt5 COMPONENTS Gui REQUIRED)
@@ -255,12 +258,13 @@ include(MdtPackageConfigHelpers)
 # Qt
 #######################
 
-# TODO: not a target property, will it be propagated trough projects ??
-add_definitions(-DQT_NO_CAST_DEFINITIONS -DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
+if(REQUIRES_QT)
+  # TODO: not a target property, will it be propagated trough projects ??
+  add_definitions(-DQT_NO_CAST_DEFINITIONS -DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-
+  set(CMAKE_AUTOMOC ON)
+  set(CMAKE_AUTOUIC ON)
+endif()
 
 #######################
 # Sources and tests

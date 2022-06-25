@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2021 Philippe Steinmann.
+# Copyright (C) 2019-2022 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -29,10 +29,10 @@ project(MdtApplication)
 # Conan
 #######################
 
-if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-  include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-  conan_basic_setup(NO_OUTPUT_DIRS)
-endif()
+# if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+#   include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+#   conan_basic_setup(NO_OUTPUT_DIRS)
+# endif()
 
 ##################################################################
 # Project definition with versionning got from git tag or by Conan
@@ -43,7 +43,7 @@ find_package(MdtCMakeModules REQUIRED)
 
 include(MdtVersionUtils)
 
-message("FROM_CONAN_PROJECT_VERSION: ${FROM_CONAN_PROJECT_VERSION}")
+message(STATUS "FROM_CONAN_PROJECT_VERSION: ${FROM_CONAN_PROJECT_VERSION}")
 
 set(INITIAL_PROJECT_VERSION)
 if(FROM_CONAN_PROJECT_VERSION)
@@ -56,18 +56,34 @@ project(MdtApplication VERSION ${INITIAL_PROJECT_VERSION})
 
 unset(INITIAL_PROJECT_VERSION)
 
+message("CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+
 #######################
 # Options
 #######################
 
 include(MdtBuildOptionsUtils)
 include(MdtSanitizers)
+include(CMakeDependentOption)
 
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
 option(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE "Enable the CoreApplicationForNonQtUsage component" ON)
 option(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE "Enable the GuiApplicationForNonQtUsage component" OFF)
+
+set(CommandLineArgumentsOptional TRUE)
+if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
+  set(CommandLineArgumentsOptional FALSE)
+endif()
+cmake_dependent_option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArguments" OFF "CommandLineArgumentsOptional" ON)
+
+option(ENABLE_CONSOLE_APPLICATION "Enable ConsoleApplication" OFF)
+
+# option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArguments" OFF)
+# if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
+#   set(ENABLE_COMMAND_LINE_ARGUMENTS ON FORCE)
+# endif()
 
 option(BUILD_TESTS "Build the tests" OFF)
 option(BUILD_BENCHMARKS "Build the benchmarks" OFF)
@@ -94,19 +110,19 @@ option(BUILD_TYPE_INSTRUMENTED_DEFINE_NDEBUG "Set NDEBUG definition for Instrume
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 mdt_add_address_sanitizer_option_if_available(SANITIZER_ENABLE_ADDRESS
-  HELP_STRING "Enable address sanitizer for Instrumented build"
+  HELP_STRING "Enable address sanitizer for Instrumented, RelWithDebInfo, Debug build"
   INITIAL_VALUE OFF
 )
 mdt_add_memory_sanitizer_option_if_available(SANITIZER_ENABLE_MEMORY
-  HELP_STRING "Enable memory sanitizer for Instrumented build"
+  HELP_STRING "Enable memory sanitizer for Instrumented, RelWithDebInfo, Debug build"
   INITIAL_VALUE OFF
 )
 mdt_add_undefined_sanitizer_option_if_available(SANITIZER_ENABLE_UNDEFINED
-  HELP_STRING "Enable undefined behaviour sanitizer for Instrumented build"
+  HELP_STRING "Enable undefined behaviour sanitizer for Instrumented, RelWithDebInfo, Debug build"
   INITIAL_VALUE OFF
 )
 mdt_add_thread_sanitizer_option_if_available(SANITIZER_ENABLE_THREAD
-  HELP_STRING "Enable thread sanitizer for Instrumented build (can be incompatible with other sanitizers)"
+  HELP_STRING "Enable thread sanitizer for Instrumented, RelWithDebInfo, Debug build (can be incompatible with other sanitizers)"
   INITIAL_VALUE OFF
 )
 
@@ -180,16 +196,16 @@ endif()
 #######################
 
 if(SANITIZER_ENABLE_ADDRESS)
-  mdt_build_with_address_sanitizer(BUILD_TYPES Instrumented)
+  mdt_build_with_address_sanitizer(BUILD_TYPES Instrumented RelWithDebInfo Debug)
 endif()
 if(SANITIZER_ENABLE_MEMORY)
-  mdt_build_with_memory_sanitizer(BUILD_TYPES Instrumented)
+  mdt_build_with_memory_sanitizer(BUILD_TYPES Instrumented RelWithDebInfo Debug)
 endif()
 if(SANITIZER_ENABLE_UNDEFINED)
-  mdt_build_with_undefined_sanitizer(BUILD_TYPES Instrumented)
+  mdt_build_with_undefined_sanitizer(BUILD_TYPES Instrumented RelWithDebInfo Debug)
 endif()
 if(SANITIZER_ENABLE_THREAD)
-  mdt_build_with_thread_sanitizer(BUILD_TYPES Instrumented)
+  mdt_build_with_thread_sanitizer(BUILD_TYPES Instrumented RelWithDebInfo Debug)
 endif()
 
 #######################
@@ -228,11 +244,12 @@ include(GNUInstallDirs)
 include(MdtInstallDirs)
 include(MdtPackageConfigHelpers)
 
-mdt_install_namespace_package_config_file(
-  INSTALL_NAMESPACE ${MDT_INSTALL_PACKAGE_NAME}
-  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${MDT_INSTALL_PACKAGE_NAME}"
-  COMPONENT Mdt_Dev
-)
+# TODO: remove
+# mdt_install_namespace_package_config_file(
+#   INSTALL_NAMESPACE ${MDT_INSTALL_PACKAGE_NAME}
+#   DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${MDT_INSTALL_PACKAGE_NAME}"
+#   COMPONENT Mdt_Dev
+# )
 
 #######################
 # Qt
@@ -257,8 +274,13 @@ if(BUILD_TESTS)
   enable_testing()
 endif()
 
-add_subdirectory(libs/CommandLineArguments)
-add_subdirectory(libs/ConsoleApplication)
+if(ENABLE_COMMAND_LINE_ARGUMENTS)
+  add_subdirectory(libs/CommandLineArguments)
+endif()
+
+if(ENABLE_CONSOLE_APPLICATION)
+  add_subdirectory(libs/ConsoleApplication)
+endif()
 
 if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
   add_subdirectory(libs/Impl_ApplicationForNonQtUsage)

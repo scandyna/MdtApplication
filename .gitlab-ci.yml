@@ -95,12 +95,41 @@ stages:
 # Build & test templates
 ###############################
 
-# TODO: make a configure cmake script
-# TODO: enable all components for build and test
+.cmake_configure:
+  script:
+    # The toolchain file expression has to be quoted when using Powershell
+    # See https://gitlab.kitware.com/cmake/cmake/-/issues/23109
+    - cmake "-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake"
+      -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
+      -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
+      -DENABLE_COMMAND_LINE_ARGUMENTS=ON
+      -DENABLE_CONSOLE_APPLICATION=ON
+      -DBUILD_TESTS=ON -DBUILD_BENCHMARKS=ON -DBUILD_EXAMPLES=ON
+      -DBUILD_SHARED_LIBS=$BUILD_SHARED_LIBS -DBUILD_USE_IPO_LTO=OFF
+      -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
+      ..
 
-###############################
-# Linux builds and tests
-###############################
+#.build_linux:
+  #stage: build
+  #before_script:
+    #- !reference [.setup_conan, script]
+  #script:
+    #- mkdir build
+    #- cd build
+    #- conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:gui=True $CONAN_EXTRA_ARGUMENTS ..
+    #- source activate.sh
+    #- cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
+                               #-DBUILD_SHARED_LIBS=$BUILD_SHARED_LIBS -DBUILD_USE_IPO_LTO=OFF
+                               #-DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_BENCHMARKS=ON
+                               #-DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
+                               #-DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
+                               #..
+    #- make -j4
+    #- source deactivate.sh
+  #artifacts:
+    #expire_in: 1 day
+    #paths:
+      #- build
 
 .build_linux:
   stage: build
@@ -109,35 +138,46 @@ stages:
   script:
     - mkdir build
     - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:gui=True $CONAN_EXTRA_ARGUMENTS ..
-    - source activate.sh
-    - cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
-                               -DBUILD_SHARED_LIBS=$BUILD_SHARED_LIBS -DBUILD_USE_IPO_LTO=OFF
-                               -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_BENCHMARKS=ON
-                               -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
-                               -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
-                               ..
-    - make -j4
-    - source deactivate.sh
+    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS ..
+    - source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
+    - !reference [.cmake_configure, script]
+    - cmake --build . --config $BUILD_TYPE -j4
+    - source deactivate_conanbuild.sh
   artifacts:
     expire_in: 1 day
     paths:
       - build
 
+.build_linux_native:
+  image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-gui:latest
+  extends: .build_linux
 
-.test_linux:
+#.test_linux:
+  #stage: test
+  #before_script:
+    #- !reference [.setup_conan, script]
+  #script:
+    #- cd build
+    #- conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:gui=True $CONAN_EXTRA_ARGUMENTS ..
+    #- ctest . --output-on-failure --verbose
+
+.test_base:
   stage: test
   before_script:
     - !reference [.setup_conan, script]
   script:
     - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:gui=True $CONAN_EXTRA_ARGUMENTS ..
-    - ctest . --output-on-failure --verbose
+    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS ..
+    - ctest --output-on-failure -C $BUILD_TYPE
+  artifacts:
+    when: on_failure
+    expire_in: 1 week
+    paths:
+      - build
 
-
-.build_linux_native:
-  image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-gui:latest
-  extends: .build_linux
+.test_linux:
+  extends:
+    - .test_base
 
 .test_linux_native:
   stage: test
@@ -146,31 +186,83 @@ stages:
     - cd build
     - ctest . --output-on-failure --verbose
 
+###############################
+# Build & test Linux
+###############################
 
-build_linux_gcc7_x86_64_debug:
+.buildAndTest_Linux_gcc7_x86_64_debug:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE: linux_gcc7_x86_64
+    CONAN_PROFILE: linux_gcc7_x86_64_qt_widgets_modules
     BUILD_TYPE: Debug
     BUILD_SHARED_LIBS: "True"
-  extends: .build_linux_native
+
+build_linux_gcc7_x86_64_debug:
+  extends:
+    - .buildAndTest_Linux_gcc7_x86_64_debug
+    - .build_linux
 
 test_linux_gcc7_x86_64_debug:
+  extends:
+    - .buildAndTest_Linux_gcc7_x86_64_debug
+    - .test_linux
   dependencies:
     - build_linux_gcc7_x86_64_debug
-  extends: .test_linux_native
+  needs: ["build_linux_gcc7_x86_64_debug"]
 
 
-build_linux_gcc7_x86_64_release:
+.buildAndTest_Linux_gcc7_x86_64_release:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE: linux_gcc7_x86_64
+    CONAN_PROFILE: linux_gcc7_x86_64_qt_widgets_modules
     BUILD_TYPE: Release
     BUILD_SHARED_LIBS: "True"
-  extends: .build_linux_native
+
+build_linux_gcc7_x86_64_release:
+  extends:
+    - .buildAndTest_Linux_gcc7_x86_64_release
+    - .build_linux
 
 test_linux_gcc7_x86_64_release:
+  extends:
+    - .buildAndTest_Linux_gcc7_x86_64_release
+    - .test_linux
   dependencies:
     - build_linux_gcc7_x86_64_release
-  extends: .test_linux_native
+  needs: ["build_linux_gcc7_x86_64_release"]
+
+###############################
+# Build & test Windows
+###############################
+
+###############################
+# Linux builds and tests - OLD
+###############################
+
+#build_linux_gcc7_x86_64_debug:
+  #variables:
+    #CONAN_PROFILE: linux_gcc7_x86_64
+    #BUILD_TYPE: Debug
+    #BUILD_SHARED_LIBS: "True"
+  #extends: .build_linux_native
+
+#test_linux_gcc7_x86_64_debug:
+  #dependencies:
+    #- build_linux_gcc7_x86_64_debug
+  #extends: .test_linux_native
+
+
+#build_linux_gcc7_x86_64_release:
+  #variables:
+    #CONAN_PROFILE: linux_gcc7_x86_64
+    #BUILD_TYPE: Release
+    #BUILD_SHARED_LIBS: "True"
+  #extends: .build_linux_native
+
+#test_linux_gcc7_x86_64_release:
+  #dependencies:
+    #- build_linux_gcc7_x86_64_release
+  #extends: .test_linux_native
 
 
 build_linux_gcc7_x86_64_static_release:

@@ -149,6 +149,7 @@ stages:
       - build
 
 .build_linux_native:
+  stage: build
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
   script:
     - mkdir build

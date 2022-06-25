@@ -149,8 +149,17 @@ stages:
       - build
 
 .build_linux_native:
-  image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-gui:latest
-  extends: .build_linux
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
+  script:
+    - mkdir build
+    - cd build
+    - !reference [.cmake_configure, script]
+    - cmake --build . --config $BUILD_TYPE -j4
+    - source deactivate_conanbuild.sh
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - build
 
 #.test_linux:
   #stage: test
@@ -181,7 +190,7 @@ stages:
 
 .test_linux_native:
   stage: test
-  image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-gui:latest
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
   script:
     - cd build
     - ctest . --output-on-failure --verbose

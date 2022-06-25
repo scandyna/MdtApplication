@@ -40,7 +40,7 @@ target_link_libraries(Mdt_Impl_ApplicationForNonQtUsage
   PUBLIC
     Mdt::CommandLineArguments
     Qt5::Core
-    Threads::Threads
+#     Threads::Threads
 )
 
 target_include_directories(Mdt_Impl_ApplicationForNonQtUsage

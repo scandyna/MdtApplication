@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2020 Philippe Steinmann.
+# Copyright (C) 2019-2022 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -26,5 +26,5 @@ mdt_add_test(
   DEPENDENCIES Mdt::ConsoleApplication
   SOURCE_FILES
     src/ConsoleApplicationTest.cpp
-    src/ConsoleApplicationTestMainFunction
+    src/ConsoleApplicationTestMainFunction.cpp
 )

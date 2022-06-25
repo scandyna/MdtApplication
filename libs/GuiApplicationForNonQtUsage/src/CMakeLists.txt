@@ -38,7 +38,7 @@ target_link_libraries(Mdt_GuiApplicationForNonQtUsage
   PUBLIC
     Mdt::Impl_ApplicationForNonQtUsage
     Qt5::Gui
-    Threads::Threads
+#     Threads::Threads
 )
 
 target_include_directories(Mdt_GuiApplicationForNonQtUsage

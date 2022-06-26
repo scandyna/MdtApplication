@@ -320,32 +320,6 @@ test_linux_gcc8_x86_64_release:
 # Linux builds and tests - OLD
 ###############################
 
-#build_linux_gcc8_x86_64_debug:
-  #variables:
-    #CONAN_PROFILE: linux_gcc8_x86_64
-    #BUILD_TYPE: Debug
-    #BUILD_SHARED_LIBS: "True"
-  #extends: .build_linux_native
-
-#test_linux_gcc8_x86_64_debug:
-  #dependencies:
-    #- build_linux_gcc8_x86_64_debug
-  #extends: .test_linux_native
-
-
-#build_linux_gcc8_x86_64_release:
-  #variables:
-    #CONAN_PROFILE: linux_gcc8_x86_64
-    #BUILD_TYPE: Release
-    #BUILD_SHARED_LIBS: "True"
-  #extends: .build_linux_native
-
-#test_linux_gcc8_x86_64_release:
-  #dependencies:
-    #- build_linux_gcc8_x86_64_release
-  #extends: .test_linux_native
-
-
 build_linux_clang6.0_x86_64_libc++_debug:
   image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-debug:latest
   variables:

@@ -269,6 +269,49 @@ test_linux_gcc7_x86_64_static_release:
     - build_linux_gcc7_x86_64_static_release
   needs: ["build_linux_gcc7_x86_64_static_release"]
 
+
+
+.buildAndTest_Linux_gcc8_x86_64_debug:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  variables:
+    CONAN_PROFILE: linux_gcc8_x86_64_qt_widgets_modules
+    BUILD_TYPE: Debug
+    BUILD_SHARED_LIBS: "True"
+
+build_linux_gcc8_x86_64_debug:
+  extends:
+    - .buildAndTest_Linux_gcc8_x86_64_debug
+    - .build_linux
+
+test_linux_gcc8_x86_64_debug:
+  extends:
+    - .buildAndTest_Linux_gcc8_x86_64_debug
+    - .test_linux
+  dependencies:
+    - build_linux_gcc8_x86_64_debug
+  needs: ["build_linux_gcc8_x86_64_debug"]
+
+
+.buildAndTest_Linux_gcc8_x86_64_release:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  variables:
+    CONAN_PROFILE: linux_gcc8_x86_64_qt_widgets_modules
+    BUILD_TYPE: Release
+    BUILD_SHARED_LIBS: "True"
+
+build_linux_gcc8_x86_64_release:
+  extends:
+    - .buildAndTest_Linux_gcc8_x86_64_release
+    - .build_linux
+
+test_linux_gcc8_x86_64_release:
+  extends:
+    - .buildAndTest_Linux_gcc8_x86_64_release
+    - .test_linux
+  dependencies:
+    - build_linux_gcc8_x86_64_release
+  needs: ["build_linux_gcc8_x86_64_release"]
+
 ###############################
 # Build & test Windows
 ###############################
@@ -277,30 +320,30 @@ test_linux_gcc7_x86_64_static_release:
 # Linux builds and tests - OLD
 ###############################
 
-build_linux_gcc8_x86_64_debug:
-  variables:
-    CONAN_PROFILE: linux_gcc8_x86_64
-    BUILD_TYPE: Debug
-    BUILD_SHARED_LIBS: "True"
-  extends: .build_linux_native
+#build_linux_gcc8_x86_64_debug:
+  #variables:
+    #CONAN_PROFILE: linux_gcc8_x86_64
+    #BUILD_TYPE: Debug
+    #BUILD_SHARED_LIBS: "True"
+  #extends: .build_linux_native
 
-test_linux_gcc8_x86_64_debug:
-  dependencies:
-    - build_linux_gcc8_x86_64_debug
-  extends: .test_linux_native
+#test_linux_gcc8_x86_64_debug:
+  #dependencies:
+    #- build_linux_gcc8_x86_64_debug
+  #extends: .test_linux_native
 
 
-build_linux_gcc8_x86_64_release:
-  variables:
-    CONAN_PROFILE: linux_gcc8_x86_64
-    BUILD_TYPE: Release
-    BUILD_SHARED_LIBS: "True"
-  extends: .build_linux_native
+#build_linux_gcc8_x86_64_release:
+  #variables:
+    #CONAN_PROFILE: linux_gcc8_x86_64
+    #BUILD_TYPE: Release
+    #BUILD_SHARED_LIBS: "True"
+  #extends: .build_linux_native
 
-test_linux_gcc8_x86_64_release:
-  dependencies:
-    - build_linux_gcc8_x86_64_release
-  extends: .test_linux_native
+#test_linux_gcc8_x86_64_release:
+  #dependencies:
+    #- build_linux_gcc8_x86_64_release
+  #extends: .test_linux_native
 
 
 build_linux_clang6.0_x86_64_libc++_debug:

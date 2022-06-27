@@ -333,17 +333,20 @@ test_linux_gcc8_x86_64_release:
   variables:
     CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
     BUILD_SHARED_LIBS: "True"
-  extends: .build_linux
 
 build_linux_clang6.0_x86_64_libc++_Debug:
   variables:
     BUILD_TYPE: Debug
-  extends: .buildAndTest_linux_clang6.0_x86_64_libc++
+  extends:
+    - .buildAndTest_linux_clang6.0_x86_64_libc++
+    - .build_linux
 
 test_linux_clang6.0_x86_64_libc++_Debug:
   variables:
     BUILD_TYPE: Debug
-  extends: .buildAndTest_linux_clang6.0_x86_64_libc++
+  extends:
+    - .buildAndTest_linux_clang6.0_x86_64_libc++
+    - .test_linux
   dependencies:
     - build_linux_clang6.0_x86_64_libc++_Debug
   needs: ["build_linux_clang6.0_x86_64_libc++_Debug"]
@@ -351,12 +354,16 @@ test_linux_clang6.0_x86_64_libc++_Debug:
 build_linux_clang6.0_x86_64_libc++_Release:
   variables:
     BUILD_TYPE: Release
-  extends: .buildAndTest_linux_clang6.0_x86_64_libc++
+  extends:
+    - .buildAndTest_linux_clang6.0_x86_64_libc++
+    - .build_linux
 
 test_linux_clang6.0_x86_64_libc++_Release:
   variables:
     BUILD_TYPE: Release
-  extends: .buildAndTest_linux_clang6.0_x86_64_libc++
+  extends:
+    - .buildAndTest_linux_clang6.0_x86_64_libc++
+    - .test_linux
   dependencies:
     - build_linux_clang6.0_x86_64_libc++_Release
   needs: ["build_linux_clang6.0_x86_64_libc++_Release"]

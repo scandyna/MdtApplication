@@ -391,25 +391,25 @@ test_linux_clang6.0_x86_64_libc++_Release:
   #extends: .test_linux
 
 
-build_linux_clang6.0_x86_64_libc++_release:
-  image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-release:latest
-  variables:
-    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
-    BUILD_TYPE: Release
-    BUILD_SHARED_LIBS: "True"
-    CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
-  extends: .build_linux
+#build_linux_clang6.0_x86_64_libc++_release:
+  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-release:latest
+  #variables:
+    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
+    #BUILD_TYPE: Release
+    #BUILD_SHARED_LIBS: "True"
+    #CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
+  #extends: .build_linux
 
-test_linux_clang6.0_x86_64_libc++_release:
-  image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-release:latest
-  variables:
-    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
-    BUILD_TYPE: Release
-    BUILD_SHARED_LIBS: "True"
-    CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
-  dependencies:
-    - build_linux_clang6.0_x86_64_libc++_release
-  extends: .test_linux
+#test_linux_clang6.0_x86_64_libc++_release:
+  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-release:latest
+  #variables:
+    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
+    #BUILD_TYPE: Release
+    #BUILD_SHARED_LIBS: "True"
+    #CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
+  #dependencies:
+    #- build_linux_clang6.0_x86_64_libc++_release
+  #extends: .test_linux
 
 
 # conan install will get the recipe for a given package on the first remote it finds

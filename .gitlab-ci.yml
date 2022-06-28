@@ -70,18 +70,6 @@ stages:
     - conan test packaging/conan/$COMPONENT/test_cmakedeps Mdt$COMPONENT/0.0.0@scandyna/testing
       --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
 
-# TODO: if above works, remove
-.conan_createAndTest_CommandLineArguments:
-  stage: build
-  script:
-    - !reference [.setup_conan, script]
-    - conan create packaging/conan/CommandLineArguments 0.0.0@scandyna/testing
-      --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE --test-folder None
-    - conan test packaging/conan/CommandLineArguments/test_package MdtCommandLineArguments/0.0.0@scandyna/testing
-      --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
-    - conan test packaging/conan/CommandLineArguments/test_cmakedeps MdtCommandLineArguments/0.0.0@scandyna/testing
-      --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
-
 .deploy_conan_base:
   stage: deploy
   rules:

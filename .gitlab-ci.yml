@@ -396,62 +396,6 @@ test_linux_clang6.0_x86_64_libc++_TSan:
 # Build & test Windows
 ###############################
 
-###############################
-# Linux builds and tests - OLD
-###############################
-
-
-# conan install will get the recipe for a given package on the first remote it finds
-# if binaries for this recipe, with settings and options, does not exist in this remote,
-# conan will fail (it will not try other remotes)
-#.build_linux_tsan:
-  #stage: build
-  #before_script:
-    #- !reference [.setup_conan, script]
-  #script:
-    #- mkdir build
-    #- cd build
-    #- conan install --profile $CONAN_PROFILE -o MdtApplication:use_conan_qt=True -o MdtApplication:gui=True ..
-    #- source activate.sh
-    #- cmake -G"Unix Makefiles" -DWARNING_AS_ERROR=ON -DSANITIZER_ENABLE_THREAD=ON
-                               #-DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL=-O1
-                               #-DBUILD_SHARED_LIBS=ON -DBUILD_USE_IPO_LTO=OFF
-                               #-DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_BENCHMARKS=ON
-                               #-DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
-                               #-DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
-                               #..
-    #- make -j4
-    #- source deactivate.sh
-  #artifacts:
-    #expire_in: 1 day
-    #paths:
-      #- build
-
-
-## Here we have to get the binaries got with conan during build
-#.test_linux_tsan:
-  #stage: test
-  #before_script:
-    #- !reference [.setup_conan, script]
-  #script:
-    #- cd build
-    #- conan install --profile $CONAN_PROFILE -o MdtApplication:use_conan_qt=True -o MdtApplication:gui=True ..
-    #- ctest --output-on-failure .
-
-
-#build_linux_clang6.0_x86_64_libc++_tsan:
-  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-tsan
-  #variables:
-    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
-  #extends: .build_linux_tsan
-
-#test_linux_clang6.0_x86_64_libc++_tsan:
-  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-tsan
-  #dependencies:
-    #- build_linux_clang6.0_x86_64_libc++_tsan
-  #variables:
-    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
-  #extends: .test_linux_tsan
 
 ###############################
 # Conan create & test Linux

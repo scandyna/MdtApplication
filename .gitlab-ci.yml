@@ -141,23 +141,23 @@ stages:
     paths:
       - build
 
-.build_linux_native:
-  stage: build
-  before_script:
-    - !reference [.setup_conan, script]
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
-  script:
-    - mkdir build
-    - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:use_conan_qt=False ..
-    - source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
-    - !reference [.cmake_configure, script]
-    - cmake --build . --config $BUILD_TYPE -j4
-    - source deactivate_conanbuild.sh
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - build
+#.build_linux_native:
+  #stage: build
+  #before_script:
+    #- !reference [.setup_conan, script]
+  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
+  #script:
+    #- mkdir build
+    #- cd build
+    #- conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:use_conan_qt=False ..
+    #- source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
+    #- !reference [.cmake_configure, script]
+    #- cmake --build . --config $BUILD_TYPE -j4
+    #- source deactivate_conanbuild.sh
+  #artifacts:
+    #expire_in: 1 day
+    #paths:
+      #- build
 
 .test_base:
   stage: test
@@ -177,15 +177,15 @@ stages:
   extends:
     - .test_base
 
-.test_linux_native:
-  stage: test
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
-  before_script:
-    - !reference [.setup_conan, script]
-  script:
-    - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:use_conan_qt=False ..
-    - ctest . --output-on-failure --verbose
+#.test_linux_native:
+  #stage: test
+  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
+  #before_script:
+    #- !reference [.setup_conan, script]
+  #script:
+    #- cd build
+    #- conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:use_conan_qt=False ..
+    #- ctest . --output-on-failure --verbose
 
 ###############################
 # Build & test Linux

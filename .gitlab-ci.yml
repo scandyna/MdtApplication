@@ -124,28 +124,6 @@ stages:
       -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
       ..
 
-#.build_linux:
-  #stage: build
-  #before_script:
-    #- !reference [.setup_conan, script]
-  #script:
-    #- mkdir build
-    #- cd build
-    #- conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:gui=True $CONAN_EXTRA_ARGUMENTS ..
-    #- source activate.sh
-    #- cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
-                               #-DBUILD_SHARED_LIBS=$BUILD_SHARED_LIBS -DBUILD_USE_IPO_LTO=OFF
-                               #-DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_BENCHMARKS=ON
-                               #-DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
-                               #-DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
-                               #..
-    #- make -j4
-    #- source deactivate.sh
-  #artifacts:
-    #expire_in: 1 day
-    #paths:
-      #- build
-
 .build_linux:
   stage: build
   before_script:
@@ -180,15 +158,6 @@ stages:
     expire_in: 1 day
     paths:
       - build
-
-#.test_linux:
-  #stage: test
-  #before_script:
-    #- !reference [.setup_conan, script]
-  #script:
-    #- cd build
-    #- conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:gui=True $CONAN_EXTRA_ARGUMENTS ..
-    #- ctest . --output-on-failure --verbose
 
 .test_base:
   stage: test

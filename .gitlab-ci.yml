@@ -369,6 +369,29 @@ test_linux_clang6.0_x86_64_libc++_Release:
   needs: ["build_linux_clang6.0_x86_64_libc++_Release"]
 
 
+.buildAndTest_linux_clang6.0_x86_64_libc++_TSan:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  variables:
+    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
+    BUILD_SHARED_LIBS: "True"
+
+build_linux_clang6.0_x86_64_libc++_TSan:
+  variables:
+    BUILD_TYPE: RelWithDebInfo
+  extends:
+    - .buildAndTest_linux_clang6.0_x86_64_libc++_TSan
+    - .build_linux
+
+test_linux_clang6.0_x86_64_libc++_TSan:
+  variables:
+    BUILD_TYPE: RelWithDebInfo
+  extends:
+    - .buildAndTest_linux_clang6.0_x86_64_libc++_TSan
+    - .test_linux
+  dependencies:
+    - build_linux_clang6.0_x86_64_libc++_TSan
+  needs: ["build_linux_clang6.0_x86_64_libc++_TSan"]
+
 ###############################
 # Build & test Windows
 ###############################
@@ -377,99 +400,58 @@ test_linux_clang6.0_x86_64_libc++_Release:
 # Linux builds and tests - OLD
 ###############################
 
-#build_linux_clang6.0_x86_64_libc++_debug:
-  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-debug:latest
-  #variables:
-    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
-    #BUILD_TYPE: Debug
-    #BUILD_SHARED_LIBS: "True"
-    #CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
-  #extends: .build_linux
-
-#test_linux_clang6.0_x86_64_libc++_debug:
-  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-debug:latest
-  #variables:
-    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
-    #BUILD_TYPE: Debug
-    #BUILD_SHARED_LIBS: "True"
-    #CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
-  #dependencies:
-    #- build_linux_clang6.0_x86_64_libc++_debug
-  #extends: .test_linux
-
-
-#build_linux_clang6.0_x86_64_libc++_release:
-  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-release:latest
-  #variables:
-    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
-    #BUILD_TYPE: Release
-    #BUILD_SHARED_LIBS: "True"
-    #CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
-  #extends: .build_linux
-
-#test_linux_clang6.0_x86_64_libc++_release:
-  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-release:latest
-  #variables:
-    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
-    #BUILD_TYPE: Release
-    #BUILD_SHARED_LIBS: "True"
-    #CONAN_EXTRA_ARGUMENTS: -o MdtApplication:use_conan_qt=True
-  #dependencies:
-    #- build_linux_clang6.0_x86_64_libc++_release
-  #extends: .test_linux
-
 
 # conan install will get the recipe for a given package on the first remote it finds
 # if binaries for this recipe, with settings and options, does not exist in this remote,
 # conan will fail (it will not try other remotes)
-.build_linux_tsan:
-  stage: build
-  before_script:
-    - !reference [.setup_conan, script]
-  script:
-    - mkdir build
-    - cd build
-    - conan install --profile $CONAN_PROFILE -o MdtApplication:use_conan_qt=True -o MdtApplication:gui=True ..
-    - source activate.sh
-    - cmake -G"Unix Makefiles" -DWARNING_AS_ERROR=ON -DSANITIZER_ENABLE_THREAD=ON
-                               -DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL=-O1
-                               -DBUILD_SHARED_LIBS=ON -DBUILD_USE_IPO_LTO=OFF
-                               -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_BENCHMARKS=ON
-                               -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
-                               -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
-                               ..
-    - make -j4
-    - source deactivate.sh
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - build
+#.build_linux_tsan:
+  #stage: build
+  #before_script:
+    #- !reference [.setup_conan, script]
+  #script:
+    #- mkdir build
+    #- cd build
+    #- conan install --profile $CONAN_PROFILE -o MdtApplication:use_conan_qt=True -o MdtApplication:gui=True ..
+    #- source activate.sh
+    #- cmake -G"Unix Makefiles" -DWARNING_AS_ERROR=ON -DSANITIZER_ENABLE_THREAD=ON
+                               #-DCMAKE_BUILD_TYPE=Instrumented -DBUILD_TYPE_INSTRUMENTED_OPTIMIZATION_LEVEL=-O1
+                               #-DBUILD_SHARED_LIBS=ON -DBUILD_USE_IPO_LTO=OFF
+                               #-DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON -DBUILD_BENCHMARKS=ON
+                               #-DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
+                               #-DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
+                               #..
+    #- make -j4
+    #- source deactivate.sh
+  #artifacts:
+    #expire_in: 1 day
+    #paths:
+      #- build
 
 
-# Here we have to get the binaries got with conan during build
-.test_linux_tsan:
-  stage: test
-  before_script:
-    - !reference [.setup_conan, script]
-  script:
-    - cd build
-    - conan install --profile $CONAN_PROFILE -o MdtApplication:use_conan_qt=True -o MdtApplication:gui=True ..
-    - ctest --output-on-failure .
+## Here we have to get the binaries got with conan during build
+#.test_linux_tsan:
+  #stage: test
+  #before_script:
+    #- !reference [.setup_conan, script]
+  #script:
+    #- cd build
+    #- conan install --profile $CONAN_PROFILE -o MdtApplication:use_conan_qt=True -o MdtApplication:gui=True ..
+    #- ctest --output-on-failure .
 
 
-build_linux_clang6.0_x86_64_libc++_tsan:
-  image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-tsan
-  variables:
-    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
-  extends: .build_linux_tsan
+#build_linux_clang6.0_x86_64_libc++_tsan:
+  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-tsan
+  #variables:
+    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
+  #extends: .build_linux_tsan
 
-test_linux_clang6.0_x86_64_libc++_tsan:
-  image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-tsan
-  dependencies:
-    - build_linux_clang6.0_x86_64_libc++_tsan
-  variables:
-    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
-  extends: .test_linux_tsan
+#test_linux_clang6.0_x86_64_libc++_tsan:
+  #image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp-qt-5.14.2-widgets-clang6.0-tsan
+  #dependencies:
+    #- build_linux_clang6.0_x86_64_libc++_tsan
+  #variables:
+    #CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
+  #extends: .test_linux_tsan
 
 ###############################
 # Conan create & test Linux

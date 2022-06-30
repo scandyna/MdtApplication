@@ -4,6 +4,12 @@
 
 Below is a list of available packages for the various components of MdtApplication.
 
+Note that only the [CMakeDeps](https://docs.conan.io/en/latest/reference/conanfile/tools/cmake/cmakedeps.html)
+generator, and its associated tools is supported.
+This is mainly because the Qt package from [Conan center](https://conan.io/center/) is used,
+which does not support the legacy generators like [cmake](https://docs.conan.io/en/latest/reference/generators/cmake.html).
+For more details, see [Conan and CMake](https://scandyna.gitlab.io/mdt-cmake-modules/ConanAndCMake.html).
+
 You may want to use a official [Qt distribution](https://www.qt.io/download) for your prjects.
 In that case, the `use_conan_qt` option can be used:
 ```bash

@@ -1,4 +1,8 @@
 
+# Changelog
+
+See https://github.com/olivierlacan/keep-a-changelog
+
 # CMake
 
 Should sepcify LANGUAGES CXX in project()
@@ -9,6 +13,13 @@ cmake_installer[>=3.14]@conan/stable
 Also update README (activate)
 
 Note: this should not affect when used as installed library
+
+# Conan
+
+Update main conanfile.py
+(does not produces packages anymore)
+
+Remove conan gui option
 
 # Conant install
 
@@ -23,6 +34,11 @@ then 1 conanfile.py per library ?
 # CI
 
 Use new docker images
+
+See parallel:
+    matrix:
+    https://docs.gitlab.com/ee/ci/yaml/
+Will probably only work for deploy, because of depends (and needs)
 
 # Optimisation
 

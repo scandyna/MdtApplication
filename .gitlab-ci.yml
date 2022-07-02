@@ -59,6 +59,13 @@ stages:
     - conan remote add scandyna https://gitlab.com/api/v4/projects/25668674/packages/conan
     - conan config install --source-folder conan https://gitlab.com/scandyna/conan-config.git
 
+# TODO: remove test_cmakedeps
+#  TODO: update CommandLineArguments test
+# Hmm.. NOT to fast !
+# If we use Conan qt (default), we have to use modern generators, like CMakeDeps
+# Hmm.. 2: should check with CMakeDeps that Non Conan Qt works.
+#  Will probably mean to provide our build module..
+# Try, like .conan_createAndTest_Qt_Native ?
 .conan_createAndTest:
   stage: build
   script:
@@ -112,8 +119,20 @@ stages:
       -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
       ..
 
+.buildAndTest_rules:
+  rules:
+    - changes:
+      - .gitlab-ci.yml
+      - "*.cpp"
+      - CMakeLists.txt
+      - conanfile.py
+      - examples/**
+      - libs/**
+
 .build_linux:
   stage: build
+  rules:
+    - !reference [.buildAndTest_rules, rules]
   before_script:
     - !reference [.setup_conan, script]
   script:
@@ -149,6 +168,8 @@ stages:
 
 .test_base:
   stage: test
+  rules:
+    - !reference [.buildAndTest_rules, rules]
   before_script:
     - !reference [.setup_conan, script]
   script:

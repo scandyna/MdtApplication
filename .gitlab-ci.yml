@@ -128,7 +128,7 @@ stages:
       - conanfile.py
       - examples/**
       - libs/**
-      when: manual
+      when: never
 
 .build_linux:
   stage: build

@@ -20,6 +20,8 @@
 ########################################################################################
 include(MdtAddTest)
 
+# Try CI rules:changes:
+
 mdt_add_test(
   NAME Impl_ApplicationForNonQtUsageTest
   TARGET impl_ApplicationForNonQtUsageTest

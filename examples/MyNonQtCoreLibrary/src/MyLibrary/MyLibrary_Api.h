@@ -21,8 +21,6 @@
 #ifndef MYLIBRARY_MYLIBRARY_API_H
 #define MYLIBRARY_MYLIBRARY_API_H
 
-/// Try CI
-
 #include "MyLibraryError.h"
 #include "mynonqtcorelibrary_export.h"
 #include <QObject>

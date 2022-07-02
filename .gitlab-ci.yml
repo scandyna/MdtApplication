@@ -120,8 +120,8 @@ stages:
       - "*.cpp"
       - CMakeLists.txt
       - conanfile.py
-      - examples/**
-      - libs/**
+      - examples/**/*
+      - libs/**/*
       when: always
 
 .build_linux:
@@ -533,6 +533,8 @@ deploy_conan_CommandLineArguments:
 
 .build_windows:
   stage: build
+  rules:
+    - !reference [.buildAndTest_rules, rules]
   extends:
     - .windows_runner
   before_script:
@@ -562,6 +564,8 @@ deploy_conan_CommandLineArguments:
 # Here we have to get the binaries got with conan during build
 .test_windows:
   stage: test
+  rules:
+    - !reference [.buildAndTest_rules, rules]
   extends:
     - .windows_runner
   before_script:

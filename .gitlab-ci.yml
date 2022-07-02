@@ -122,7 +122,6 @@ stages:
 .buildAndTest_rules:
   rules:
     - changes:
-      - .gitlab-ci.yml
       - "*.cpp"
       - CMakeLists.txt
       - conanfile.py

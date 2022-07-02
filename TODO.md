@@ -40,8 +40,6 @@ See parallel:
     https://docs.gitlab.com/ee/ci/yaml/
 Will probably only work for deploy, because of depends (and needs)
 
-TRY CI CHANGES
-
 # Optimisation
 
 Should add BUILD_USE_IPO_LTO_IF_AVAILABLE in CMakeLists.txt and turn it ON in conanfile.py

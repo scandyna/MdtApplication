@@ -113,7 +113,7 @@ See [INSTALL](INSTALL.md).
 Then, configure your project and specify
 the path of the installed MdtApplication and the dependencies:
 ```bash
-cmake -DCMAKE_PREFIX_PATH="/some/path/MdtApplication;/some/path/MdtCMakeConfig;/some/path/qt/Qt5/5.15.2/gcc_64" ..
+cmake -DCMAKE_PREFIX_PATH="/some/path/MdtApplication;/some/path/MdtCMakeConfig;/some/path/MdtCMakeModules;/some/path/qt/Qt5/5.15.2/gcc_64" ..
 ```
 
 # Work on MdtApplication

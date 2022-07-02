@@ -61,11 +61,6 @@ stages:
 
 # TODO: remove test_cmakedeps
 #  TODO: update CommandLineArguments test
-# Hmm.. NOT to fast !
-# If we use Conan qt (default), we have to use modern generators, like CMakeDeps
-# Hmm.. 2: should check with CMakeDeps that Non Conan Qt works.
-#  Will probably mean to provide our build module..
-# Try, like .conan_createAndTest_Qt_Native ?
 .conan_createAndTest:
   stage: build
   script:

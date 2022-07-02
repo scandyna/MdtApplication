@@ -14,11 +14,9 @@ class MdtApplicationConan(ConanFile):
   settings = "os", "compiler", "build_type", "arch"
   # TODO: remove gui option
   options = {"shared": [True, False],
-             "gui": [True, False],
-             "use_conan_qt": [True, False]}
+             "gui": [True, False]}
   default_options = {"shared": True,
-                     "gui": True,
-                     "use_conan_qt": True}
+                     "gui": True}
   # TODO fix once issue solved
   # Due to a issue using GitLab Conan repository,
   # version ranges are not possible.
@@ -58,17 +56,15 @@ class MdtApplicationConan(ConanFile):
 
   def requirements(self):
 
-    # The main usage of using conan Qt package is for TSan builds TODO: not true
     # Building 5.14.x causes currently problems (8.04.2020)
     # As workaround, try fix a known version that we can build
     # Take a Qt version that we have in our Docker images
     # Hmm, now try to use package from conan-center (20.04.2022)
-    if self.options.use_conan_qt:
-      self.requires("qt/5.15.2")
-      #self.requires("qt/5.14.2@bincrafters/stable")
-      #self.requires("qt/5.12.7@bincrafters/stable")
-      #if self.options.gui:
-        #self.options["qt"].GUI = True
+    self.requires("qt/5.15.2")
+    #self.requires("qt/5.14.2@bincrafters/stable")
+    #self.requires("qt/5.12.7@bincrafters/stable")
+    #if self.options.gui:
+      #self.options["qt"].GUI = True
 
   #def generate(self):
       #cmake = CMakeDeps(self)
@@ -118,7 +114,9 @@ class MdtApplicationConan(ConanFile):
         tc.variables["SANITIZER_ENABLE_THREAD"] = "ON"
     tc.generate()
 
-
+  # TODO: should throw a exception,
+  # because this recipe cannot be used to create packages
+  # TODO: see validate() ?
   def build(self):
     #cmake = self.configure_cmake()
     cmake = CMake(self)

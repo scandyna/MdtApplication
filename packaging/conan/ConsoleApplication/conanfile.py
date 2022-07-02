@@ -9,6 +9,8 @@ class MdtCommandLineArgumentsConan(ConanFile):
   url = "https://gitlab.com/scandyna/mdtapplication"
   description = "Helpers to create console application with Qt"
   settings = "os", "compiler", "build_type", "arch"
+  options = {"shared": [True, False]}
+  default_options = {"shared": True}
   generators = "CMakeDeps", "VirtualBuildEnv"
   # If no_copy_source is False, conan copies sources to build directory and does in-source build,
   # resulting having build files installed in the package

@@ -56,15 +56,6 @@ Here are the available options:
 | -----------------|:------- |:----------------:|--------------|
 | shared           | True    |  [True, False]   | Build as shared library |
 | gui              | True    |  [True, False]   | Include the libraries that depends on QtGui |
-| use_conan_qt     | True    |  [True, False]   | Use [conan Qt](https://conan.io/center/qt) as conan dependency |
-
-You may want to use a official [Qt distribution](https://www.qt.io/download) for your prjects.
-In that case, the `use_conan_qt` option can be used:
-```bash
-conan <command> ... -o MdtApplication:use_conan_qt=False ...
-```
-In such case, you have to care yourself to use the same qt distribution (arch, version, etc..)
-for each part of your projects.
 
 ### Using Conan profiles
 

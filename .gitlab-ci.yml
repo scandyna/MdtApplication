@@ -2,6 +2,10 @@
 # Runners + global parts
 ###############################
 
+include:
+  local:
+    - 'ci_cd/GitLab/ConanTemplates.yml'
+
 # GitLab shared new Windows runners
 # They currently not support Docker engine
 #.windows_runner:
@@ -122,6 +126,8 @@ stages:
       - conanfile.py
       - examples/**/*
       - libs/**/*
+      - .gitlab-ci.yml
+      - ci_cd/GitLab/*
       when: always
 
 .build_linux:

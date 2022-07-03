@@ -1,0 +1,32 @@
+
+include:
+  - local: 'ConanTemplates.yml'
+
+
+###############################
+# Conan create & test Linux
+###############################
+
+conan_createAndTest_CommandLineArguments_linux_gcc7_x86_64_debug:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  variables:
+    COMPONENT: CommandLineArguments
+    CONAN_PROFILE: linux_gcc7_x86_64
+    BUILD_TYPE: Debug
+  extends: .conan_createAndTest
+
+conan_createAndTest_ConsoleApplication_linux_gcc7_x86_64_debug:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  variables:
+    COMPONENT: ConsoleApplication
+    CONAN_PROFILE: linux_gcc7_x86_64_qt_widgets_modules
+    BUILD_TYPE: Debug
+  extends: .conan_createAndTest
+
+#conan_linux_gcc7_x86_64_debug:
+  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
+  #variables:
+    #CONAN_PROFILE: linux_gcc7_x86_64_qt_core
+    #BUILD_TYPE: Debug
+    #BUILD_SHARED_LIBS: "True"
+  #extends: .conan_createAndTest

@@ -3,6 +3,7 @@
 ###############################
 
 include:
+  - local: 'ci_cd/GitLab/BuildAndTest_Templates.yml'
   - local: 'ci_cd/GitLab/ConanTemplates.yml'
   - local: 'ci_cd/GitLab/Conan_CreateAndTest.yml'
 
@@ -52,103 +53,6 @@ stages:
     #- conan upload MdtApplication/* --remote scandyna --all -c
     ##- conan upload _Project_name_/* --remote scandyna --all -c
     ##- conan remote update scandyna https://api.bintray.com/conan/scandyna/public-conan --insert 0 # Check for package in scandyna first
-
-###############################
-# Build & test templates
-###############################
-
-.cmake_configure:
-  script:
-    # The toolchain file expression has to be quoted when using Powershell
-    # See https://gitlab.kitware.com/cmake/cmake/-/issues/23109
-    - cmake "-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake"
-      -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
-      -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
-      -DENABLE_COMMAND_LINE_ARGUMENTS=ON
-      -DENABLE_CONSOLE_APPLICATION=ON
-      -DBUILD_TESTS=ON -DBUILD_BENCHMARKS=ON -DBUILD_EXAMPLES=ON
-      -DBUILD_SHARED_LIBS=$BUILD_SHARED_LIBS -DBUILD_USE_IPO_LTO=OFF
-      -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
-      ..
-
-.buildAndTest_rules:
-  rules:
-    - changes:
-      - "*.cpp"
-      - CMakeLists.txt
-      - conanfile.py
-      - examples/**/*
-      - libs/**/*
-      - .gitlab-ci.yml
-      - ci_cd/GitLab/*
-      when: always
-
-.build_linux:
-  stage: build
-  rules:
-    - !reference [.buildAndTest_rules, rules]
-  before_script:
-    - !reference [.setup_conan, script]
-  script:
-    - mkdir build
-    - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS ..
-    - source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
-    - !reference [.cmake_configure, script]
-    - cmake --build . --config $BUILD_TYPE -j4
-    - source deactivate_conanbuild.sh
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - build
-
-#.build_linux_native:
-  #stage: build
-  #before_script:
-    #- !reference [.setup_conan, script]
-  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
-  #script:
-    #- mkdir build
-    #- cd build
-    #- conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:use_conan_qt=False ..
-    #- source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
-    #- !reference [.cmake_configure, script]
-    #- cmake --build . --config $BUILD_TYPE -j4
-    #- source deactivate_conanbuild.sh
-  #artifacts:
-    #expire_in: 1 day
-    #paths:
-      #- build
-
-.test_base:
-  stage: test
-  rules:
-    - !reference [.buildAndTest_rules, rules]
-  before_script:
-    - !reference [.setup_conan, script]
-  script:
-    - cd build
-    - conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS ..
-    - ctest --output-on-failure -C $BUILD_TYPE
-  artifacts:
-    when: on_failure
-    expire_in: 1 week
-    paths:
-      - build
-
-.test_linux:
-  extends:
-    - .test_base
-
-#.test_linux_native:
-  #stage: test
-  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest
-  #before_script:
-    #- !reference [.setup_conan, script]
-  #script:
-    #- cd build
-    #- conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS -o MdtApplication:use_conan_qt=False ..
-    #- ctest . --output-on-failure --verbose
 
 ###############################
 # Build & test Linux

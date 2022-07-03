@@ -2,15 +2,30 @@
 # Conan templates
 ###############################
 
+# NOTE: paths are relative to the .gitlab-ci.yml (i.e. the root of the project)
+
 .setup_conan:
   script:
     - conan remote add scandyna https://gitlab.com/api/v4/projects/25668674/packages/conan
     - conan config install --source-folder conan https://gitlab.com/scandyna/conan-config.git
 
+.conan_createAndTest_rules:
+  rules:
+    - changes:
+      - .gitlab-ci.yml
+      - ci_cd/GitLab/*
+      - CMakeLists.txt
+      - conanfile.py
+      - libs/**/*
+      - packaging/conan/**/*
+      when: always
+
 # TODO: remove test_cmakedeps
 #  TODO: update CommandLineArguments test
 .conan_createAndTest:
   stage: build
+  rules:
+    - !reference [.conan_createAndTest_rules, rules]
   script:
     - !reference [.setup_conan, script]
     - conan create packaging/conan/$COMPONENT 0.0.0@scandyna/testing

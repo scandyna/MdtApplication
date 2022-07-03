@@ -2,6 +2,8 @@
 # Conan create & test Linux
 ###############################
 
+# NOTE: paths are relative to the .gitlab-ci.yml (i.e. the root of the project)
+
 conan_createAndTest_CommandLineArguments_linux_gcc7_x86_64_debug:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:

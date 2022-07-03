@@ -1,1 +1,45 @@
+###############################
+# Conan templates
+###############################
 
+.setup_conan:
+  script:
+    - conan remote add scandyna https://gitlab.com/api/v4/projects/25668674/packages/conan
+    - conan config install --source-folder conan https://gitlab.com/scandyna/conan-config.git
+
+# TODO: remove test_cmakedeps
+#  TODO: update CommandLineArguments test
+.conan_createAndTest:
+  stage: build
+  script:
+    - !reference [.setup_conan, script]
+    - conan create packaging/conan/$COMPONENT 0.0.0@scandyna/testing
+      --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE --test-folder None
+    - conan test packaging/conan/$COMPONENT/test_package Mdt$COMPONENT/0.0.0@scandyna/testing
+      --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
+    - conan test packaging/conan/$COMPONENT/test_cmakedeps Mdt$COMPONENT/0.0.0@scandyna/testing
+      --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
+
+.deploy_conan_base:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+    - when: never
+  before_script:
+    - !reference [.setup_conan, script]
+
+.deploy_conan_CommandLineArguments:
+  extends:
+    - .deploy_conan_base
+  script:
+    - conan create packaging/conan/CommandLineArguments scandyna/testing
+      --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
+      --test-folder None
+    - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
+    - conan upload MdtCommandLineArguments/* --remote scandyna --all -c
+
+.deploy_conan_CommandLineArguments_Windows:
+  extends:
+    - .deploy_conan_CommandLineArguments
+    - .windows_runner

@@ -1,0 +1,138 @@
+############################################
+# Build & test Windows MSVC 16 2019 X86_64
+############################################
+
+.buildAndTest_Windows_msvc16_x86_64:
+  image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-msvc2019:latest
+  variables:
+    CONAN_PROFILE: windows_msvc16_x86_64_qt_widgets_modules
+    BUILD_SHARED_LIBS: "True"
+
+build_Windows_msvc16_x86_64_Debug:
+  variables:
+    BUILD_TYPE: Debug
+  extends:
+    - .buildAndTest_Windows_msvc16_x86_64
+    - .build_windows
+
+test_Windows_msvc16_x86_64_Debug:
+  variables:
+    BUILD_TYPE: Debug
+  extends:
+    - .buildAndTest_Windows_msvc16_x86_64
+    - .test_windows
+  dependencies:
+    - build_Windows_msvc16_x86_64_Debug
+  needs: ["build_Windows_msvc16_x86_64_Debug"]
+
+#build_windows_msvc16_x86_64_debug:
+  #image: image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-msvc2019:latest
+  #variables:
+    #CONAN_PROFILE: windows_msvc16_x86_64
+    #BUILD_TYPE: Debug
+    #BUILD_SHARED_LIBS: "True"
+    #CMAKE_GENERATOR: "Visual Studio 16 2019"
+    #CMAKE_GENERATOR_EXTRA_ARGS: -Ax64
+    #QT_PREFIX_PATH: "C:/Qt/5.14.2/msvc2017_64"
+  #extends: .build_windows
+
+#test_windows_msvc16_x86_64_debug:
+  #image: registry.gitlab.com/scandyna/docker-images/windows-cpp-qt-5.14.2-win64_msvc2017_64:latest
+  #variables:
+    #CONAN_PROFILE: windows_msvc16_x86_64
+    #BUILD_TYPE: Debug
+  #dependencies:
+    #- build_windows_msvc16_x86_64_debug
+  #extends: .test_windows
+
+############################################
+# Build & test Windows Gcc 7 (MinGW) X86_64
+############################################
+
+.buildAndTest_Windows_gcc7_x86_64:
+  image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-win64_mingw73:latest
+  variables:
+    CONAN_PROFILE: windows_gcc7_x86_64_qt_widgets_modules
+    BUILD_SHARED_LIBS: "True"
+
+build_Windows_gcc7_x86_64_Debug:
+  variables:
+    BUILD_TYPE: Debug
+  extends:
+    - .buildAndTest_Windows_gcc7_x86_64
+    - .build_windows
+
+test_Windows_gcc7_x86_64_Debug:
+  variables:
+    BUILD_TYPE: Debug
+  extends:
+    - .buildAndTest_Windows_gcc7_x86_64
+    - .test_windows
+  dependencies:
+    - build_Windows_gcc7_x86_64_Debug
+  needs: ["build_Windows_gcc7_x86_64_Debug"]
+
+#build_windows_gcc7_x86_64_debug:
+  #image: registry.gitlab.com/scandyna/docker-images/windows-cpp-qt-5.14.2-win64_mingw73:latest
+  #variables:
+    #CONAN_PROFILE: windows_gcc7_x86_64
+    #BUILD_TYPE: Debug
+    #BUILD_SHARED_LIBS: "True"
+    #CMAKE_GENERATOR: "MinGW Makefiles"
+    #QT_PREFIX_PATH: "C:/Qt/5.14.2/mingw73_64"
+  #extends: .build_windows
+
+#test_windows_gcc7_x86_64_debug:
+  #image: registry.gitlab.com/scandyna/docker-images/windows-cpp-qt-5.14.2-win64_mingw73:latest
+  #variables:
+    #CONAN_PROFILE: windows_gcc7_x86_64
+    #BUILD_TYPE: Debug
+  #dependencies:
+    #- build_windows_gcc7_x86_64_debug
+  #extends: .test_windows
+
+##################################################
+# Build & test Windows Gcc 7 (MinGW) X86 (32 bit)
+##################################################
+
+.buildAndTest_Windows_gcc7_x86_32:
+  image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-win32_mingw73:latest
+  variables:
+    CONAN_PROFILE: windows_gcc7_x86_qt_widgets_modules
+    BUILD_SHARED_LIBS: "True"
+
+build_Windows_gcc7_x86_32_Debug:
+  variables:
+    BUILD_TYPE: Debug
+  extends:
+    - .buildAndTest_Windows_gcc7_x86_32
+    - .build_windows
+
+test_Windows_gcc7_x86_32_Debug:
+  variables:
+    BUILD_TYPE: Debug
+  extends:
+    - .buildAndTest_Windows_gcc7_x86_32
+    - .test_windows
+  dependencies:
+    - build_Windows_gcc7_x86_32_Debug
+  needs: ["build_Windows_gcc7_x86_32_Debug"]
+
+#build_windows_gcc7_x86_32_debug:
+  #image: registry.gitlab.com/scandyna/docker-images/windows-cpp-qt-5.14.2-win32_mingw73:latest
+  #variables:
+    #CONAN_PROFILE: windows_gcc7_x86
+    #BUILD_TYPE: Debug
+    #BUILD_SHARED_LIBS: "True"
+    #CMAKE_GENERATOR: "MinGW Makefiles"
+    #QT_PREFIX_PATH: "C:/Qt/5.14.2/mingw73_32"
+  #extends: .build_windows
+
+#test_windows_gcc7_x86_32_debug:
+  #image: registry.gitlab.com/scandyna/docker-images/windows-cpp-qt-5.14.2-win32_mingw73:latest
+  #variables:
+    #CONAN_PROFILE: windows_gcc7_x86
+    #BUILD_TYPE: Debug
+  #dependencies:
+    #- build_windows_gcc7_x86_32_debug
+  #extends: .test_windows

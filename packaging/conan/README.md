@@ -98,7 +98,7 @@ all worked by adding dependencies to the `CMAKE_PREFIX_PATH` and using upstream 
 
 All seemed to work, because I allways used the same Qt distribution (on my machine, on the CI).
 
-One day, I had compile errors, thaks to Qt, that checks versions.
+One day, I had compile errors, thanks to Qt, that checks versions.
 
 ### Current status
 

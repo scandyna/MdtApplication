@@ -20,8 +20,6 @@
       - packaging/conan/**/*
       when: always
 
-# TODO: remove test_cmakedeps
-#  TODO: update CommandLineArguments test
 .conan_createAndTest:
   stage: build
   rules:
@@ -31,8 +29,6 @@
     - conan create packaging/conan/$COMPONENT 0.0.0@scandyna/testing
       --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE --test-folder None
     - conan test packaging/conan/$COMPONENT/test_package Mdt$COMPONENT/0.0.0@scandyna/testing
-      --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
-    - conan test packaging/conan/$COMPONENT/test_cmakedeps Mdt$COMPONENT/0.0.0@scandyna/testing
       --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
 
 .deploy_conan_base:

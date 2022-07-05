@@ -10,8 +10,8 @@ class MdtConsoleApplicationTest(ConanFile):
     self.tool_requires("MdtCMakeModules/0.18.0@scandyna/testing", force_host_context=True)
 
   # source() and export_source() are not called
-  def layout(self):
-    cmake_layout(self, src_folder="../test_package")
+  #def layout(self):
+    #cmake_layout(self, src_folder="../test_package")
 
   def generate(self):
     tc = CMakeToolchain(self)

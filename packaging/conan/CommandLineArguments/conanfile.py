@@ -34,7 +34,7 @@ class MdtCommandLineArgumentsConan(ConanFile):
     self.output.info( "%s: version is %s" % (self.name, self.version) )
 
   def requirements(self):
-    self.requires("MdtCMakeConfig/0.0.3@scandyna/testing")
+    self.requires("MdtCMakeConfig/0.0.5@scandyna/testing")
 
   # When using --profile:build xx and --profile:host xx ,
   # the dependencies declared in build_requires and tool_requires
@@ -47,7 +47,7 @@ class MdtCommandLineArgumentsConan(ConanFile):
     # Due to a issue using GitLab Conan repository,
     # version ranges are not possible.
     # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
-    self.tool_requires("MdtCMakeModules/0.18.0@scandyna/testing", force_host_context=True)
+    self.tool_requires("MdtCMakeModules/0.18.1@scandyna/testing", force_host_context=True)
 
   # The export exports_sources attributes does not work if the conanfile.py is in a sub-folder.
   # See https://github.com/conan-io/conan/issues/3635

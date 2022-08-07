@@ -86,8 +86,7 @@ class MdtApplicationConan(ConanFile):
     # version ranges are not possible.
     # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
     self.tool_requires("catch2/2.13.9", force_host_context=True)
-    # TODO: SANDBOX, set to real MdtCMakeModules version
-    self.tool_requires("MdtCMakeModules/0.18.0@scandyna/testing", force_host_context=True)
+    self.tool_requires("MdtCMakeModules/0.18.1@scandyna/testing", force_host_context=True)
 
   # TODO: use generate()
   #def configure_cmake(self):

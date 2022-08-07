@@ -17,7 +17,7 @@
       -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWARNING_AS_ERROR=ON
       ..
 
-.buildAndTest_rules:
+.build_rules:
   rules:
     - changes:
       - "*.cpp"
@@ -32,7 +32,7 @@
 .build_linux:
   stage: build
   rules:
-    - !reference [.buildAndTest_rules, rules]
+    - !reference [.build_rules, rules]
   before_script:
     - !reference [.setup_conan, script]
   script:
@@ -68,8 +68,8 @@
 
 .test_base:
   stage: test
-  rules:
-    - !reference [.buildAndTest_rules, rules]
+  #rules:
+    #- !reference [.buildAndTest_rules, rules]
   before_script:
     - !reference [.setup_conan, script]
   script:
@@ -99,7 +99,7 @@
 .build_windows:
   stage: build
   rules:
-    - !reference [.buildAndTest_rules, rules]
+    - !reference [.build_rules, rules]
   extends:
     - .windows_runner
   before_script:

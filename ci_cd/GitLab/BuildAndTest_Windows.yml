@@ -5,7 +5,8 @@
 .buildAndTest_Windows_msvc16_x86_64:
   image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-msvc2019:latest
   variables:
-    CONAN_PROFILE: windows_msvc16_x86_64_qt_widgets_modules
+    CONAN_PROFILE_BUILD: windows_msvc16_x86_64
+    CONAN_PROFILE_HOST: windows_msvc16_x86_64_qt_widgets_modules
     BUILD_SHARED_LIBS: "True"
 
 build_Windows_msvc16_x86_64_Debug:
@@ -52,7 +53,8 @@ test_Windows_msvc16_x86_64_Debug:
 .buildAndTest_Windows_gcc7_x86_64:
   image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-win64_mingw73:latest
   variables:
-    CONAN_PROFILE: windows_gcc7_x86_64_qt_widgets_modules
+    CONAN_PROFILE_BUILD: windows_gcc7_x86_64
+    CONAN_PROFILE_HOST: windows_gcc7_x86_64_qt_widgets_modules
     BUILD_SHARED_LIBS: "True"
 
 build_Windows_gcc7_x86_64_Debug:
@@ -98,7 +100,8 @@ test_Windows_gcc7_x86_64_Debug:
 .buildAndTest_Windows_gcc7_x86_32:
   image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-win32_mingw73:latest
   variables:
-    CONAN_PROFILE: windows_gcc7_x86_qt_widgets_modules
+    CONAN_PROFILE_BUILD: windows_gcc7_x86
+    CONAN_PROFILE_HOST: windows_gcc7_x86_qt_widgets_modules
     BUILD_SHARED_LIBS: "True"
 
 build_Windows_gcc7_x86_32_Debug:

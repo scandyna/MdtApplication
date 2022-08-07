@@ -5,7 +5,8 @@
 .buildAndTest_Linux_gcc7_x86_64_debug:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE: linux_gcc7_x86_64_qt_widgets_modules
+    CONAN_PROFILE_BUILD: linux_gcc7_x86_64
+    CONAN_PROFILE_HOST: linux_gcc7_x86_64_qt_widgets_modules
     BUILD_TYPE: Debug
     BUILD_SHARED_LIBS: "True"
 
@@ -26,7 +27,8 @@ test_linux_gcc7_x86_64_debug:
 .buildAndTest_Linux_gcc7_x86_64_release:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE: linux_gcc7_x86_64_qt_widgets_modules
+    CONAN_PROFILE_BUILD: linux_gcc7_x86_64
+    CONAN_PROFILE_HOST: linux_gcc7_x86_64_qt_widgets_modules
     BUILD_TYPE: Release
     BUILD_SHARED_LIBS: "True"
 
@@ -47,7 +49,8 @@ test_linux_gcc7_x86_64_release:
 .buildAndTest_Linux_gcc7_x86_64_static_release:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE: linux_gcc7_x86_64_qt_widgets_modules
+    CONAN_PROFILE_BUILD: linux_gcc7_x86_64
+    CONAN_PROFILE_HOST: linux_gcc7_x86_64_qt_widgets_modules
     BUILD_TYPE: Release
     BUILD_SHARED_LIBS: "False"
 
@@ -71,7 +74,8 @@ test_linux_gcc7_x86_64_static_release:
 .buildAndTest_Linux_gcc8_x86_64_debug:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE: linux_gcc8_x86_64_qt_widgets_modules
+    CONAN_PROFILE_BUILD: linux_gcc8_x86_64
+    CONAN_PROFILE_HOST: linux_gcc8_x86_64_qt_widgets_modules
     BUILD_TYPE: Debug
     BUILD_SHARED_LIBS: "True"
 
@@ -92,7 +96,8 @@ test_linux_gcc8_x86_64_debug:
 .buildAndTest_Linux_gcc8_x86_64_release:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE: linux_gcc8_x86_64_qt_widgets_modules
+    CONAN_PROFILE_BUILD: linux_gcc8_x86_64
+    CONAN_PROFILE_HOST: linux_gcc8_x86_64_qt_widgets_modules
     BUILD_TYPE: Release
     BUILD_SHARED_LIBS: "True"
 
@@ -116,7 +121,8 @@ test_linux_gcc8_x86_64_release:
 .buildAndTest_linux_clang6.0_x86_64_libc++:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_qt_widgets_modules
+    CONAN_PROFILE_BUILD: linux_clang6.0_x86_64_libc++
+    CONAN_PROFILE_HOST: linux_clang6.0_x86_64_libc++_qt_widgets_modules
     BUILD_SHARED_LIBS: "True"
 
 build_linux_clang6.0_x86_64_libc++_Debug:
@@ -160,7 +166,8 @@ test_linux_clang6.0_x86_64_libc++_Release:
 .buildAndTest_linux_clang6.0_x86_64_libc++_TSan:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
+    CONAN_PROFILE_BUILD: linux_clang6.0_x86_64_libc++
+    CONAN_PROFILE_HOST: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
     BUILD_SHARED_LIBS: "True"
 
 build_linux_clang6.0_x86_64_libc++_TSan:

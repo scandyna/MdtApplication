@@ -93,8 +93,7 @@ The new CMakeToolchain generator creates a `conan_toolchain.cmake` which will be
 ```bash
 cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake ..
 ```
-This will set some flags, like `CMAKE_CXX_FLAGS_INIT`
-and also the `CMAKE_BUILD_TYPE` (for non multi-config CMake generators).
+This will set some flags, like `CMAKE_CXX_FLAGS_INIT`.
 
 Note: the compiler (like `CMAKE_CXX_COMPILER`) is not set in the generated toolchain file.
 See also: https://github.com/conan-io/conan/issues/9962
@@ -137,7 +136,7 @@ conan install --profile linux_gcc7_x86_64_qt_widgets_modules -s build_type=Debug
 Configure MdtApplication:
 ```bash
 source conanbuild.sh
-cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_TESTS=ON ..
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Debug ..
 cmake-gui .
 ```
 
@@ -151,7 +150,7 @@ conan install --profile linux_gcc7_x86_64_qt_widgets_modules -s build_type=Debug
 Configure MdtApplication:
 ```bash
 source conanbuild.sh
-cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_TESTS=ON -DSANITIZER_ENABLE_ADDRESS=ON -DSANITIZER_ENABLE_UNDEFINED=ON ..
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Debug -DSANITIZER_ENABLE_ADDRESS=ON -DSANITIZER_ENABLE_UNDEFINED=ON ..
 cmake-gui .
 ```
 
@@ -165,7 +164,7 @@ conan install --profile linux_clang6.0_x86_64_libc++_qt_widgets_modules -s build
 Configure MdtApplication:
 ```bash
 source conanbuild.sh
-cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_TESTS=ON ..
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Debug ..
 cmake-gui .
 ```
 
@@ -182,7 +181,7 @@ conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules -s 
 Configure MdtApplication:
 ```bash
 source conanbuild.sh
-cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_TESTS=ON -DSANITIZER_ENABLE_THREAD=ON ..
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Debug -DSANITIZER_ENABLE_THREAD=ON ..
 cmake-gui .
 ```
 

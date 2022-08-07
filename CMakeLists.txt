@@ -64,7 +64,7 @@ message("CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
 
 include(MdtBuildOptionsUtils)
 include(MdtSanitizers)
-include(CMakeDependentOption)
+# include(CMakeDependentOption)
 
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
@@ -72,11 +72,19 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 option(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE "Enable the CoreApplicationForNonQtUsage component" ON)
 option(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE "Enable the GuiApplicationForNonQtUsage component" OFF)
 
-set(CommandLineArgumentsOptional TRUE)
-if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
-  set(CommandLineArgumentsOptional FALSE)
-endif()
-cmake_dependent_option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArguments" OFF "CommandLineArgumentsOptional" ON)
+# CoreApplicationForNonQtUsage and GuiApplicationForNonQtUsage depends on CommandLineArguments
+# When working on MdtApplication, we should enable CommandLineArguments
+# When creating packages, we don't depend on CommandLineArguments subdirectory,
+# but on the MdtCommandLineArguments package.
+# In that case, don't add CommandLineArguments's subdirectory
+option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArguments" OFF)
+option(USE_COMMAND_LINE_ARGUMENTS_IMPORT_TARGET "Use MdtCommandLineArguments IMPORT TARGET (relevant only while creating packages)" OFF)
+
+# set(CommandLineArgumentsOptional TRUE)
+# if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
+#   set(CommandLineArgumentsOptional FALSE)
+# endif()
+# cmake_dependent_option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArguments" OFF "CommandLineArgumentsOptional" ON)
 
 option(ENABLE_CONSOLE_APPLICATION "Enable ConsoleApplication" OFF)
 
@@ -170,6 +178,11 @@ endif()
 
 if(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
   find_package(Qt5 COMPONENTS Gui REQUIRED)
+endif()
+
+if(USE_COMMAND_LINE_ARGUMENTS_IMPORT_TARGET)
+  find_package(Mdt${MdtApplication_VERSION_MAJOR} REQUIRED COMPONENTS CommandLineArguments)
+  add_library(Mdt::CommandLineArguments ALIAS Mdt${MdtApplication_VERSION_MAJOR}::CommandLineArguments)
 endif()
 
 if(BUILD_TESTS)

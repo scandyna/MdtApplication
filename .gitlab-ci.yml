@@ -360,18 +360,20 @@ deploy_conan_CommandLineArguments:
 build_api_doc:
   stage: build
   image: registry.gitlab.com/scandyna/docker-images/ubuntu-18.04-cpp:latest
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: always
-    - when: never
+  #rules:
+    #- if: $CI_COMMIT_TAG
+      #when: always
+    #- when: never
   before_script:
     # TODO: remove once in docker images
     - conan remote add scandyna https://gitlab.com/api/v4/projects/25668674/packages/conan
   script:
     - mkdir build
     - cd build
-    - conan install ..
-    - cmake -DBUILD_CPP_API_DOC=ON ..
+    #- conan install ..
+    - conan install -o MdtApplication:build_only_doc=True ..
+    #- cmake -DBUILD_CPP_API_DOC=ON ..
+    - cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_CPP_API_DOC=ON ..
     - doxygen
   artifacts:
     expire_in: 1 day

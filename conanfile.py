@@ -12,11 +12,10 @@ class MdtApplicationConan(ConanFile):
   url = "https://gitlab.com/scandyna/mdtapplication"
   description = "Some additions for QCoreApplication, QGuiApplication and QApplication"
   settings = "os", "compiler", "build_type", "arch"
-  # TODO: remove gui option
   options = {"shared": [True, False],
-             "gui": [True, False]}
+             "build_only_doc": [True, False]}
   default_options = {"shared": True,
-                     "gui": True}
+                     "build_only_doc": False}
   # TODO fix once issue solved
   # Due to a issue using GitLab Conan repository,
   # version ranges are not possible.
@@ -53,18 +52,28 @@ class MdtApplicationConan(ConanFile):
         self.version = "0.0.0"
     self.output.info( "%s: version is %s" % (self.name, self.version) )
 
+  def _requires_qt(self):
+    if self.options.build_only_doc:
+      return False
+    return True
+
+  def _requires_catch(self):
+    if self.options.build_only_doc:
+      return False
+    return True
 
   def requirements(self):
 
-    # Building 5.14.x causes currently problems (8.04.2020)
-    # As workaround, try fix a known version that we can build
-    # Take a Qt version that we have in our Docker images
-    # Hmm, now try to use package from conan-center (20.04.2022)
-    self.requires("qt/5.15.2")
-    #self.requires("qt/5.14.2@bincrafters/stable")
-    #self.requires("qt/5.12.7@bincrafters/stable")
-    #if self.options.gui:
-      #self.options["qt"].GUI = True
+    if self._requires_qt():
+      # Building 5.14.x causes currently problems (8.04.2020)
+      # As workaround, try fix a known version that we can build
+      # Take a Qt version that we have in our Docker images
+      # Hmm, now try to use package from conan-center (20.04.2022)
+      self.requires("qt/5.15.2")
+      #self.requires("qt/5.14.2@bincrafters/stable")
+      #self.requires("qt/5.12.7@bincrafters/stable")
+      #if self.options.gui:
+        #self.options["qt"].GUI = True
 
   #def generate(self):
       #cmake = CMakeDeps(self)
@@ -85,7 +94,9 @@ class MdtApplicationConan(ConanFile):
     # Due to a issue using GitLab Conan repository,
     # version ranges are not possible.
     # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
-    self.tool_requires("catch2/2.13.9", force_host_context=True)
+    if self._requires_catch():
+      self.tool_requires("catch2/2.13.9", force_host_context=True)
+
     self.tool_requires("MdtCMakeModules/0.18.1@scandyna/testing", force_host_context=True)
 
   # TODO: use generate()
@@ -106,11 +117,19 @@ class MdtApplicationConan(ConanFile):
     tc = CMakeToolchain(self)
     tc.variables["FROM_CONAN_PROJECT_VERSION"] = self.version
     #tc.variables["INSTALL_CONAN_PACKAGE_FILES"] = "ON"
-    if self.options.gui:
-      tc.variables["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "ON"
-    if self.settings.compiler == "gcc" or self.settings.compiler == "clang":
-      if self.settings.compiler.sanitizer == "Thread":
-        tc.variables["SANITIZER_ENABLE_THREAD"] = "ON"
+    #if self.options.gui:
+      #tc.variables["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "ON"
+    if self.options.build_only_doc:
+      tc.variables["ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE"] = "OFF"
+      tc.variables["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "OFF"
+      tc.variables["ENABLE_COMMAND_LINE_ARGUMENTS"] = "OFF"
+      tc.variables["ENABLE_CONSOLE_APPLICATION"] = "OFF"
+      tc.variables["BUILD_EXAMPLES"] = "OFF"
+      tc.variables["BUILD_CPP_API_DOC"] = "ON"
+    else:
+      if self.settings.compiler == "gcc" or self.settings.compiler == "clang":
+        if self.settings.compiler.sanitizer == "Thread":
+          tc.variables["SANITIZER_ENABLE_THREAD"] = "ON"
     tc.generate()
 
   # TODO: should throw a exception,

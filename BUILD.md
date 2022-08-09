@@ -48,6 +48,10 @@ cd build
 The recommended way is to use Conan to install the dependencies.
 The examples are based on that.
 
+Note: there is a `conanfile.py` at the root of the project tree.
+This file is only used to install dependencies to work on MdtApplication.
+To create Conan packages, see [README](packaging/conan/README.md) in the conan packaging folder.
+
 ### Conan options
 
 Here are the available options:
@@ -55,7 +59,7 @@ Here are the available options:
 | Option           | Default | Possible Values  | Explanations |
 | -----------------|:------- |:----------------:|--------------|
 | shared           | True    |  [True, False]   | Build as shared library |
-| gui              | True    |  [True, False]   | Include the libraries that depends on QtGui |
+| build_only_doc   | False   |  [True, False]   | Build only the documentation (disables some dependencies, like Qt) |
 
 ### Using Conan profiles
 
@@ -217,12 +221,12 @@ TODO: adjust package name once modularized
 
 Install the dependencies:
 ```bash
-conan install -o MdtApplication:use_conan_qt=False ..
+conan install -o MdtApplication:build_only_doc=True ..
 ```
 
 Configure MdtApplication:
 ```bash
-cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DBUILD_CPP_API_DOC=ON ..
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_CPP_API_DOC=ON ..
 ```
 
 Build:

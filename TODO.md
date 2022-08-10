@@ -3,6 +3,62 @@
 
 See https://github.com/olivierlacan/keep-a-changelog
 
+# Doc / Diagrams
+
+See Consistent architecture diagrams for C++ projects -  Marius Feilhauer - Meeting C++ 2019 (documentation)
+
+Make doc targets/helpers
+See MdtDeployUtils
+
+Maybe split:
+ - final user doc
+ - dependencies
+
+cpp-api-doc
+cpp-api-doc-dev ?
+
+## Dependency graph
+
+add_custom_target(DependencyGraph
+  COMMAND cmake --graphviz=xxx.dot .
+  COMMAND dot -Tsvg xxx.dot -o xxx.svg
+  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
+
+## Doxygen auto
+
+COLLABORATION_GRAPH = YES
+
+INCLUDE_GRAPH
+INCLUDED_BY_GRAPH
+
+Those can be used to create manual diagrams,
+without to much details.
+
+## Doxygen...
+
+https://doxygen.nl/manual/commands.html:
+
+\dotfile <file> ["caption"] [<sizeindication>=<size>]
+
+\include['{'option'}'] <file-name>
+
+\image['{'option[,option]'}'] <format> <file> ["caption"] [<sizeindication>=<size>]
+
+## UML manual
+
+PlantUML
+-> Also see what packages are reuqired in docker images
+   NOTE: create a docker image for docs ? (lighter)
+
+See Doxygen integration
+
+Also, markdown UML file integrated with Doxygen ?
+
+Inline UML in Doxygen ?
+
+# Sonar Source
+
 # CMake
 
 Should sepcify LANGUAGES CXX in project()
@@ -21,6 +77,8 @@ Update main conanfile.py
 
 Remove conan gui option
 
+Add sanitizer options / support ?
+
 # Conant install
 
 Document how to specify options,
@@ -32,6 +90,8 @@ to install dependencies to work on the project,
 then 1 conanfile.py per library ?
 
 # CI
+
+See: https://docs.gitlab.com/ee/ci/yaml/index.html#release
 
 Use new docker images
 

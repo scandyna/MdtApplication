@@ -190,6 +190,11 @@ if(BUILD_TESTS)
   find_package(Qt5 COMPONENTS Test REQUIRED)
 endif()
 
+if(BUILD_CPP_API_DOC)
+  include(FindDoxygen)
+  find_package(Doxygen REQUIRED dot)
+endif()
+
 #######################
 # Windows specific
 #######################
@@ -238,17 +243,6 @@ endif()
 
 if(BUILD_TYPE_INSTRUMENTED_DEFINE_NDEBUG)
   add_definitions($<$<CONFIG:Instrumented>:NDEBUG>)
-endif()
-
-#######################
-# Documentation
-#######################
-
-if(BUILD_CPP_API_DOC)
-  configure_file(
-    "${PROJECT_SOURCE_DIR}/Doxyfile.in"
-    "${PROJECT_BINARY_DIR}/Doxyfile"
-  )
 endif()
 
 #######################
@@ -313,6 +307,10 @@ endif()
 
 if(BUILD_EXAMPLES)
   add_subdirectory(examples)
+endif()
+
+if(BUILD_CPP_API_DOC)
+  add_subdirectory(doc)
 endif()
 
 

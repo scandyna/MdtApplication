@@ -374,7 +374,7 @@ build_api_doc:
     - conan install -o MdtApplication:build_only_doc=True ..
     #- cmake -DBUILD_CPP_API_DOC=ON ..
     - cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_CPP_API_DOC=ON ..
-    - doxygen
+    - make
   artifacts:
     expire_in: 1 day
     paths:

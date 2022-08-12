@@ -53,8 +53,8 @@ class MdtApplicationConan(ConanFile):
     self.output.info( "%s: version is %s" % (self.name, self.version) )
 
   def _requires_qt(self):
-    if self.options.build_only_doc:
-      return False
+    #if self.options.build_only_doc:
+      #return False
     return True
 
   def _requires_catch(self):
@@ -120,10 +120,10 @@ class MdtApplicationConan(ConanFile):
     #if self.options.gui:
       #tc.variables["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "ON"
     if self.options.build_only_doc:
-      tc.variables["ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE"] = "OFF"
-      tc.variables["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "OFF"
-      tc.variables["ENABLE_COMMAND_LINE_ARGUMENTS"] = "OFF"
-      tc.variables["ENABLE_CONSOLE_APPLICATION"] = "OFF"
+      tc.variables["ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE"] = "ON"
+      tc.variables["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "ON"
+      tc.variables["ENABLE_COMMAND_LINE_ARGUMENTS"] = "ON"
+      tc.variables["ENABLE_CONSOLE_APPLICATION"] = "ON"
       tc.variables["BUILD_EXAMPLES"] = "OFF"
       tc.variables["BUILD_CPP_API_DOC"] = "ON"
     else:

@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2019-2021 Philippe Steinmann.
+ ** Copyright (C) 2019-2022 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -48,4 +48,6 @@
  * for example in a test.
  * Manipulating a char** arguments vector is not convenient.
  * Using Mdt::CommandLineArguments can help for such case.
+ *
+ * \dotfile CMakeDependencyGraph.dot
  */

@@ -309,6 +309,9 @@ if(BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
+# Keep this at last
+# A CMake dependency graph will be generated,
+# that requires targets to be defined before
 if(BUILD_CPP_API_DOC)
   add_subdirectory(doc)
 endif()

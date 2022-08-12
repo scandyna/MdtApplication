@@ -7,23 +7,12 @@ See https://github.com/olivierlacan/keep-a-changelog
 
 See Consistent architecture diagrams for C++ projects -  Marius Feilhauer - Meeting C++ 2019 (documentation)
 
-Make doc targets/helpers
-See MdtDeployUtils
-
 Maybe split:
  - final user doc
  - dependencies
 
 cpp-api-doc
 cpp-api-doc-dev ?
-
-## Dependency graph
-
-add_custom_target(DependencyGraph
-  COMMAND cmake --graphviz=xxx.dot .
-  COMMAND dot -Tsvg xxx.dot -o xxx.svg
-  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-)
 
 ## Doxygen auto
 
@@ -38,12 +27,6 @@ without to much details.
 ## Doxygen...
 
 https://doxygen.nl/manual/commands.html:
-
-\dotfile <file> ["caption"] [<sizeindication>=<size>]
-
-\include['{'option'}'] <file-name>
-
-\image['{'option[,option]'}'] <format> <file> ["caption"] [<sizeindication>=<size>]
 
 ## UML manual
 

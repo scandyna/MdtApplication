@@ -237,3 +237,13 @@ Build:
 ```bash
 make documentation
 ```
+
+It is also possible to generate documentation Doxygen generated collaboration diagrams.
+This requires to expose some private class members, that can be cumbersome for the API doc,
+reason why it is separate.
+
+Install the dependencies as above, then:
+```bash
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_CPP_API_DOC=ON -DBUILD_EXAMPLES=ON ..
+make documentation-dev
+```

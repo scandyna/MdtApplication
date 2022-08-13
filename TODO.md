@@ -7,13 +7,6 @@ See https://github.com/olivierlacan/keep-a-changelog
 
 See Consistent architecture diagrams for C++ projects -  Marius Feilhauer - Meeting C++ 2019 (documentation)
 
-Maybe split:
- - final user doc
- - dependencies
-
-cpp-api-doc
-cpp-api-doc-dev ?
-
 ## Doxygen auto
 
 COLLABORATION_GRAPH = YES

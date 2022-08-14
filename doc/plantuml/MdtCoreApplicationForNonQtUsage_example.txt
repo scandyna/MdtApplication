@@ -1,0 +1,13 @@
+@startuml
+namespace Mdt{
+  class CoreApplicationForNonQtUsage<MyLibrary_NonQtApi_Worker>
+}
+
+class MyLibrary_Api
+class MyLibrary_NonQtApi
+class MyLibrary_NonQtApi_Worker
+
+MyLibrary_NonQtApi --> Mdt.CoreApplicationForNonQtUsage
+MyLibrary_NonQtApi ..> MyLibrary_NonQtApi_Worker
+MyLibrary_NonQtApi_Worker --> MyLibrary_Api
+@enduml

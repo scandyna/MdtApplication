@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2019-2020 Philippe Steinmann.
+ ** Copyright (C) 2019-2022 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -52,6 +52,10 @@ namespace Mdt{
    * A solution is run all the library stuff in a separate thread.
    *  All classes are then instanciated in this new thread context,
    *  which will also be the Qt main thread.
+   *
+   * \startuml
+   *  !include MdtCoreApplicationForNonQtUsage_example.txt
+   * \enduml
    *
    * Lets say that we have a MyLibrary_Api:
    * \code
@@ -188,7 +192,7 @@ namespace Mdt{
    *
    * Notice that the constructor does not get the standard \a argc and \a argv
    * arguments usually provided in the main() function of a C/C++ program,
-   * so we provid our application name only.
+   * so we provide our application name only.
    * See the constructors documentation of Mdt::CoreApplicationForNonQtUsage for more details.
    *
    * Here is the implementation of MyLibrary_NonQtApi::sendCommand():

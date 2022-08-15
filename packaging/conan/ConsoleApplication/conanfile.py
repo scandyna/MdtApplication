@@ -47,7 +47,7 @@ class MdtCommandLineArgumentsConan(ConanFile):
     # Due to a issue using GitLab Conan repository,
     # version ranges are not possible.
     # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
-    self.tool_requires("MdtCMakeModules/0.18.2@scandyna/testing", force_host_context=True)
+    self.tool_requires("MdtCMakeModules/0.18.3@scandyna/testing", force_host_context=True)
 
   # The export exports_sources attributes does not work if the conanfile.py is in a sub-folder.
   # See https://github.com/conan-io/conan/issues/3635

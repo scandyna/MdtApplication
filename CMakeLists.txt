@@ -226,7 +226,7 @@ if(SANITIZER_ENABLE_UNDEFINED)
   mdt_build_with_undefined_sanitizer(BUILD_TYPES Instrumented RelWithDebInfo Debug)
 endif()
 if(SANITIZER_ENABLE_THREAD)
-  message(DEBUG "Build with TSan for Instrumented RelWithDebInfo Debug")
+  message(VERBOSE "Build with TSan for Instrumented RelWithDebInfo Debug")
   mdt_build_with_thread_sanitizer(BUILD_TYPES Instrumented RelWithDebInfo Debug)
 endif()
 

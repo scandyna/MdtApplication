@@ -34,6 +34,7 @@
       --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE --test-folder None
     - conan test packaging/conan/$COMPONENT/test_package Mdt$COMPONENT/0.0.0@scandyna/testing
       --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
+    - conan user --password ${CI_JOB_TOKEN} --remote scandyna_test ci_user
     - conan upload Mdt$COMPONENT/0.0.0@scandyna/testing --remote scandyna_test --all -c
 
 .deploy_conan_base:

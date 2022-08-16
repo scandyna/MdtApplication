@@ -18,13 +18,10 @@
 # along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
 #
 ########################################################################################
-include(GenerateExportHeader) 
-# include(MdtInstallLibrary) 
+include(GenerateExportHeader)
 include(MdtInstallIncludes)
 
 add_library(Mdt_Impl_ApplicationForNonQtUsage OBJECT
-#   Mdt/Impl/CommandLineArguments.cpp
-#   Mdt/Impl/ApplicationForNonQtUsage.cpp
   Mdt/Impl/ApplicationForNonQtUsage.cpp
   Mdt/Impl/ApplicationForNonQtUsageObject.cpp
 )
@@ -66,47 +63,3 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mdt_impl_applicationfornonqtusage_exp
   DESTINATION ${MDT_INSTALL_INCLUDEDIR}
   COMPONENT Mdt_Impl_ApplicationForNonQtUsage_Dev
 )
-
-# install(TARGETS Mdt_Impl_ApplicationForNonQtUsage EXPORT fake)
-
-# install(TARGETS Mdt_Impl_ApplicationForNonQtUsage
-#     EXPORT fake
-#     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     #OBJECTS DESTINATION ${CMAKE_INSTALL_LIBDIR}
-# )
-
-
-# mdt_install_interface_library(
-#   TARGET Mdt_Impl_ApplicationForNonQtUsage
-#   LIBRARY_DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#   INCLUDES_DIRECTORY .
-#   ADDITIONAL_INCLUDES_FILES "${CMAKE_CURRENT_BINARY_DIR}/mdt_impl_applicationfornonqtusage_export.h"
-#   INCLUDES_DESTINATION ${MDT_INSTALL_INCLUDEDIR}
-#   EXPORT_NAME Impl_ApplicationForNonQtUsage
-#   EXPORT_NAMESPACE Mdt${PROJECT_VERSION_MAJOR}::
-#   INSTALL_NAMESPACE ${MDT_INSTALL_PACKAGE_NAME}
-#   FIND_PACKAGE_PATHS ..
-#   VERSION ${PROJECT_VERSION}
-#   VERSION_COMPATIBILITY ExactVersion
-#   DEVELOPMENT_COMPONENT Mdt_Impl_ApplicationForNonQtUsage_Dev
-# )
-
-# mdt_install_library(
-#   TARGET Mdt_Impl_ApplicationForNonQtUsage
-#   RUNTIME_DESTINATION ${CMAKE_INSTALL_BINDIR}
-#   LIBRARY_DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#   ARCHIVE_DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#   INCLUDES_DIRECTORY .
-# #   ADDITIONAL_INCLUDES_FILES "${CMAKE_CURRENT_BINARY_DIR}/mdt_impl_applicationfornonqtusage_export.h"
-#   INCLUDES_DESTINATION ${MDT_INSTALL_INCLUDEDIR}
-#   EXPORT_NAME Impl_ApplicationForNonQtUsage
-#   EXPORT_NAMESPACE Mdt${PROJECT_VERSION_MAJOR}::
-#   INSTALL_NAMESPACE ${MDT_INSTALL_PACKAGE_NAME}
-#   FIND_PACKAGE_PATHS ..
-#   INSTALL_IS_UNIX_SYSTEM_WIDE ${MDT_INSTALL_IS_UNIX_SYSTEM_WIDE}
-#   VERSION ${PROJECT_VERSION}
-#   SOVERSION ${PROJECT_VERSION_MAJOR}
-#   VERSION_COMPATIBILITY ExactVersion
-#   RUNTIME_COMPONENT Mdt_Impl_CoreApplicationForNonQtUsage_Runtime
-#   DEVELOPMENT_COMPONENT Mdt_Impl_ApplicationForNonQtUsage_Dev
-# )

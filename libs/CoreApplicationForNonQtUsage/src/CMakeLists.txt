@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2020 Philippe Steinmann.
+# Copyright (C) 2019-2022 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -48,6 +48,7 @@ generate_export_header(Mdt_CoreApplicationForNonQtUsage)
 
 mdt_install_library(
   TARGET Mdt_CoreApplicationForNonQtUsage
+  OBJECT_TARGETS Mdt_Impl_ApplicationForNonQtUsage
   RUNTIME_DESTINATION ${CMAKE_INSTALL_BINDIR}
   LIBRARY_DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE_DESTINATION ${CMAKE_INSTALL_LIBDIR}

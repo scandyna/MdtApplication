@@ -365,8 +365,7 @@ build_api_doc:
       #when: always
     #- when: never
   before_script:
-    # TODO: remove once in docker images
-    - conan remote add scandyna https://gitlab.com/api/v4/projects/25668674/packages/conan
+    - !reference [.setup_conan, script]
   script:
     - mkdir build
     - cd build

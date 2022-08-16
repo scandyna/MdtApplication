@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2020-2020 Philippe Steinmann.
+ ** Copyright (C) 2020-2022 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -19,3 +19,15 @@
  **
  ****************************************************************************/
 #include "ApplicationForNonQtUsageObject.h"
+#include <cassert>
+
+namespace Mdt{ namespace Impl{
+
+void ApplicationForNonQtUsageObject::registerApplication(QCoreApplication *app)
+{
+  assert(app != nullptr);
+
+  connect(this, &Mdt::Impl::ApplicationForNonQtUsageObject::invokeQuit, app, &QCoreApplication::quit, Qt::QueuedConnection);
+}
+
+}} // namespace Mdt{ namespace Impl{

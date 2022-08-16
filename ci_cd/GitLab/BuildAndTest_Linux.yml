@@ -173,6 +173,7 @@ test_linux_clang6.0_x86_64_libc++_Release:
 build_linux_clang6.0_x86_64_libc++_TSan:
   variables:
     BUILD_TYPE: RelWithDebInfo
+    CMAKE_EXTRA_ARGUMENTS: -DSANITIZER_ENABLE_THREAD=ON
   extends:
     - .buildAndTest_linux_clang6.0_x86_64_libc++_TSan
     - .build_linux

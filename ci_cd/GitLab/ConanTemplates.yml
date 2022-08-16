@@ -4,8 +4,11 @@
 
 # NOTE: paths are relative to the .gitlab-ci.yml (i.e. the root of the project)
 
+# The first repo is for MdtApplication dependencies
+# For example, CoreApplicationForNonQtUsage requires CommandLineArguments
 .setup_conan:
   script:
+    - conan remote add scandyna_test https://gitlab.com/api/v4/projects/17897200/packages/conan
     - conan remote add scandyna https://gitlab.com/api/v4/projects/25668674/packages/conan
     - conan config install --source-folder conan https://gitlab.com/scandyna/conan-config.git
 
@@ -20,6 +23,7 @@
       - packaging/conan/**/*
       when: always
 
+# TODO: take CONAN_PROFILE_BUILD and CONAN_PROFILE_HOST
 .conan_createAndTest:
   stage: build
   rules:
@@ -30,6 +34,7 @@
       --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE --test-folder None
     - conan test packaging/conan/$COMPONENT/test_package Mdt$COMPONENT/0.0.0@scandyna/testing
       --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE
+    - conan upload Mdt$COMPONENT/0.0.0@scandyna/testing --remote scandyna_test --all -c
 
 .deploy_conan_base:
   stage: deploy

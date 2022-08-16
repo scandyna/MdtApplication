@@ -29,6 +29,7 @@ conan_createAndTest_CoreApplicationForNonQtUsage_linux_gcc7_x86_64_debug:
     CONAN_PROFILE: linux_gcc7_x86_64_qt_widgets_modules
     BUILD_TYPE: Debug
   extends: .conan_createAndTest
+  needs: ["conan_createAndTest_CommandLineArguments_linux_gcc7_x86_64_debug"]
 
 #conan_linux_gcc7_x86_64_debug:
   #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-cpp-gui:latest

@@ -2,8 +2,6 @@
 # Build & test Linux Gcc 7 X86_64
 ########################################
 
-# TODO: remove this What ? https://gitlab.com/scandyna/mdtapplication/-/pipelines/615660424
-
 .buildAndTest_Linux_gcc7_x86_64_debug:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:

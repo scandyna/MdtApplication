@@ -4,11 +4,13 @@
 
 # NOTE: paths are relative to the .gitlab-ci.yml (i.e. the root of the project)
 
-conan_createAndTest_CommandLineArguments_linux_gcc7_x86_64_debug:
+conan_createAndTest_CommandLineArguments_Windows_msvc16_x86_64_debug:
   image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-msvc2019:latest
   variables:
     COMPONENT: CommandLineArguments
     CONAN_PROFILE_BUILD: windows_msvc16_x86_64
     CONAN_PROFILE_HOST: windows_msvc16_x86_64_qt_widgets_modules
     BUILD_TYPE: Debug
-  extends: .conan_createAndTest
+  extends:
+    - .conan_createAndTest
+    - .windows_runner

@@ -23,6 +23,8 @@ include(MdtInstallLibrary)
 
 add_library(Mdt_CoreApplicationForNonQtUsage
   Mdt/CoreApplicationForNonQtUsage.cpp
+  "${MdtApplication_SOURCE_DIR}/libs/Impl_ApplicationForNonQtUsage/src/Mdt/Impl/ApplicationForNonQtUsage.cpp"
+  "${MdtApplication_SOURCE_DIR}/libs/Impl_ApplicationForNonQtUsage/src/Mdt/Impl/ApplicationForNonQtUsageObject.cpp"
 )
 add_library(Mdt::CoreApplicationForNonQtUsage ALIAS Mdt_CoreApplicationForNonQtUsage)
 
@@ -44,7 +46,20 @@ target_include_directories(Mdt_CoreApplicationForNonQtUsage
    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 )
 
-generate_export_header(Mdt_CoreApplicationForNonQtUsage)
+# generate_export_header() does not generate for INTERFACE libraries,
+# which Mdt_Impl_ApplicationForNonQtUsage is.
+# So, we have to generate it here.
+generate_export_header(Mdt_CoreApplicationForNonQtUsage
+  BASE_NAME Mdt_X_ApplicationForNonQtUsage
+)
+target_include_directories(Mdt_Impl_ApplicationForNonQtUsage
+  INTERFACE
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mdt_x_applicationfornonqtusage_export.h"
+  DESTINATION ${MDT_INSTALL_INCLUDEDIR}
+  COMPONENT Mdt_CoreApplicationForNonQtUsage_Dev
+)
 
 mdt_install_library(
   TARGET Mdt_CoreApplicationForNonQtUsage

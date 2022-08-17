@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2020-2020 Philippe Steinmann.
+ ** Copyright (C) 2020-2022 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -19,22 +19,22 @@
  **
  ****************************************************************************/
 #include "GuiApplicationForNonQtUsage.h"
-#include "mdt_guiapplicationfornonqtusage_export.h"
-#include <QtGlobal>
+// #include "mdt_guiapplicationfornonqtusage_export.h"
+// #include <QtGlobal>
 
-#if defined Q_CC_MSVC
-
-namespace Mdt{ namespace Impl{ namespace Workaround{ namespace GuiApplicationForNonQtUsage{
-
-  /*
-   * Workaround to force MSVC to generate a .lib
-   * See https://gitlab.com/scandyna/mdtapplication/-/issues/1
-   */
-  MDT_GUIAPPLICATIONFORNONQTUSAGE_EXPORT
-  void fakeFunctionToGenerateSymbolsToExport()
-  {
-  }
-
-}}}} // namespace Mdt{ namespace Impl{ namespace Workaround{ namespace GuiApplicationForNonQtUsage{
-
-#endif // #if defined Q_CC_MSVC
+// #if defined Q_CC_MSVC
+// 
+// namespace Mdt{ namespace Impl{ namespace Workaround{ namespace GuiApplicationForNonQtUsage{
+// 
+//   /*
+//    * Workaround to force MSVC to generate a .lib
+//    * See https://gitlab.com/scandyna/mdtapplication/-/issues/1
+//    */
+//   MDT_GUIAPPLICATIONFORNONQTUSAGE_EXPORT
+//   void fakeFunctionToGenerateSymbolsToExport()
+//   {
+//   }
+// 
+// }}}} // namespace Mdt{ namespace Impl{ namespace Workaround{ namespace GuiApplicationForNonQtUsage{
+// 
+// #endif // #if defined Q_CC_MSVC

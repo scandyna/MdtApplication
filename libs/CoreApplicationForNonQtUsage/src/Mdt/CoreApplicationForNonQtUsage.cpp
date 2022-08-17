@@ -19,22 +19,3 @@
  **
  ****************************************************************************/
 #include "CoreApplicationForNonQtUsage.h"
-// #include "mdt_coreapplicationfornonqtusage_export.h"
-// #include <QtGlobal>
-
-// #if defined Q_CC_MSVC
-// 
-// namespace Mdt{ namespace Impl{ namespace Workaround{ namespace CoreApplicationForNonQtUsage{
-// 
-//   /*
-//    * Workaround to force MSVC to generate a .lib
-//    * See https://gitlab.com/scandyna/mdtapplication/-/issues/1
-//    */
-// //   MDT_COREAPPLICATIONFORNONQTUSAGE_EXPORT
-// //   void fakeFunctionToGenerateSymbolsToExport()
-// //   {
-// //   }
-// 
-// }}}} // namespace Mdt{ namespace Impl{ namespace Workaround{ namespace CoreApplicationForNonQtUsage{
-// 
-// #endif // #if defined Q_CC_MSVC

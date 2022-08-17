@@ -57,6 +57,4 @@ mdt_add_test(
   DEPENDENCIES Impl_ApplicationForNonQtUsageTest_Lib Mdt::Catch2Main
   SOURCE_FILES
     src/Impl_ApplicationForNonQtUsageTest.cpp
-#     "${MdtApplication_SOURCE_DIR}/libs/Impl_ApplicationForNonQtUsage/src/Mdt/Impl/ApplicationForNonQtUsage.cpp"
-#     "${MdtApplication_SOURCE_DIR}/libs/Impl_ApplicationForNonQtUsage/src/Mdt/Impl/ApplicationForNonQtUsageObject.cpp"
 )

@@ -35,24 +35,13 @@ include(MdtInstallIncludes)
 #
 # What we need is to compile this implementation into the final libraries
 
-add_library(Mdt_Impl_ApplicationForNonQtUsage INTERFACE
-#   Mdt/Impl/ApplicationForNonQtUsage.cpp
-#   Mdt/Impl/ApplicationForNonQtUsageObject.cpp
-)
+add_library(Mdt_Impl_ApplicationForNonQtUsage INTERFACE)
 add_library(Mdt::Impl_ApplicationForNonQtUsage ALIAS Mdt_Impl_ApplicationForNonQtUsage)
 
-# target_compile_features(Mdt_Impl_ApplicationForNonQtUsage PUBLIC cxx_std_14)
 target_compile_features(Mdt_Impl_ApplicationForNonQtUsage INTERFACE cxx_std_14)
-
-# if(BUILD_USE_IPO_LTO)
-#   set_target_properties(Mdt_Impl_ApplicationForNonQtUsage
-#     PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE
-#   )
-# endif()
 
 target_link_libraries(Mdt_Impl_ApplicationForNonQtUsage
   INTERFACE
-#   PUBLIC
     Mdt::CommandLineArguments
     Qt5::Core
 #     Threads::Threads
@@ -60,23 +49,12 @@ target_link_libraries(Mdt_Impl_ApplicationForNonQtUsage
 
 target_include_directories(Mdt_Impl_ApplicationForNonQtUsage
   INTERFACE
-#   PUBLIC
    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 )
-
-# generate_export_header(Mdt_Impl_ApplicationForNonQtUsage) 
-
-# if(BUILD_SHARED_LIBS)
-#   set_property(TARGET Mdt_Impl_ApplicationForNonQtUsage PROPERTY POSITION_INDEPENDENT_CODE ON)
-# endif()
 
 mdt_install_include_directory(
   DIRECTORY .
   DESTINATION ${MDT_INSTALL_INCLUDEDIR}
   COMPONENT Mdt_Impl_ApplicationForNonQtUsage_Dev
 )
-# install(FILES "${CMAKE_CURRENT_BINARY_DIR}/mdt_impl_applicationfornonqtusage_export.h"
-#   DESTINATION ${MDT_INSTALL_INCLUDEDIR}
-#   COMPONENT Mdt_Impl_ApplicationForNonQtUsage_Dev
-# )

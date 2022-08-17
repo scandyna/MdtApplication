@@ -19,7 +19,6 @@
 #
 ########################################################################################
 include(MdtAddTest)
-include(GenerateExportHeader)
 
 mdt_add_test(
   NAME Impl_ApplicationForNonQtUsageTest
@@ -29,15 +28,4 @@ mdt_add_test(
     src/Impl_ApplicationForNonQtUsageTest.cpp
     "${MdtApplication_SOURCE_DIR}/libs/Impl_ApplicationForNonQtUsage/src/Mdt/Impl/ApplicationForNonQtUsage.cpp"
     "${MdtApplication_SOURCE_DIR}/libs/Impl_ApplicationForNonQtUsage/src/Mdt/Impl/ApplicationForNonQtUsageObject.cpp"
-)
-
-# generate_export_header() does not generate for INTERFACE libraries,
-# which Mdt_Impl_ApplicationForNonQtUsage is.
-# So, we have to generate it here.
-generate_export_header(impl_ApplicationForNonQtUsageTest
-  BASE_NAME Mdt_X_ApplicationForNonQtUsage
-)
-target_include_directories(Mdt_Impl_ApplicationForNonQtUsage
-  INTERFACE
-   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 )

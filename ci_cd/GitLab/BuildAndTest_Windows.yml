@@ -26,6 +26,25 @@ test_Windows_msvc16_x86_64_Debug:
     - build_Windows_msvc16_x86_64_Debug
   needs: ["build_Windows_msvc16_x86_64_Debug"]
 
+
+build_Windows_msvc16_x86_64_Release:
+  variables:
+    BUILD_TYPE: Release
+  extends:
+    - .buildAndTest_Windows_msvc16_x86_64
+    - .build_windows
+
+test_Windows_msvc16_x86_64_Release:
+  variables:
+    BUILD_TYPE: Release
+  extends:
+    - .buildAndTest_Windows_msvc16_x86_64
+    - .test_windows
+  dependencies:
+    - build_Windows_msvc16_x86_64_Release
+  needs: ["build_Windows_msvc16_x86_64_Release"]
+
+
 #build_windows_msvc16_x86_64_debug:
   #image: image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-msvc2019:latest
   #variables:

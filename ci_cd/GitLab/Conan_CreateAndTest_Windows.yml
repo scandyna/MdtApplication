@@ -38,3 +38,16 @@ conan_createAndTest_CoreApplicationForNonQtUsage_Windows_msvc16_x86_64_release:
     - .conan_createAndTest
     - .windows_runner
   needs: ["conan_createAndTest_CommandLineArguments_Windows_msvc16_x86_64_release"]
+
+
+conan_createAndTest_GuiApplicationForNonQtUsage_Windows_msvc16_x86_64_release:
+  image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-msvc2019:latest
+  variables:
+    COMPONENT: GuiApplicationForNonQtUsage
+    CONAN_PROFILE_BUILD: windows_msvc16_x86_64
+    CONAN_PROFILE_HOST: windows_msvc16_x86_64_qt_widgets_modules
+    BUILD_TYPE: Release
+  extends:
+    - .conan_createAndTest
+    - .windows_runner
+  needs: ["conan_createAndTest_CommandLineArguments_Windows_msvc16_x86_64_release"]

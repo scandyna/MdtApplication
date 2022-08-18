@@ -61,8 +61,6 @@ Options: none
 
 # Create Conan packages for MdtApplication libraries
 
-TODO: adapt once modularized
-
 The package version is picked up from git tag.
 If working on MdtApplication, go to the root of the source tree:
 ```bash

@@ -1,10 +1,9 @@
 from conans import ConanFile, tools
-#from conans.errors import ConanInvalidConfiguration
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
-#from conan.tools.env import VirtualBuildEnv
 import os
 
-
+# This recipe is only to install dependencies to build MdtApplication
+# The recipes to create packages are in packaging/conan/ subfolder
 class MdtApplicationConan(ConanFile):
   name = "MdtApplication"
   #version = "0.1"
@@ -16,19 +15,8 @@ class MdtApplicationConan(ConanFile):
              "build_only_doc": [True, False]}
   default_options = {"shared": True,
                      "build_only_doc": False}
-  # TODO fix once issue solved
-  # Due to a issue using GitLab Conan repository,
-  # version ranges are not possible.
-  # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
-  #build_requires = "MdtCMakeModules/0.17.1@scandyna/testing", "catch2/2.13.9"
-  #tool_requires = "MdtCMakeModules/0.17.1@scandyna/testing", "catch2/2.13.9"
-  #build_requires = "MdtCMakeModules/0.14.18@scandyna/testing", "Catch2/2.11.1@catchorg/stable"
-  #build_requires = "MdtCMakeModules/[>=0.14.12]@scandyna/testing", "Catch2/[>=2.11.1]@catchorg/stable"
-  #generators = "CMakeToolchain"
   generators = "CMakeDeps", "CMakeToolchain", "VirtualBuildEnv"
-  #generators = "cmake", "cmake_paths", "virtualenv", "cmake_find_package_multi"
-  #generators = "cmake"
-  exports_sources = "libs/*", "CMakeLists.txt", "conanfile.py", "COPYING", "COPYING.LESSER"
+
   # If no_copy_source is False, conan copies sources to build directory and does in-source build,
   # resulting having build files installed in the package
   # See also: https://github.com/conan-io/conan/issues/350
@@ -75,14 +63,6 @@ class MdtApplicationConan(ConanFile):
       #if self.options.gui:
         #self.options["qt"].GUI = True
 
-  #def generate(self):
-      #cmake = CMakeDeps(self)
-      ## generate the config files for the tool require
-      #cmake.build_context_activated = ["mdtcmakemodules"]
-      ## disambiguate the files, targets, etc
-      ##cmake.build_context_suffix = {"MdtCMakeModules": "_BUILD"}
-      #cmake.generate()
-
   # When using --profile:build xx and --profile:host xx ,
   # the dependencies declared in build_requires and tool_requires
   # will not generate the required files.
@@ -98,20 +78,6 @@ class MdtApplicationConan(ConanFile):
       self.tool_requires("catch2/2.13.9", force_host_context=True)
 
     self.tool_requires("MdtCMakeModules/0.18.3@scandyna/testing", force_host_context=True)
-
-  # TODO: use generate()
-  #def configure_cmake(self):
-    #cmake = CMake(self)
-    #cmake.definitions["FROM_CONAN_PROJECT_VERSION"] = self.version
-
-    #if self.options.gui:
-      #cmake.definitions["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "ON"
-
-    #if self.settings.compiler == "gcc" or self.settings.compiler == "clang":
-      #if self.settings.compiler.sanitizer == "Thread":
-        #cmake.definitions["SANITIZER_ENABLE_THREAD"] = "ON"
-
-    #return cmake
 
   def generate(self):
     tc = CMakeToolchain(self)
@@ -131,25 +97,3 @@ class MdtApplicationConan(ConanFile):
         if self.settings.compiler.sanitizer == "Thread":
           tc.variables["SANITIZER_ENABLE_THREAD"] = "ON"
     tc.generate()
-
-  # TODO: should throw a exception,
-  # because this recipe cannot be used to create packages
-  # TODO: see validate() ?
-  def build(self):
-    #cmake = self.configure_cmake()
-    cmake = CMake(self)
-    cmake.configure()
-    cmake.build()
-
-
-  def package(self):
-    #cmake = self.configure_cmake()
-    cmake = CMake(self)
-    cmake.install()
-
-  def package_info(self):
-
-    self.cpp_info.set_property("cmake_file_name", "Mdt0")
-
-    self.cpp_info.components["mdtconsoleapplication"].set_property("cmake_target_name", "Mdt0::ConsoleApplication")
-    self.cpp_info.components["mdtconsoleapplication"].libs = ["Mdt0ConsoleApplication"]

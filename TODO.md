@@ -1,4 +1,14 @@
 
+# Libs
+
+Q[Core|Gui]AppForNonQtUsage should be forced static libs.
+They hold very few code and should be unique per app.
+In that case, check to remove some exports if not required.
+
+OR, handle shared libs, but make default to static in Conan recipes ?
+
+SEE: https://gitlab.kitware.com/cmake/cmake/-/issues/18935
+
 # Changelog
 
 See https://github.com/olivierlacan/keep-a-changelog
@@ -64,6 +74,7 @@ in the caller conanfile.txt/py
 Maybe we end up with a top level conanfile.[txt|py]
 to install dependencies to work on the project,
 then 1 conanfile.py per library ?
+ --> Yes !
 
 # CI
 

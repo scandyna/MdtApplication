@@ -14,7 +14,7 @@ deploy_conan_Linux:
   extends: .deploy_conan_matrix
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   variables:
-    - CONAN_PROFILE_OS: linux
+    CONAN_PROFILE_OS: linux
   parallel:
     matrix:
       - COMPONENT:

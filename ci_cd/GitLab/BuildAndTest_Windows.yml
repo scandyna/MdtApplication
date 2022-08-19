@@ -66,32 +66,32 @@ test_Windows_msvc16_x86_64_Release:
   #extends: .test_windows
 
 ############################################
-# Build & test Windows Gcc 7 (MinGW) X86_64
+# Build & test Windows Gcc 8 (MinGW) X86_64
 ############################################
 
-.buildAndTest_Windows_gcc7_x86_64:
-  image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-win64_mingw73:latest
+.buildAndTest_Windows_gcc8_x86_64:
+  image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-win64_mingw81:latest
   variables:
-    CONAN_PROFILE_BUILD: windows_gcc7_x86_64
-    CONAN_PROFILE_HOST: windows_gcc7_x86_64_qt_widgets_modules
+    CONAN_PROFILE_BUILD: windows_gcc8_x86_64
+    CONAN_PROFILE_HOST: windows_gcc8_x86_64_qt_widgets_modules
     BUILD_SHARED_LIBS: "True"
 
-build_Windows_gcc7_x86_64_Debug:
+build_Windows_gcc8_x86_64_Debug:
   variables:
     BUILD_TYPE: Debug
   extends:
-    - .buildAndTest_Windows_gcc7_x86_64
+    - .buildAndTest_Windows_gcc8_x86_64
     - .build_windows
 
-test_Windows_gcc7_x86_64_Debug:
+test_Windows_gcc8_x86_64_Debug:
   variables:
     BUILD_TYPE: Debug
   extends:
-    - .buildAndTest_Windows_gcc7_x86_64
+    - .buildAndTest_Windows_gcc8_x86_64
     - .test_windows
   dependencies:
-    - build_Windows_gcc7_x86_64_Debug
-  needs: ["build_Windows_gcc7_x86_64_Debug"]
+    - build_Windows_gcc8_x86_64_Debug
+  needs: ["build_Windows_gcc8_x86_64_Debug"]
 
 #build_windows_gcc7_x86_64_debug:
   #image: registry.gitlab.com/scandyna/docker-images/windows-cpp-qt-5.14.2-win64_mingw73:latest

@@ -2,8 +2,6 @@
 
 Some additions for QCoreApplication, QGuiApplication and QApplication.
 
-TODO: maybe: This project is composed of some libraries: OR not
-
 This library is composed of some components:
 
 | Component                    | Description                                          | Main dependency |

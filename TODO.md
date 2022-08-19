@@ -47,8 +47,6 @@ Inline UML in Doxygen ?
 
 # CMake
 
-Should sepcify LANGUAGES CXX in project()
-
 Try conan build requires
 cmake_installer[>=3.14]@conan/stable
 

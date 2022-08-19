@@ -52,7 +52,7 @@ else()
   mdt_cmake_project_version_from_git_tag(INITIAL_PROJECT_VERSION DEFAULT_VERSION 0.0.1)
 endif()
 
-project(MdtApplication VERSION ${INITIAL_PROJECT_VERSION})
+project(MdtApplication VERSION ${INITIAL_PROJECT_VERSION} LANGUAGES CXX)
 
 unset(INITIAL_PROJECT_VERSION)
 

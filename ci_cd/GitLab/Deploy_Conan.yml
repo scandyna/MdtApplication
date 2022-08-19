@@ -1,0 +1,48 @@
+
+.deploy_conan_matrix:
+  extends: .deploy_conan_base
+  script:
+    - conan create packaging/conan/$COMPONENT scandyna/testing
+      --profile:build $CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_x86_64 --profile:host $CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_$CONAN_PROFILE_ARCH_qt_widgets_modules
+      -s build_type=$BUILD_TYPE -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
+      --test-folder None
+    - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
+    - conan upload $COMPONENT/* --remote scandyna --all -c
+
+
+deploy_conan_Linux:
+  extends: .deploy_conan_matrix
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  variables:
+    - CONAN_PROFILE_OS: linux
+  parallel:
+    matrix:
+      - COMPONENT:
+          - ConsoleApplication
+          - CoreApplicationForNonQtUsage
+          - GuiApplicationForNonQtUsage
+        CONAN_PROFILE_COMPILER:
+          - gcc8
+        CONAN_PROFILE_ARCH:
+          - x86_64
+        BUILD_TYPE:
+          - Debug
+          - Release
+        BUILD_SHARED_LIBS:
+          - "True"
+          - "False"
+
+
+###########################################
+# Deploy Conan - OS independant (use Linux)
+###########################################
+
+deploy_conan_CommandLineArguments:
+  extends: .deploy_conan_base
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  script:
+    - conan create packaging/conan/CommandLineArguments scandyna/testing
+      --profile:build linux_gcc8_x86_64 --profile:host linux_gcc8_x86_64 -s build_type=Debug
+      --test-folder None
+    - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
+    - conan upload MdtCommandLineArguments/* --remote scandyna --all -c

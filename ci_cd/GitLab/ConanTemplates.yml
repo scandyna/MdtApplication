@@ -45,17 +45,17 @@
   before_script:
     - !reference [.setup_conan, script]
 
-.deploy_conan_CommandLineArguments:
-  extends:
-    - .deploy_conan_base
-  script:
-    - conan create packaging/conan/CommandLineArguments scandyna/testing
-      --profile:build $CONAN_PROFILE_BUILD --profile:host $CONAN_PROFILE_HOST -s build_type=$BUILD_TYPE
-      --test-folder None
-    - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
-    - conan upload MdtCommandLineArguments/* --remote scandyna --all -c
+#.deploy_conan_CommandLineArguments:
+  #extends:
+    #- .deploy_conan_base
+  #script:
+    #- conan create packaging/conan/CommandLineArguments scandyna/testing
+      #--profile:build $CONAN_PROFILE_BUILD --profile:host $CONAN_PROFILE_HOST -s build_type=$BUILD_TYPE
+      #--test-folder None
+    #- conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
+    #- conan upload MdtCommandLineArguments/* --remote scandyna --all -c
 
-.deploy_conan_CommandLineArguments_Windows:
-  extends:
-    - .deploy_conan_CommandLineArguments
-    - .windows_runner
+#.deploy_conan_CommandLineArguments_Windows:
+  #extends:
+    #- .deploy_conan_CommandLineArguments
+    #- .windows_runner

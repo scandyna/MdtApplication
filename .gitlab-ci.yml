@@ -9,6 +9,7 @@ include:
   - local: 'ci_cd/GitLab/ConanTemplates.yml'
   - local: 'ci_cd/GitLab/Conan_CreateAndTest_Linux.yml'
   - local: 'ci_cd/GitLab/Conan_CreateAndTest_Windows.yml'
+  - local: 'ci_cd/GitLab/Deploy_Conan.yml'
 
 # GitLab shared new Windows runners
 # They currently not support Docker engine
@@ -61,18 +62,6 @@ stages:
 # Build & test Windows
 ###############################
 
-
-
-###########################################
-# Deploy Conan - OS independant (use Linux)
-###########################################
-
-deploy_conan_CommandLineArguments:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
-  variables:
-    CONAN_PROFILE: linux_gcc7_x86_64
-    BUILD_TYPE: Debug
-  extends: .deploy_conan_CommandLineArguments
 
 ###############################
 # Deploy Conan Linux

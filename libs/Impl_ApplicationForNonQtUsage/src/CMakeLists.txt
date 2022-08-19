@@ -34,6 +34,9 @@ include(MdtInstallIncludes)
 # For example, see https://gitlab.com/scandyna/mdtapplication/-/jobs/2889409256
 #
 # What we need is to compile this implementation into the final libraries
+#
+# See also: https://gitlab.com/scandyna/mdtapplication/-/issues/1
+#
 
 add_library(Mdt_Impl_ApplicationForNonQtUsage INTERFACE)
 add_library(Mdt::Impl_ApplicationForNonQtUsage ALIAS Mdt_Impl_ApplicationForNonQtUsage)

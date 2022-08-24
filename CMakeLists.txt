@@ -322,6 +322,8 @@ endif()
 # Debug
 #######################
 
+message(STATUS "CMAKE_BUILD_TYPE:${CMAKE_BUILD_TYPE}")
+message(STATUS "BUILD_SHARED_LIBS:${BUILD_SHARED_LIBS}")
 message(STATUS "CMAKE_CXX_FLAGS:${CMAKE_CXX_FLAGS}")
 message(STATUS "IPO supported: ${HAVE_IPO_LTO}")
 message(STATUS "BUILD_USE_IPO_LTO: ${BUILD_USE_IPO_LTO}")

@@ -113,6 +113,7 @@
     - cmake --build . --config $BUILD_TYPE -j4
     - .\deactivate_conanbuild
   artifacts:
+    when: allways
     expire_in: 1 day
     paths:
       - build

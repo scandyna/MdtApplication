@@ -1,9 +1,20 @@
+
+
+.deploy_conan_base_SANDBOX:
+  stage: build
+  before_script:
+    - !reference [.setup_conan, script]
+    - echo profile build "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_x86_64"
+    - echo profile host "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
+    - echo build_type $BUILD_TYPE
+    - echo Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS 
+
 ###########################################
 # Deploy Conan - OS independant (use Linux)
 ###########################################
 
 deploy_conan_CommandLineArguments:
-  extends: .deploy_conan_base
+  extends: .deploy_conan_base_SANDBOX
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   script:
     - conan create packaging/conan/CommandLineArguments scandyna/testing
@@ -16,16 +27,6 @@ deploy_conan_CommandLineArguments:
 ###########################################
 # Deploy Conan
 ###########################################
-
-
-.deploy_conan_base_SANDBOX:
-  stage: build
-  before_script:
-    - !reference [.setup_conan, script]
-    - echo profile build "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_x86_64"
-    - echo profile host "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
-    - echo build_type $BUILD_TYPE
-    - echo Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS 
 
 
 .deploy_conan_matrix:

@@ -1,20 +1,9 @@
-
-
-.deploy_conan_base_SANDBOX:
-  stage: build
-  before_script:
-    - !reference [.setup_conan, script]
-    - echo profile build "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_x86_64"
-    - echo profile host "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
-    - echo build_type $BUILD_TYPE
-    - echo Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS 
-
 ###########################################
 # Deploy Conan - OS independant (use Linux)
 ###########################################
 
 deploy_conan_CommandLineArguments:
-  extends: .deploy_conan_base_SANDBOX
+  extends: .deploy_conan_base
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   script:
     - conan create packaging/conan/CommandLineArguments scandyna/testing
@@ -28,9 +17,8 @@ deploy_conan_CommandLineArguments:
 # Deploy Conan
 ###########################################
 
-
 .deploy_conan_matrix:
-  extends: .deploy_conan_base_SANDBOX
+  extends: .deploy_conan_base
   needs: ["deploy_conan_CommandLineArguments"]
   script:
     - conan create packaging/conan/$COMPONENT scandyna/testing
@@ -39,7 +27,7 @@ deploy_conan_CommandLineArguments:
       -s build_type=$BUILD_TYPE
       -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS --test-folder None
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
-    #- conan upload $COMPONENT/* --remote scandyna --all -c
+    - conan upload $COMPONENT/* --remote scandyna --all -c
 
 
 deploy_conan_Linux:

@@ -74,6 +74,7 @@ test_Windows_msvc16_x86_64_Release:
   variables:
     CONAN_PROFILE_BUILD: windows_gcc8_x86_64
     CONAN_PROFILE_HOST: windows_gcc8_x86_64_qt_widgets_modules
+    CMAKE_GENERATOR: "MinGW Makefiles"
     BUILD_SHARED_LIBS: "True"
 
 # TODO: re-enable Debug build/test once this issue is fixed:

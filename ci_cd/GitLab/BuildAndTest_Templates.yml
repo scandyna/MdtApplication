@@ -7,7 +7,7 @@
     # The toolchain file expression has to be quoted when using Powershell
     # See https://gitlab.kitware.com/cmake/cmake/-/issues/23109
     - cmake "-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake"
-      -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+      -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
       -DENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE=ON
       -DENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE=ON
       -DENABLE_COMMAND_LINE_ARGUMENTS=ON

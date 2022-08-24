@@ -3,7 +3,10 @@
   stage: build
   before_script:
     - !reference [.setup_conan, script]
-
+    - echo profile build "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_x86_64"
+    - echo profile host "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_$CONAN_PROFILE_ARCH_qt_widgets_modules"
+    - echo build_type $BUILD_TYPE
+    - echo Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS 
 
 
 .deploy_conan_matrix:

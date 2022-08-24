@@ -27,7 +27,7 @@
 
 namespace Mdt{
 
-  /*! \breif Provide a QCoreApplication for a non Qt application
+  /*! \brief Provide a QCoreApplication for a non Qt application
    *
    * To be able to use some parts of Qt,
    *  it is needed to use a Qt event loop.

@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- ** Copyright (C) 2020-2020 Philippe Steinmann.
+ ** Copyright (C) 2020-2022 Philippe Steinmann.
  **
  ** This file is part of MdtApplication library.
  **
@@ -27,7 +27,7 @@
 
 namespace Mdt{
 
-  /*! \breif Provide a QGuiApplication for a non Qt application
+  /*! \brief Provide a QGuiApplication for a non Qt application
    *
    */
   template<typename Worker>

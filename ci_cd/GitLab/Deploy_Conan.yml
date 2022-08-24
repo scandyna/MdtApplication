@@ -3,8 +3,8 @@
   stage: build
   before_script:
     - !reference [.setup_conan, script]
-    - echo profile build "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_x86_64"
-    - echo profile host "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_$CONAN_PROFILE_ARCH_qt_widgets_modules"
+    - echo profile build "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_x86_64"
+    - echo profile host "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
     - echo build_type $BUILD_TYPE
     - echo Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS 
 
@@ -12,7 +12,7 @@
 .deploy_conan_matrix:
   extends: .deploy_conan_base_SANDBOX
   script:
-    - conan create packaging/conan/$COMPONENT scandyna/testing --profile:build "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_x86_64" --profile:host "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_$CONAN_PROFILE_ARCH_qt_widgets_modules" -s build_type=$BUILD_TYPE -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS --test-folder None
+    - conan create packaging/conan/$COMPONENT scandyna/testing --profile:build "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_x86_64" --profile:host "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules" -s build_type=$BUILD_TYPE -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS --test-folder None
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
     #- conan upload $COMPONENT/* --remote scandyna --all -c
 

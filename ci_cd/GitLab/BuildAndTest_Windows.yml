@@ -116,29 +116,31 @@ test_Windows_gcc8_x86_64_Debug:
 # Build & test Windows Gcc 7 (MinGW) X86 (32 bit)
 ##################################################
 
-.buildAndTest_Windows_gcc7_x86_32:
-  image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-win32_mingw73:latest
-  variables:
-    CONAN_PROFILE_BUILD: windows_gcc7_x86
-    CONAN_PROFILE_HOST: windows_gcc7_x86_qt_widgets_modules
-    BUILD_SHARED_LIBS: "True"
+# TODO: Gcc 7 should not be supported anymore
 
-build_Windows_gcc7_x86_32_Debug:
-  variables:
-    BUILD_TYPE: Debug
-  extends:
-    - .buildAndTest_Windows_gcc7_x86_32
-    - .build_windows
+#.buildAndTest_Windows_gcc7_x86_32:
+  #image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-win32_mingw73:latest
+  #variables:
+    #CONAN_PROFILE_BUILD: windows_gcc7_x86
+    #CONAN_PROFILE_HOST: windows_gcc7_x86_qt_widgets_modules
+    #BUILD_SHARED_LIBS: "True"
 
-test_Windows_gcc7_x86_32_Debug:
-  variables:
-    BUILD_TYPE: Debug
-  extends:
-    - .buildAndTest_Windows_gcc7_x86_32
-    - .test_windows
-  dependencies:
-    - build_Windows_gcc7_x86_32_Debug
-  needs: ["build_Windows_gcc7_x86_32_Debug"]
+#build_Windows_gcc7_x86_32_Debug:
+  #variables:
+    #BUILD_TYPE: Debug
+  #extends:
+    #- .buildAndTest_Windows_gcc7_x86_32
+    #- .build_windows
+
+#test_Windows_gcc7_x86_32_Debug:
+  #variables:
+    #BUILD_TYPE: Debug
+  #extends:
+    #- .buildAndTest_Windows_gcc7_x86_32
+    #- .test_windows
+  #dependencies:
+    #- build_Windows_gcc7_x86_32_Debug
+  #needs: ["build_Windows_gcc7_x86_32_Debug"]
 
 #build_windows_gcc7_x86_32_debug:
   #image: registry.gitlab.com/scandyna/docker-images/windows-cpp-qt-5.14.2-win32_mingw73:latest

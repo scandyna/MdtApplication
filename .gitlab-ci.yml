@@ -362,7 +362,7 @@ build_api_doc:
     - cd build
     #- conan install ..
     #- conan install -o MdtApplication:build_only_doc=True ..
-    - conan install --profile linux_gcc7_x86_64_qt_widgets_modules -s build_type=Debug -o MdtApplication:build_only_doc=True --build=missing ..
+    - conan install --profile linux_gcc7_x86_64_qt_widgets_modules -s build_type=Debug -o MdtApplication:build_only_doc=True ..
     #- cmake -DBUILD_CPP_API_DOC=ON ..
     - cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_CPP_API_DOC=ON ..
     - make documentation

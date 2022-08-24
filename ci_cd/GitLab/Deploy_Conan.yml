@@ -41,7 +41,7 @@ deploy_conan_CommandLineArguments:
       -s build_type=$BUILD_TYPE
       -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
-    - conan upload $COMPONENT/* --remote scandyna --all -c
+    - conan upload Mdt$COMPONENT/* --remote scandyna --all -c
 
 
 deploy_conan_Linux:

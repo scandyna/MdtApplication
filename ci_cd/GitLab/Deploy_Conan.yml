@@ -1,12 +1,22 @@
 
+.deploy_conan_base_SANDBOX:
+  stage: build
+  before_script:
+    - !reference [.setup_conan, script]
+    - echo command arguments: packaging/conan/$COMPONENT scandyna/testing
+      --profile:build "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_x86_64" --profile:host "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_$CONAN_PROFILE_ARCH_qt_widgets_modules" -s build_type=$BUILD_TYPE -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
+      --test-folder None
+
+
+
 .deploy_conan_matrix:
-  extends: .deploy_conan_base
+  extends: .deploy_conan_base_SANDBOX
   script:
     - conan create packaging/conan/$COMPONENT scandyna/testing
       --profile:build "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_x86_64" --profile:host "$CONAN_PROFILE_OS_$CONAN_PROFILE_COMPILER_$CONAN_PROFILE_ARCH_qt_widgets_modules" -s build_type=$BUILD_TYPE -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
       --test-folder None
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
-    - conan upload $COMPONENT/* --remote scandyna --all -c
+    #- conan upload $COMPONENT/* --remote scandyna --all -c
 
 
 deploy_conan_Linux:

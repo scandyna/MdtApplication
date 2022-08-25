@@ -118,7 +118,7 @@ Deploy_Conan_Linux_Gcc:
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
     - conan upload Mdt$COMPONENT/* --remote scandyna --all -c
 
-Deploy_Conan_Linux_Gcc:
+Deploy_Conan_Linux_Clang:
   extends: .Deploy_Conan_Linux_Clang_Matrix
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   parallel:

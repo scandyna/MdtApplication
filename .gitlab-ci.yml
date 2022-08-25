@@ -3,6 +3,7 @@
 ###############################
 
 include:
+  - local: 'ci_cd/GitLab/Common.yml'
   - local: 'ci_cd/GitLab/BuildAndTest_Templates.yml'
   - local: 'ci_cd/GitLab/BuildAndTest_Linux.yml'
   - local: 'ci_cd/GitLab/BuildAndTest_Windows.yml'
@@ -18,17 +19,6 @@ include:
     #- shared-windows
     #- windows
     #- windows-1809
-
-.windows_runner:
-  tags:
-    - docker-windows
-
-
-stages:
-  - build
-  - test
-  - deploy
-
 
 ###############################
 # Reusable templates

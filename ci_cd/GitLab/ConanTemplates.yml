@@ -1,3 +1,7 @@
+
+include:
+  - local: 'ci_cd/GitLab/Common.yml'
+
 ###############################
 # Conan templates
 ###############################

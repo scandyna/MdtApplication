@@ -31,24 +31,60 @@ deploy_conan_CommandLineArguments:
 # (if a test fails, then add it at the build stage to catch erlier)
 
 
-.deploy_conan_matrix:
+#.deploy_conan_matrix:
+  #extends: .deploy_conan_base
+  #needs: ["deploy_conan_CommandLineArguments"]
+  #script:
+    #- conan create packaging/conan/$COMPONENT scandyna/testing
+      #--profile:build "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_x86_64"
+      #--profile:host "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
+      #-s build_type=$BUILD_TYPE
+      #-o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
+    #- conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
+    #- conan upload Mdt$COMPONENT/* --remote scandyna --all -c
+
+
+#deploy_conan_Linux:
+  #extends: .deploy_conan_matrix
+  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  #variables:
+    #CONAN_PROFILE_OS: linux
+  #parallel:
+    #matrix:
+      #- COMPONENT:
+          #- ConsoleApplication
+          #- CoreApplicationForNonQtUsage
+          #- GuiApplicationForNonQtUsage
+        #CONAN_PROFILE_COMPILER:
+          #- gcc8
+        #CONAN_PROFILE_ARCH:
+          #- x86_64
+        #BUILD_TYPE:
+          #- Debug
+          #- Release
+        #BUILD_SHARED_LIBS:
+          #- "True"
+          #- "False"
+
+###########################################
+# Deploy Conan - Linux Gcc
+###########################################
+
+.Deploy_Conan_Linux_Gcc_Matrix:
   extends: .deploy_conan_base
   needs: ["deploy_conan_CommandLineArguments"]
   script:
     - conan create packaging/conan/$COMPONENT scandyna/testing
-      --profile:build "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_x86_64"
-      --profile:host "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
+      --profile:build "linux_${CONAN_PROFILE_COMPILER}_x86_64"
+      --profile:host "linux_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
       -s build_type=$BUILD_TYPE
       -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
     - conan upload Mdt$COMPONENT/* --remote scandyna --all -c
 
-
-deploy_conan_Linux:
-  extends: .deploy_conan_matrix
+Deploy_Conan_Linux_Gcc:
+  extends: .Deploy_Conan_Linux_Gcc_Matrix
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
-  variables:
-    CONAN_PROFILE_OS: linux
   parallel:
     matrix:
       - COMPONENT:
@@ -57,6 +93,120 @@ deploy_conan_Linux:
           - GuiApplicationForNonQtUsage
         CONAN_PROFILE_COMPILER:
           - gcc8
+        CONAN_PROFILE_ARCH:
+          - x86_64
+        BUILD_TYPE:
+          - Debug
+          - Release
+        BUILD_SHARED_LIBS:
+          - "True"
+          - "False"
+
+###########################################
+# Deploy Conan - Linux Clang
+###########################################
+
+.Deploy_Conan_Linux_Clang_Matrix:
+  extends: .deploy_conan_base
+  needs: ["deploy_conan_CommandLineArguments"]
+  script:
+    - conan create packaging/conan/$COMPONENT scandyna/testing
+      --profile:build "linux_${CONAN_PROFILE_COMPILER}_x86_64_libc++"
+      --profile:host "linux_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_${CONAN_PROFILE_LIBCXX}_qt_widgets_modules"
+      -s build_type=$BUILD_TYPE
+      -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
+    - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
+    - conan upload Mdt$COMPONENT/* --remote scandyna --all -c
+
+Deploy_Conan_Linux_Gcc:
+  extends: .Deploy_Conan_Linux_Clang_Matrix
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  parallel:
+    matrix:
+      - COMPONENT:
+          - ConsoleApplication
+          - CoreApplicationForNonQtUsage
+          - GuiApplicationForNonQtUsage
+        CONAN_PROFILE_COMPILER:
+          - clang6.0
+        CONAN_PROFILE_ARCH:
+          - x86_64
+        CONAN_PROFILE_LIBCXX:
+          - libc++
+        BUILD_TYPE:
+          - Debug
+          - Release
+        BUILD_SHARED_LIBS:
+          - "True"
+          - "False"
+
+###########################################
+# Deploy Conan - Windows Gcc
+###########################################
+
+.Deploy_Conan_Windows_Gcc_Matrix:
+  extends:
+    - .deploy_conan_base
+    - .windows_runner
+  needs: ["deploy_conan_CommandLineArguments"]
+  script:
+    - conan create packaging/conan/$COMPONENT scandyna/testing
+      --profile:build "linux_${CONAN_PROFILE_COMPILER}_x86_64"
+      --profile:host "linux_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
+      -s build_type=$BUILD_TYPE
+      -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
+    - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
+    - conan upload Mdt$COMPONENT/* --remote scandyna --all -c
+
+Deploy_Conan_Windows_Gcc:
+  extends: .Deploy_Conan_Windows_Gcc_Matrix
+  image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-win64_mingw81:latest
+  parallel:
+    matrix:
+      - COMPONENT:
+          - ConsoleApplication
+          - CoreApplicationForNonQtUsage
+          - GuiApplicationForNonQtUsage
+        CONAN_PROFILE_COMPILER:
+          - gcc8
+        CONAN_PROFILE_ARCH:
+          - x86_64
+        BUILD_TYPE:
+          - Debug
+          - Release
+        BUILD_SHARED_LIBS:
+          - "True"
+          - "False"
+
+###########################################
+# Deploy Conan - Windows MSVC
+###########################################
+
+.Deploy_Conan_Windows_Msvc_Matrix:
+  extends:
+    - .deploy_conan_base
+    - .windows_runner
+  needs: ["deploy_conan_CommandLineArguments"]
+  script:
+    - conan create packaging/conan/$COMPONENT scandyna/testing
+      --profile:build "linux_${CONAN_PROFILE_COMPILER}_x86_64"
+      --profile:host "linux_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
+      -s build_type=$BUILD_TYPE
+      -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
+    - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
+    - conan upload Mdt$COMPONENT/* --remote scandyna --all -c
+
+Deploy_Conan_Windows_Msvc:
+  extends: .Deploy_Conan_Windows_Msvc_Matrix
+  image: registry.gitlab.com/scandyna/docker-images-windows/windows-cpp-msvc2019:latest
+  parallel:
+    matrix:
+      - COMPONENT:
+          - ConsoleApplication
+          - CoreApplicationForNonQtUsage
+          - GuiApplicationForNonQtUsage
+        CONAN_PROFILE_COMPILER:
+          - msvc16
         CONAN_PROFILE_ARCH:
           - x86_64
         BUILD_TYPE:

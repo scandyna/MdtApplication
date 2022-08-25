@@ -1,4 +1,4 @@
-###########################################
+##########################################
 # Deploy Conan - OS independant (use Linux)
 ###########################################
 
@@ -11,60 +11,6 @@ deploy_conan_CommandLineArguments:
       --test-folder None
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
     - conan upload MdtCommandLineArguments/* --remote scandyna --all -c
-
-
-###########################################
-# Deploy Conan
-###########################################
-
-# TODO: schould not think about a general matrix
-#       example: Clang has other options than Gcc, like lib=libc++
-#
-# Maybe, make a gcc linux template, a clang linux template, etc..
-# Then, the build profile could be always the same ?
-#
-
-# TODO: keep test_package !
-#
-# Due to the various combinations of builds,
-# let Conan run test_package !
-# (if a test fails, then add it at the build stage to catch erlier)
-
-
-#.deploy_conan_matrix:
-  #extends: .deploy_conan_base
-  #needs: ["deploy_conan_CommandLineArguments"]
-  #script:
-    #- conan create packaging/conan/$COMPONENT scandyna/testing
-      #--profile:build "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_x86_64"
-      #--profile:host "${CONAN_PROFILE_OS}_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
-      #-s build_type=$BUILD_TYPE
-      #-o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
-    #- conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
-    #- conan upload Mdt$COMPONENT/* --remote scandyna --all -c
-
-
-#deploy_conan_Linux:
-  #extends: .deploy_conan_matrix
-  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
-  #variables:
-    #CONAN_PROFILE_OS: linux
-  #parallel:
-    #matrix:
-      #- COMPONENT:
-          #- ConsoleApplication
-          #- CoreApplicationForNonQtUsage
-          #- GuiApplicationForNonQtUsage
-        #CONAN_PROFILE_COMPILER:
-          #- gcc8
-        #CONAN_PROFILE_ARCH:
-          #- x86_64
-        #BUILD_TYPE:
-          #- Debug
-          #- Release
-        #BUILD_SHARED_LIBS:
-          #- "True"
-          #- "False"
 
 ###########################################
 # Deploy Conan - Linux Gcc

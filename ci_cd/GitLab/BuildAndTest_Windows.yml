@@ -1,3 +1,8 @@
+
+include:
+  - local: 'ci_cd/GitLab/Common.yml'
+  - local: 'ci_cd/GitLab/BuildAndTest_Templates.yml'
+
 ############################################
 # Build & test Windows MSVC 16 2019 X86_64
 ############################################

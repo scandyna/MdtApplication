@@ -1,3 +1,8 @@
+
+include:
+  - local: 'ci_cd/GitLab/Common.yml'
+  - local: 'ci_cd/GitLab/ConanTemplates.yml'
+
 ###############################
 # Build & test templates
 ###############################

@@ -13,36 +13,6 @@ SEE: https://gitlab.kitware.com/cmake/cmake/-/issues/18935
 
 See https://github.com/olivierlacan/keep-a-changelog
 
-# Doc / Diagrams
-
-See Consistent architecture diagrams for C++ projects -  Marius Feilhauer - Meeting C++ 2019 (documentation)
-
-## Doxygen auto
-
-COLLABORATION_GRAPH = YES
-
-INCLUDE_GRAPH
-INCLUDED_BY_GRAPH
-
-Those can be used to create manual diagrams,
-without to much details.
-
-## Doxygen...
-
-https://doxygen.nl/manual/commands.html:
-
-## UML manual
-
-PlantUML
--> Also see what packages are reuqired in docker images
-   NOTE: create a docker image for docs ? (lighter)
-
-See Doxygen integration
-
-Also, markdown UML file integrated with Doxygen ?
-
-Inline UML in Doxygen ?
-
 # Sonar Source
 
 # CMake
@@ -60,11 +30,6 @@ Add sanitizer options / support ?
 # CI
 
 See: https://docs.gitlab.com/ee/ci/yaml/index.html#release
-
-See parallel:
-    matrix:
-    https://docs.gitlab.com/ee/ci/yaml/
-Will probably only work for deploy, because of depends (and needs)
 
 # Optimisation
 

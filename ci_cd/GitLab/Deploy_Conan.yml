@@ -154,7 +154,7 @@ Deploy_Conan_Linux_Clang:
       --profile:build "windows_${CONAN_PROFILE_COMPILER}_x86_64"
       --profile:host "windows_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
       -s build_type=$BUILD_TYPE
-      -o "Mdt${COMPONENT}":shared=$BUILD_SHARED_LIBS
+      -o "Mdt${COMPONENT}:shared=$BUILD_SHARED_LIBS"
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
     - conan upload Mdt$COMPONENT/* --remote scandyna --all -c
 
@@ -192,7 +192,7 @@ Deploy_Conan_Windows_Gcc:
       --profile:build "windows_${CONAN_PROFILE_COMPILER}_x86_64"
       --profile:host "windows_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
       -s build_type=$BUILD_TYPE
-      -o "Mdt${COMPONENT}":shared=$BUILD_SHARED_LIBS
+      -o "Mdt${COMPONENT}:shared=$BUILD_SHARED_LIBS"
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
     - conan upload Mdt$COMPONENT/* --remote scandyna --all -c
 

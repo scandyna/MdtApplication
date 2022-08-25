@@ -25,6 +25,7 @@
 
 .conan_createAndTest:
   stage: build
+  retry: 1
   rules:
     - !reference [.conan_createAndTest_rules, rules]
   script:
@@ -38,6 +39,7 @@
 
 .deploy_conan_base:
   stage: deploy
+  retry: 1
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success

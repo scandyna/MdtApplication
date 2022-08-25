@@ -17,6 +17,9 @@ class MdtCommandLineArgumentsConan(ConanFile):
   # See also: https://github.com/conan-io/conan/issues/350
   no_copy_source = True
 
+  # See: https://docs.conan.io/en/latest/reference/conanfile/attributes.html#short-paths
+  short_paths = True
+
   # The version can be set on the command line:
   # conan create . x.y.z@scandyna/testing ...
   # It can also be set by a git tag (case of deploy in the CI/CD)

@@ -4,8 +4,8 @@ Some additions for QCoreApplication, QGuiApplication and QApplication.
 
 | Topic                                    | Status                                                                                                                                 |
 |:-----------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------|
-| `Build / test (CI): latest pipeline`     | [![pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/pipelines/latest) |
-| `List of commits and CI pipeline status` | [![pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/commits/experimental) |
+| `Build / test (CI): latest pipeline`     | [![latest pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/pipelines/latest) |
+| `List of commits and CI pipeline status` | [![list of commits and pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/commits/experimental) |
 
 
 This library is composed of some components:

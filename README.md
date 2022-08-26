@@ -1,5 +1,8 @@
 
-[![pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/pipelines/latest)
+| Topic                                    | Status                                                                                                                                 |
+|:-----------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------|
+| `Build / test (CI): latest pipeline`     | [![pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/pipelines/latest) |
+| `List of commits and CI pipeline status` | [![pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/commits/experimental) |
 
 # MdtApplication
 

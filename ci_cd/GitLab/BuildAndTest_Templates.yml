@@ -24,7 +24,10 @@ include:
       $CMAKE_EXTRA_ARGUMENTS
       ..
 
-.build_rules:
+# See:
+# - https://gitlab.com/scandyna/mdtapplication/-/pipelines/623946595
+# - https://forum.gitlab.com/t/needs-error-deploy-job-needs-job-x-job-but-job-x-is-not-in-any-previous-stage/60331
+.buildAndTest_rules:
   rules:
     - changes:
       - "*.cpp"
@@ -34,12 +37,24 @@ include:
       - libs/**/*
       - .gitlab-ci.yml
       - ci_cd/GitLab/*
-      when: always
+      when: on_success
+
+#.build_rules:
+  #rules:
+    #- changes:
+      #- "*.cpp"
+      #- CMakeLists.txt
+      #- conanfile.py
+      #- examples/**/*
+      #- libs/**/*
+      #- .gitlab-ci.yml
+      #- ci_cd/GitLab/*
+      #when: always
 
 .build_linux:
   stage: build
   rules:
-    - !reference [.build_rules, rules]
+    - !reference [.buildAndTest_rules, rules]
   before_script:
     - !reference [.setup_conan, script]
   script:
@@ -75,6 +90,8 @@ include:
 
 .test_base:
   stage: test
+  rules:
+    - !reference [.buildAndTest_rules, rules]
   before_script:
     - !reference [.setup_conan, script]
   script:
@@ -104,7 +121,7 @@ include:
 .build_windows:
   stage: build
   rules:
-    - !reference [.build_rules, rules]
+    - !reference [.buildAndTest_rules, rules]
   extends:
     - .windows_runner
   before_script:

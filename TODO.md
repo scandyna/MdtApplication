@@ -20,7 +20,6 @@ See https://github.com/olivierlacan/keep-a-changelog
 Try conan build requires
 cmake_installer[>=3.14]@conan/stable
 
-
 Note: this should not affect when used as installed library
 
 # Conan

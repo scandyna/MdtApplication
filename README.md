@@ -1,3 +1,6 @@
+
+[![pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/pipelines/latest)
+
 # MdtApplication
 
 Some additions for QCoreApplication, QGuiApplication and QApplication.

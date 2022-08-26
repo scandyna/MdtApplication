@@ -27,10 +27,6 @@ Note: this should not affect when used as installed library
 
 Add sanitizer options / support ?
 
-# CI
-
-See: https://docs.gitlab.com/ee/ci/yaml/index.html#release
-
 # Optimisation
 
 Should add BUILD_USE_IPO_LTO_IF_AVAILABLE in CMakeLists.txt and turn it ON in conanfile.py

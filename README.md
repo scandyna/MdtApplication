@@ -1,9 +1,9 @@
 # MdtApplication
 
+Some additions for QCoreApplication, QGuiApplication and QApplication.
+
 [![latest pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/pipelines/latest)
 [List of commits and CI pipeline status](https://gitlab.com/scandyna/mdtapplication/-/commits/experimental)
-
-Some additions for QCoreApplication, QGuiApplication and QApplication.
 
 This library is composed of some components:
 

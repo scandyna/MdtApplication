@@ -39,18 +39,6 @@ include:
       - ci_cd/GitLab/*
       when: on_success
 
-#.build_rules:
-  #rules:
-    #- changes:
-      #- "*.cpp"
-      #- CMakeLists.txt
-      #- conanfile.py
-      #- examples/**/*
-      #- libs/**/*
-      #- .gitlab-ci.yml
-      #- ci_cd/GitLab/*
-      #when: always
-
 .build_linux:
   stage: build
   rules:

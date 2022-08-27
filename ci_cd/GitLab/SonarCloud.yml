@@ -32,6 +32,7 @@ get-sonar-binaries:
     #- master
     #- develop
 
+# TODO: maybe not build examples ?
 sonar-build:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   stage: build
@@ -41,7 +42,7 @@ sonar-build:
     paths:
       - build-wrapper/
       - sonar-scanner/
-      - bw-output/
+      - build/bw-output/
   rules:
     - !reference [.buildAndTest_rules, rules]
   # BUILD_TYPE and BUILD_SHARED_LIBS variables will be required by .cmake_configure
@@ -74,11 +75,11 @@ sonarcloud-check:
     paths:
       - build-wrapper/
       - sonar-scanner/
-      - bw-output/
+      - build/bw-output/
   #rules:
     #- !reference [.buildAndTest_rules, rules]
   script:
-    - sonar-scanner/bin/sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=bw-output
+    - sonar-scanner/bin/sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=build/bw-output
   #only:
     #- merge_requests
     #- master

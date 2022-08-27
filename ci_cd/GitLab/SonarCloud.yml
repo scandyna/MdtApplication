@@ -68,7 +68,8 @@ sonar-build:
     #- develop
 
 sonarcloud-check:
-  image: gcc
+  #image: gcc
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
   stage: .post
   cache:
     policy: pull

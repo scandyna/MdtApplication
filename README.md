@@ -4,6 +4,7 @@ Some additions for QCoreApplication, QGuiApplication and QApplication.
 
 [![latest pipeline status](https://gitlab.com/scandyna/mdtapplication/badges/experimental/pipeline.svg)](https://gitlab.com/scandyna/mdtapplication/-/pipelines/latest)
 [List of commits and CI pipeline status](https://gitlab.com/scandyna/mdtapplication/-/commits/experimental)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=scandyna_mdtapplication&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=scandyna_mdtapplication)
 
 This library is composed of some components:
 

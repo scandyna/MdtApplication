@@ -60,7 +60,7 @@ sonar-build:
     # Run the build inside the build wrapper - Seems to not work if we stay in build subdirectory
     - cd ..
     - build-wrapper/build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/
-    - source deactivate_conanbuild.sh
+    #- source deactivate_conanbuild.sh
   #needs: ["get-sonar-binaries"]
   #only:
     #- merge_requests

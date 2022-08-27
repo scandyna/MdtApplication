@@ -1,0 +1,85 @@
+
+include:
+  - local: 'ci_cd/GitLab/Common.yml'
+  - local: 'ci_cd/GitLab/BuildAndTest_Templates.yml'
+
+
+variables:
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+  GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+
+get-sonar-binaries:
+  image: gcc
+  stage: .pre
+  cache:
+    policy: push
+    key: "${CI_COMMIT_SHORT_SHA}"
+    paths:
+      - build-wrapper/
+      - sonar-scanner/
+  #rules:
+    #- !reference [.buildAndTest_rules, rules]
+  script:
+    # Download sonar-scanner
+    - curl -sSLo ./sonar-scanner.zip 'https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip'
+    - unzip -o sonar-scanner.zip
+    - mv sonar-scanner-4.7.0.2747-linux sonar-scanner
+    # Download build-wrapper
+    - curl -sSLo ./build-wrapper-linux-x86.zip "${SONAR_HOST_URL}/static/cpp/build-wrapper-linux-x86.zip"
+    - unzip -oj build-wrapper-linux-x86.zip -d ./build-wrapper
+  #only:
+    #- merge_requests
+    #- master
+    #- develop
+
+sonar-build:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  stage: build
+  cache:
+    policy: pull-push
+    key: "${CI_COMMIT_SHORT_SHA}"
+    paths:
+      - build-wrapper/
+      - sonar-scanner/
+      - bw-output/
+  rules:
+    - !reference [.buildAndTest_rules, rules]
+  # BUILD_TYPE and BUILD_SHARED_LIBS variables will be required by .cmake_configure
+  variables:
+    BUILD_TYPE: Debug
+    BUILD_SHARED_LIBS: "True"
+  before_script:
+    - !reference [.setup_conan, script]
+  script:
+    - mkdir build
+    - cd build
+    - conan install --profile:build linux_gcc8_x86_64 --profile:host linux_gcc8_x86_64_qt_widgets_modules -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS ..
+    - source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
+    - !reference [.cmake_configure, script]
+    # Run the build inside the build wrapper
+    - build-wrapper/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
+    - source deactivate_conanbuild.sh
+  #needs: ["get-sonar-binaries"]
+  #only:
+    #- merge_requests
+    #- master
+    #- develop
+
+sonarcloud-check:
+  image: gcc
+  stage: .post
+  cache:
+    policy: pull
+    key: "${CI_COMMIT_SHORT_SHA}"
+    paths:
+      - build-wrapper/
+      - sonar-scanner/
+      - bw-output/
+  #rules:
+    #- !reference [.buildAndTest_rules, rules]
+  script:
+    - sonar-scanner/bin/sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=bw-output
+  #only:
+    #- merge_requests
+    #- master
+    #- develop

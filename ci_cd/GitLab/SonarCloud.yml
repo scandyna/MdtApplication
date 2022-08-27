@@ -57,7 +57,7 @@ sonar-build:
     - source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
     - !reference [.cmake_configure, script]
     # Run the build inside the build wrapper
-    - build-wrapper/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
+    - ../build-wrapper/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
     - source deactivate_conanbuild.sh
   #needs: ["get-sonar-binaries"]
   #only:

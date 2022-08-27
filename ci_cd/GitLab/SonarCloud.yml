@@ -42,7 +42,7 @@ sonar-build:
     paths:
       - build-wrapper/
       - sonar-scanner/
-      - build/bw-output/
+      - bw-output/
   rules:
     - !reference [.buildAndTest_rules, rules]
   # BUILD_TYPE and BUILD_SHARED_LIBS variables will be required by .cmake_configure
@@ -57,8 +57,9 @@ sonar-build:
     - conan install --profile:build linux_gcc8_x86_64 --profile:host linux_gcc8_x86_64_qt_widgets_modules -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS ..
     - source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
     - !reference [.cmake_configure, script]
-    # Run the build inside the build wrapper
-    - ../build-wrapper/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
+    # Run the build inside the build wrapper - Seems to not work if we stay in build subdirectory
+    - cd ..
+    - build-wrapper/build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/
     - source deactivate_conanbuild.sh
   #needs: ["get-sonar-binaries"]
   #only:
@@ -75,11 +76,11 @@ sonarcloud-check:
     paths:
       - build-wrapper/
       - sonar-scanner/
-      - build/bw-output/
+      - bw-output/
   #rules:
     #- !reference [.buildAndTest_rules, rules]
   script:
-    - sonar-scanner/bin/sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=build/bw-output
+    - sonar-scanner/bin/sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=bw-output
   #only:
     #- merge_requests
     #- master

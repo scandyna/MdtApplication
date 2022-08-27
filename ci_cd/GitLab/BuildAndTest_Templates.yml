@@ -37,6 +37,7 @@ include:
       - libs/**/*
       - .gitlab-ci.yml
       - ci_cd/GitLab/*
+      - sonar-project.properties
       when: on_success
 
 .build_linux:

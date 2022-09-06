@@ -15,7 +15,7 @@ cd build
 
 ## Required tools and libraries
 
-Some tools and libraries are required to build and MdtApplication:
+Some tools and libraries are required to build MdtApplication:
  - Git
  - CMake
  - A compiler (Gcc or Clang or MSVC)

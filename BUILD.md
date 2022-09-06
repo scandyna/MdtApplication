@@ -236,7 +236,7 @@ Build:
 make documentation
 ```
 
-It is also possible to generate documentation Doxygen generated collaboration diagrams.
+It is also possible to generate documentation with Doxygen generated collaboration diagrams.
 This requires to expose some private class members, that can be cumbersome for the API doc,
 reason why it is separate.
 

@@ -54,7 +54,7 @@ Options:
 Conanfile:
 ```conan
 [requires]
-MdtCommandLineArgumentsn/x.y.z@scandyna/testing
+MdtCommandLineArguments/x.y.z@scandyna/testing
 ```
 
 Options: none

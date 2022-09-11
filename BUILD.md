@@ -134,7 +134,7 @@ This is a example on Linux using gcc.
 
 Install the dependencies:
 ```bash
-conan install --profile linux_gcc7_x86_64_qt_widgets_modules -s build_type=Debug --build=missing ..
+conan install --profile linux_gcc8_x86_64_qt_widgets_modules -s build_type=Debug --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -148,7 +148,7 @@ cmake-gui .
 
 Install the dependencies:
 ```bash
-conan install --profile linux_gcc7_x86_64_qt_widgets_modules -s build_type=Debug --build=missing ..
+conan install --profile linux_gcc8_x86_64_qt_widgets_modules -s build_type=Debug --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -162,7 +162,7 @@ cmake-gui .
 
 Install the dependencies:
 ```bash
-conan install --profile linux_clang6.0_x86_64_libc++_qt_widgets_modules -s build_type=Debug --build=missing ..
+conan install --profile linux_clang10_x86_64_libc++_qt_widgets_modules -s build_type=Debug --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -179,7 +179,7 @@ This is what I experieced on Ubuntu 18.04 with those default compilers.
 
 Install the dependencies:
 ```bash
-conan install --profile linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules -s build_type=Debug --build=missing ..
+conan install --profile linux_clang10_x86_64_libc++_tsan_qt_widgets_modules -s build_type=Debug --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -223,7 +223,7 @@ otherwise the graph will be empty.
 
 Install the dependencies:
 ```bash
-conan install --profile linux_gcc7_x86_64_qt_widgets_modules -s build_type=Debug -o MdtApplication:build_only_doc=True --build=missing ..
+conan install --profile linux_gcc8_x86_64_qt_widgets_modules -s build_type=Debug -o MdtApplication:build_only_doc=True --build=missing ..
 ```
 
 Configure MdtApplication:

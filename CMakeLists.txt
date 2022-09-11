@@ -100,7 +100,7 @@ option(BUILD_BENCHMARKS "Build the benchmarks" OFF)
 option(BUILD_EXAMPLES "Build the examples" OFF)
 option(BUILD_CPP_API_DOC "Generate Doxyfile for C++ API documentation" OFF)
 mdt_set_available_build_types(Release Debug RelWithDebInfo MinSizeRel Instrumented)
-option(WARNING_AS_ERROR "Threat warnings as errors" OFF)
+option(WARNING_AS_ERROR "Treat warnings as errors" OFF)
 
 # Provide LPO/LTO option if supported
 # Note: CMake before 3.9 does only support Intel compiler on Linux.
@@ -145,6 +145,7 @@ if(MSVC)
   if(WARNING_AS_ERROR)
     add_compile_options(/WX)
   endif()
+  # TODO: see sonar security review: https://sonarcloud.io/summary/overall?id=scandyna_mdtapplication
   # C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead (which not works with gcc/clang)
   add_compile_options(/wd4996)
 else()

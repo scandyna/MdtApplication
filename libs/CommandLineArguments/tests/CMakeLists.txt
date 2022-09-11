@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2020 Philippe Steinmann.
+# Copyright (C) 2019-2022 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -27,3 +27,11 @@ mdt_add_test(
   SOURCE_FILES
     src/CommandLineArgumentsTest.cpp
 )
+
+# In the tests we check that self assigning works
+# Clang, since version 7, warns about that
+if( (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang") AND (${CMAKE_CXX_COMPILER_VERSION} VERSION_GREATER_EQUAL 7) )
+  target_compile_options(commandLineArgumentsTest
+    PRIVATE "-Wno-self-assign-overloaded"
+  )
+endif()

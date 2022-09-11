@@ -120,75 +120,75 @@ test_linux_gcc8_x86_64_release:
   needs: ["build_linux_gcc8_x86_64_release"]
 
 ########################################
-# Build & test Linux Clang 6 X86_64
+# Build & test Linux Clang 10 X86_64
 ########################################
 
-.buildAndTest_linux_clang6.0_x86_64_libc++:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+.buildAndTest_linux_clang10_x86_64_libc++:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-20.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE_BUILD: linux_clang6.0_x86_64_libc++
-    CONAN_PROFILE_HOST: linux_clang6.0_x86_64_libc++_qt_widgets_modules
+    CONAN_PROFILE_BUILD: linux_clang10_x86_64_libc++
+    CONAN_PROFILE_HOST: linux_clang10_x86_64_libc++_qt_widgets_modules
     BUILD_SHARED_LIBS: "True"
 
-build_linux_clang6.0_x86_64_libc++_Debug:
+build_linux_clang10_x86_64_libc++_Debug:
   variables:
     BUILD_TYPE: Debug
   extends:
-    - .buildAndTest_linux_clang6.0_x86_64_libc++
+    - .buildAndTest_linux_clang10_x86_64_libc++
     - .build_linux
 
-test_linux_clang6.0_x86_64_libc++_Debug:
+test_linux_clang10_x86_64_libc++_Debug:
   variables:
     BUILD_TYPE: Debug
   extends:
-    - .buildAndTest_linux_clang6.0_x86_64_libc++
+    - .buildAndTest_linux_clang10_x86_64_libc++
     - .test_linux
   dependencies:
-    - build_linux_clang6.0_x86_64_libc++_Debug
-  needs: ["build_linux_clang6.0_x86_64_libc++_Debug"]
+    - build_linux_clang10_x86_64_libc++_Debug
+  needs: ["build_linux_clang10_x86_64_libc++_Debug"]
 
-build_linux_clang6.0_x86_64_libc++_Release:
+build_linux_clang10_x86_64_libc++_Release:
   variables:
     BUILD_TYPE: Release
   extends:
-    - .buildAndTest_linux_clang6.0_x86_64_libc++
+    - .buildAndTest_linux_clang10_x86_64_libc++
     - .build_linux
 
-test_linux_clang6.0_x86_64_libc++_Release:
+test_linux_clang10_x86_64_libc++_Release:
   variables:
     BUILD_TYPE: Release
   extends:
-    - .buildAndTest_linux_clang6.0_x86_64_libc++
+    - .buildAndTest_linux_clang10_x86_64_libc++
     - .test_linux
   dependencies:
-    - build_linux_clang6.0_x86_64_libc++_Release
-  needs: ["build_linux_clang6.0_x86_64_libc++_Release"]
+    - build_linux_clang10_x86_64_libc++_Release
+  needs: ["build_linux_clang10_x86_64_libc++_Release"]
 
 ############################################
-# Build & test Linux Clang 6 X86_64 - TSan
+# Build & test Linux Clang 10 X86_64 - TSan
 ############################################
 
-.buildAndTest_linux_clang6.0_x86_64_libc++_TSan:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+.buildAndTest_linux_clang10_x86_64_libc++_TSan:
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-20.04-xserver-build-tools:latest
   variables:
-    CONAN_PROFILE_BUILD: linux_clang6.0_x86_64_libc++
-    CONAN_PROFILE_HOST: linux_clang6.0_x86_64_libc++_tsan_qt_widgets_modules
+    CONAN_PROFILE_BUILD: linux_clang10_x86_64_libc++
+    CONAN_PROFILE_HOST: linux_clang10_x86_64_libc++_tsan_qt_widgets_modules
     BUILD_SHARED_LIBS: "True"
 
-build_linux_clang6.0_x86_64_libc++_TSan:
+build_linux_clang10_x86_64_libc++_TSan:
   variables:
     BUILD_TYPE: RelWithDebInfo
     CMAKE_EXTRA_ARGUMENTS: -DSANITIZER_ENABLE_THREAD=ON
   extends:
-    - .buildAndTest_linux_clang6.0_x86_64_libc++_TSan
+    - .buildAndTest_linux_clang10_x86_64_libc++_TSan
     - .build_linux
 
-test_linux_clang6.0_x86_64_libc++_TSan:
+test_linux_clang10_x86_64_libc++_TSan:
   variables:
     BUILD_TYPE: RelWithDebInfo
   extends:
-    - .buildAndTest_linux_clang6.0_x86_64_libc++_TSan
+    - .buildAndTest_linux_clang10_x86_64_libc++_TSan
     - .test_linux
   dependencies:
-    - build_linux_clang6.0_x86_64_libc++_TSan
-  needs: ["build_linux_clang6.0_x86_64_libc++_TSan"]
+    - build_linux_clang10_x86_64_libc++_TSan
+  needs: ["build_linux_clang10_x86_64_libc++_TSan"]

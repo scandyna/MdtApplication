@@ -18,7 +18,7 @@
 # along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
 #
 ########################################################################################
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.18)
 
 # CMAKE_PREFIX_PATH is empty before any call to project()
 # Because set_project_version() does not exist,

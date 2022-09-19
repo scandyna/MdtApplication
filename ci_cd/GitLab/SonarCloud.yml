@@ -11,7 +11,7 @@ variables:
 
 # TODO: maybe not build examples and tests ?
 sonar-build:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8-sonar:latest
   stage: build
   cache:
     policy: push
@@ -40,7 +40,7 @@ sonar-build:
 # than the one used with Sonar build-wrapper
 # (At least the compiler should be the same)
 sonarcloud-check:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8-sonar:latest
   stage: .post
   cache:
     policy: pull

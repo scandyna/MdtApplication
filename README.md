@@ -107,6 +107,9 @@ On Windows:
 For a list of available packages, and also some other details,
 see [Conan packages README](packaging/conan/README.md).
 
+For more details about conan install and build options,
+see the [BUILD](BUILD.md) documentation.
+
 ## Manual install
 
 It is also possible to install MdtApplication locally.

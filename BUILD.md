@@ -85,13 +85,18 @@ Some of those recommend to specify the build and host profile:
 conan install --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE -s build_type=$BUILD_TYPE --build=missing ..
 ```
 
-Currently, specify both profiles can fail for some packages.
-
-Also, for simplicity, the examples will specify a single profile
-for native builds (not cross-compilation):
+Some packages have build requirements.
+Those build requirements don't have to be build in Debug mode for example.
+The same is true for some options.
+To avoid building those build requirements unnecessarily,
+specify a build profile that has more chances to match [Conan center](https://conan.io/center)'s available packages,
+as well as a Release build:
 ```bash
-conan install --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE --build=missing ..
+conan install --profile:build $CONAN_PROFILE --profile:host $CONAN_PROFILE --settings:build build_type=Release --settings:host build_type=$BUILD_TYPE --options:host shared=$BUILD_SHARED_LIBS --build=missing ..
 ```
+
+Currently, specify both profiles can fail for some packages,
+but the [conan-center-index](https://github.com/conan-io/conan-center-index) team seems to work on fixing that.
 
 The new CMakeToolchain generator creates a `conan_toolchain.cmake` which will be passed to CMake:
 ```bash
@@ -134,7 +139,7 @@ This is a example on Linux using gcc.
 
 Install the dependencies:
 ```bash
-conan install --profile linux_gcc8_x86_64_qt_widgets_modules -s build_type=Debug --build=missing ..
+conan install --profile:build linux_gcc8_x86_64 --profile:host linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules --settings:build build_type=Release --settings:host build_type=Debug --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -148,7 +153,7 @@ cmake-gui .
 
 Install the dependencies:
 ```bash
-conan install --profile linux_gcc8_x86_64_qt_widgets_modules -s build_type=Debug --build=missing ..
+conan install --profile:build linux_gcc8_x86_64 --profile:host linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules --settings:build build_type=Release --settings:host build_type=Debug --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -162,7 +167,7 @@ cmake-gui .
 
 Install the dependencies:
 ```bash
-conan install --profile linux_clang10_x86_64_libc++_qt_widgets_modules -s build_type=Debug --build=missing ..
+conan install --profile:build linux_gcc8_x86_64 --profile:host linux_ubuntu-18.04_clang10_x86_64_libc++_qt_widgets_modules --settings:build build_type=Release --settings:host build_type=Debug --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -179,7 +184,7 @@ This is what I experieced on Ubuntu 18.04 with those default compilers.
 
 Install the dependencies:
 ```bash
-conan install --profile linux_clang10_x86_64_libc++_tsan_qt_widgets_modules -s build_type=Debug --build=missing ..
+conan install --profile:build linux_gcc8_x86_64 --profile:host linux_ubuntu-18.04_clang10_x86_64_libc++_tsan_qt_widgets_modules --settings:build build_type=Release --settings:host build_type=Debug --build=missing ..
 ```
 
 Configure MdtApplication:
@@ -223,11 +228,12 @@ otherwise the graph will be empty.
 
 Install the dependencies:
 ```bash
-conan install --profile linux_gcc8_x86_64_qt_widgets_modules -s build_type=Debug -o MdtApplication:build_only_doc=True --build=missing ..
+conan install --profile:build linux_gcc8_x86_64 --profile:host linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules --settings:build build_type=Release --settings:host build_type=Debug --options:host MdtApplication:build_only_doc=True --build=missing ..
 ```
 
 Configure MdtApplication:
 ```bash
+source conanbuild.sh
 cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_CPP_API_DOC=ON ..
 ```
 

@@ -9,16 +9,16 @@ include:
 
 deploy_conan_CommandLineArguments:
   extends: .deploy_conan_base
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-20.04-xserver-build-tools:latest
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
   script:
     - conan create packaging/conan/CommandLineArguments scandyna/testing
-      --profile:build linux_gcc8_x86_64 --profile:host linux_gcc8_x86_64 -s build_type=Debug
+      --profile:build linux_gcc8_x86_64 --profile:host linux_ubuntu-18.04_gcc8_x86_64 -s build_type=Debug
       --test-folder None
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
     - conan upload MdtCommandLineArguments/* --remote scandyna --all -c
 
 ###########################################
-# Deploy Conan - Linux Gcc
+# Deploy Conan - Linux Ubuntu 18.04 Gcc 8
 ###########################################
 
 .Deploy_Conan_Linux_Gcc_Matrix:
@@ -27,7 +27,7 @@ deploy_conan_CommandLineArguments:
   script:
     - conan create packaging/conan/$COMPONENT scandyna/testing
       --profile:build "linux_${CONAN_PROFILE_COMPILER}_x86_64"
-      --profile:host "linux_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
+      --profile:host "linux_ubuntu-18.04_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_qt_widgets_modules"
       -s build_type=$BUILD_TYPE
       -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
@@ -35,7 +35,7 @@ deploy_conan_CommandLineArguments:
 
 Deploy_Conan_Linux_Gcc:
   extends: .Deploy_Conan_Linux_Gcc_Matrix
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-20.04-xserver-build-tools:latest
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
   parallel:
     matrix:
       - COMPONENT:
@@ -53,9 +53,9 @@ Deploy_Conan_Linux_Gcc:
           - "True"
           - "False"
 
-###########################################
-# Deploy Conan - Linux Clang
-###########################################
+#############################################
+# Deploy Conan - Linux Ubuntu 18.04 Clang 10
+#############################################
 
 .Deploy_Conan_Linux_Clang_Matrix:
   extends: .deploy_conan_base
@@ -63,7 +63,7 @@ Deploy_Conan_Linux_Gcc:
   script:
     - conan create packaging/conan/$COMPONENT scandyna/testing
       --profile:build "linux_${CONAN_PROFILE_COMPILER}_x86_64_libc++"
-      --profile:host "linux_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_${CONAN_PROFILE_LIBCXX}_qt_widgets_modules"
+      --profile:host "linux_ubuntu-18.04_${CONAN_PROFILE_COMPILER}_${CONAN_PROFILE_ARCH}_${CONAN_PROFILE_LIBCXX}_qt_widgets_modules"
       -s build_type=$BUILD_TYPE
       -o Mdt$COMPONENT:shared=$BUILD_SHARED_LIBS
     - conan user --password "${CI_JOB_TOKEN}" --remote scandyna ci_user
@@ -71,7 +71,7 @@ Deploy_Conan_Linux_Gcc:
 
 Deploy_Conan_Linux_Clang:
   extends: .Deploy_Conan_Linux_Clang_Matrix
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-20.04-xserver-build-tools:latest
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-clang-10:latest
   parallel:
     matrix:
       - COMPONENT:

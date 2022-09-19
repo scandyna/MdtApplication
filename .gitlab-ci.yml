@@ -341,7 +341,7 @@ include:
 
 build_api_doc:
   stage: build
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
   rules:
     - !reference [.buildAndTest_rules, rules]
   before_script:
@@ -349,7 +349,7 @@ build_api_doc:
   script:
     - mkdir build
     - cd build
-    - conan install --profile linux_gcc7_x86_64_qt_widgets_modules -s build_type=Debug -o MdtApplication:build_only_doc=True ..
+    - conan install --profile linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules -s build_type=Debug -o MdtApplication:build_only_doc=True ..
     - cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_CPP_API_DOC=ON ..
     - make documentation
   artifacts:

@@ -11,7 +11,7 @@ variables:
 
 # TODO: maybe not build examples and tests ?
 sonar-build:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
   stage: build
   cache:
     policy: push
@@ -29,7 +29,7 @@ sonar-build:
   script:
     - mkdir build
     - cd build
-    - conan install --profile:build linux_gcc8_x86_64 --profile:host linux_gcc8_x86_64_qt_widgets_modules -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS ..
+    - conan install --profile:build linux_gcc8_x86_64 --profile:host linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS ..
     - source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
     - !reference [.cmake_configure, script]
     # Run the build inside the build wrapper - Seems to not work if we stay in build subdirectory
@@ -40,7 +40,7 @@ sonar-build:
 # than the one used with Sonar build-wrapper
 # (At least the compiler should be the same)
 sonarcloud-check:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
   stage: .post
   cache:
     policy: pull

@@ -78,44 +78,52 @@ test_linux_gcc7_x86_64_static_release:
 # Build & test Linux Gcc 8 X86_64
 ########################################
 
-.buildAndTest_Linux_gcc8_x86_64_debug:
+.buildAndTest_Linux_gcc8_x86_64:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
   variables:
     CONAN_PROFILE_BUILD: linux_gcc8_x86_64
     CONAN_PROFILE_HOST: linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules
-    BUILD_TYPE: Debug
-    BUILD_SHARED_LIBS: "True"
 
 build_linux_gcc8_x86_64_debug:
+  variables:
+    BUILD_TYPE: Debug
+    BUILD_SHARED_LIBS: "True"
   extends:
-    - .buildAndTest_Linux_gcc8_x86_64_debug
+    - .buildAndTest_Linux_gcc8_x86_64
     - .build_linux
 
 test_linux_gcc8_x86_64_debug:
+  variables:
+    BUILD_TYPE: Debug
+    BUILD_SHARED_LIBS: "True"
   extends:
-    - .buildAndTest_Linux_gcc8_x86_64_debug
+    - .buildAndTest_Linux_gcc8_x86_64
     - .test_linux
   dependencies:
     - build_linux_gcc8_x86_64_debug
   needs: ["build_linux_gcc8_x86_64_debug"]
 
 
-.buildAndTest_Linux_gcc8_x86_64_release:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
-  variables:
-    CONAN_PROFILE_BUILD: linux_gcc8_x86_64
-    CONAN_PROFILE_HOST: linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules
-    BUILD_TYPE: Release
-    BUILD_SHARED_LIBS: "True"
+#.buildAndTest_Linux_gcc8_x86_64_release:
+  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8:latest
+  #variables:
+    #CONAN_PROFILE_BUILD: linux_gcc8_x86_64
+    #CONAN_PROFILE_HOST: linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules
+    #BUILD_TYPE: Release
+    #BUILD_SHARED_LIBS: "True"
 
 build_linux_gcc8_x86_64_release:
+    BUILD_TYPE: Release
+    BUILD_SHARED_LIBS: "True"
   extends:
-    - .buildAndTest_Linux_gcc8_x86_64_release
+    - .buildAndTest_Linux_gcc8_x86_64
     - .build_linux
 
 test_linux_gcc8_x86_64_release:
+    BUILD_TYPE: Release
+    BUILD_SHARED_LIBS: "True"
   extends:
-    - .buildAndTest_Linux_gcc8_x86_64_release
+    - .buildAndTest_Linux_gcc8_x86_64
     - .test_linux
   dependencies:
     - build_linux_gcc8_x86_64_release

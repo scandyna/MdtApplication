@@ -9,70 +9,70 @@ include:
 
 # DEPRECATED: gcc 7 builds should be removed
 
-.buildAndTest_Linux_gcc7_x86_64_debug:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
-  variables:
-    CONAN_PROFILE_BUILD: linux_gcc7_x86_64
-    CONAN_PROFILE_HOST: linux_gcc7_x86_64_qt_widgets_modules
-    BUILD_TYPE: Debug
-    BUILD_SHARED_LIBS: "True"
+#.buildAndTest_Linux_gcc7_x86_64_debug:
+  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  #variables:
+    #CONAN_PROFILE_BUILD: linux_gcc7_x86_64
+    #CONAN_PROFILE_HOST: linux_gcc7_x86_64_qt_widgets_modules
+    #BUILD_TYPE: Debug
+    #BUILD_SHARED_LIBS: "True"
 
-build_linux_gcc7_x86_64_debug:
-  extends:
-    - .buildAndTest_Linux_gcc7_x86_64_debug
-    - .build_linux
+#build_linux_gcc7_x86_64_debug:
+  #extends:
+    #- .buildAndTest_Linux_gcc7_x86_64_debug
+    #- .build_linux
 
-test_linux_gcc7_x86_64_debug:
-  extends:
-    - .buildAndTest_Linux_gcc7_x86_64_debug
-    - .test_linux
-  dependencies:
-    - build_linux_gcc7_x86_64_debug
-  needs: ["build_linux_gcc7_x86_64_debug"]
-
-
-.buildAndTest_Linux_gcc7_x86_64_release:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
-  variables:
-    CONAN_PROFILE_BUILD: linux_gcc7_x86_64
-    CONAN_PROFILE_HOST: linux_gcc7_x86_64_qt_widgets_modules
-    BUILD_TYPE: Release
-    BUILD_SHARED_LIBS: "True"
-
-build_linux_gcc7_x86_64_release:
-  extends:
-    - .buildAndTest_Linux_gcc7_x86_64_release
-    - .build_linux
-
-test_linux_gcc7_x86_64_release:
-  extends:
-    - .buildAndTest_Linux_gcc7_x86_64_release
-    - .test_linux
-  dependencies:
-    - build_linux_gcc7_x86_64_release
-  needs: ["build_linux_gcc7_x86_64_release"]
+#test_linux_gcc7_x86_64_debug:
+  #extends:
+    #- .buildAndTest_Linux_gcc7_x86_64_debug
+    #- .test_linux
+  #dependencies:
+    #- build_linux_gcc7_x86_64_debug
+  #needs: ["build_linux_gcc7_x86_64_debug"]
 
 
-.buildAndTest_Linux_gcc7_x86_64_static_release:
-  image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
-  variables:
-    CONAN_PROFILE_BUILD: linux_gcc7_x86_64
-    CONAN_PROFILE_HOST: linux_gcc7_x86_64_qt_widgets_modules
-    BUILD_TYPE: Release
-    BUILD_SHARED_LIBS: "False"
+#.buildAndTest_Linux_gcc7_x86_64_release:
+  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  #variables:
+    #CONAN_PROFILE_BUILD: linux_gcc7_x86_64
+    #CONAN_PROFILE_HOST: linux_gcc7_x86_64_qt_widgets_modules
+    #BUILD_TYPE: Release
+    #BUILD_SHARED_LIBS: "True"
 
-build_linux_gcc7_x86_64_static_release:
-  extends:
-    - .buildAndTest_Linux_gcc7_x86_64_static_release
-    - .build_linux
+#build_linux_gcc7_x86_64_release:
+  #extends:
+    #- .buildAndTest_Linux_gcc7_x86_64_release
+    #- .build_linux
 
-test_linux_gcc7_x86_64_static_release:
-  extends:
-    - .buildAndTest_Linux_gcc7_x86_64_static_release
-    - .test_linux
-  dependencies:
-    - build_linux_gcc7_x86_64_static_release
-  needs: ["build_linux_gcc7_x86_64_static_release"]
+#test_linux_gcc7_x86_64_release:
+  #extends:
+    #- .buildAndTest_Linux_gcc7_x86_64_release
+    #- .test_linux
+  #dependencies:
+    #- build_linux_gcc7_x86_64_release
+  #needs: ["build_linux_gcc7_x86_64_release"]
+
+
+#.buildAndTest_Linux_gcc7_x86_64_static_release:
+  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-xserver-build-tools:latest
+  #variables:
+    #CONAN_PROFILE_BUILD: linux_gcc7_x86_64
+    #CONAN_PROFILE_HOST: linux_gcc7_x86_64_qt_widgets_modules
+    #BUILD_TYPE: Release
+    #BUILD_SHARED_LIBS: "False"
+
+#build_linux_gcc7_x86_64_static_release:
+  #extends:
+    #- .buildAndTest_Linux_gcc7_x86_64_static_release
+    #- .build_linux
+
+#test_linux_gcc7_x86_64_static_release:
+  #extends:
+    #- .buildAndTest_Linux_gcc7_x86_64_static_release
+    #- .test_linux
+  #dependencies:
+    #- build_linux_gcc7_x86_64_static_release
+  #needs: ["build_linux_gcc7_x86_64_static_release"]
 
 ########################################
 # Build & test Linux Gcc 8 X86_64

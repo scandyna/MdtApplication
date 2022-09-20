@@ -25,6 +25,7 @@ class MdtApplicationConan(ConanFile):
   # See: https://docs.conan.io/en/latest/reference/conanfile/attributes.html#short-paths
   short_paths = True
 
+  # TODO: has this sense here ?
   # The version can be set on the command line:
   # conan create . x.y.z@scandyna/testing ...
   # It can also be set by a git tag (case of deploy in the CI/CD)
@@ -57,7 +58,7 @@ class MdtApplicationConan(ConanFile):
       # As workaround, try fix a known version that we can build
       # Take a Qt version that we have in our Docker images
       # Hmm, now try to use package from conan-center (20.04.2022)
-      self.requires("qt/5.15.2")
+      self.requires("qt/5.15.6")
       #self.requires("qt/5.14.2@bincrafters/stable")
       #self.requires("qt/5.12.7@bincrafters/stable")
       #if self.options.gui:

@@ -38,7 +38,7 @@ class MdtCoreApplicationForNonQtUsageConan(ConanFile):
   def requirements(self):
     self.requires("MdtCommandLineArguments/%s@scandyna/testing" % (self.version) )
     self.requires("MdtCMakeConfig/0.0.5@scandyna/testing")
-    self.requires("qt/5.15.2")
+    self.requires("qt/5.15.6")
 
   # When using --profile:build xx and --profile:host xx ,
   # the dependencies declared in build_requires and tool_requires

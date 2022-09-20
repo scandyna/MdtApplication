@@ -113,6 +113,7 @@ test_linux_gcc8_x86_64_debug:
     #BUILD_SHARED_LIBS: "True"
 
 build_linux_gcc8_x86_64_release:
+  variables:
     BUILD_TYPE: Release
     BUILD_SHARED_LIBS: "True"
   extends:
@@ -120,6 +121,7 @@ build_linux_gcc8_x86_64_release:
     - .build_linux
 
 test_linux_gcc8_x86_64_release:
+  variables:
     BUILD_TYPE: Release
     BUILD_SHARED_LIBS: "True"
   extends:
@@ -128,6 +130,26 @@ test_linux_gcc8_x86_64_release:
   dependencies:
     - build_linux_gcc8_x86_64_release
   needs: ["build_linux_gcc8_x86_64_release"]
+
+
+build_linux_gcc8_x86_64_static_release:
+  variables:
+    BUILD_TYPE: Release
+    BUILD_SHARED_LIBS: "False"
+  extends:
+    - .buildAndTest_Linux_gcc8_x86_64
+    - .build_linux
+
+test_linux_gcc8_x86_64_static_release:
+  variables:
+    BUILD_TYPE: Release
+    BUILD_SHARED_LIBS: "False"
+  extends:
+    - .buildAndTest_Linux_gcc8_x86_64
+    - .test_linux
+  dependencies:
+    - build_linux_gcc8_x86_64_static_release
+  needs: ["build_linux_gcc8_x86_64_static_release"]
 
 ########################################
 # Build & test Linux Clang 10 X86_64

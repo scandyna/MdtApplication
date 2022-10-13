@@ -1,4 +1,12 @@
 
+
+# [0.4.4] - 2022-10-13
+
+## Changed
+
+- Use MdtCMakeModules 0.19.1
+
+
 # [0.4.3] - 2022-09-20
 
 ## Changed

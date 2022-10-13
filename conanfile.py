@@ -78,7 +78,7 @@ class MdtApplicationConan(ConanFile):
     if self._requires_catch():
       self.tool_requires("catch2/2.13.9", force_host_context=True)
 
-    self.tool_requires("MdtCMakeModules/0.18.3@scandyna/testing", force_host_context=True)
+    self.tool_requires("MdtCMakeModules/0.19.1@scandyna/testing", force_host_context=True)
 
   def generate(self):
     tc = CMakeToolchain(self)

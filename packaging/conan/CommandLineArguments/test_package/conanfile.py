@@ -7,7 +7,7 @@ class MdtCommandLineArgumentsTest(ConanFile):
   generators = "CMakeToolchain", "CMakeDeps"
 
   def build_requirements(self):
-    self.tool_requires("MdtCMakeModules/0.18.3@scandyna/testing", force_host_context=True)
+    self.tool_requires("MdtCMakeModules/0.19.1@scandyna/testing", force_host_context=True)
 
   # source() and export_source() are not called
   #def layout(self):

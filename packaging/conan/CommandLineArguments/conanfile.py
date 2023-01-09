@@ -85,3 +85,4 @@ class MdtCommandLineArgumentsConan(ConanFile):
     self.cpp_info.libs = []
     self.cpp_info.set_property("cmake_file_name", "Mdt0CommandLineArguments")
     self.cpp_info.set_property("cmake_target_name", "Mdt0::CommandLineArguments")
+    self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig"]

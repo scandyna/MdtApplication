@@ -89,4 +89,5 @@ class MdtCoreApplicationForNonQtUsageConan(ConanFile):
   def package_info(self):
     self.cpp_info.set_property("cmake_file_name", "Mdt0CoreApplicationForNonQtUsage")
     self.cpp_info.set_property("cmake_target_name", "Mdt0::CoreApplicationForNonQtUsage")
+    self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig", "MdtCommandLineArguments::MdtCommandLineArguments", "qt::qtCore"]
     self.cpp_info.libs = ["Mdt0CoreApplicationForNonQtUsage"]

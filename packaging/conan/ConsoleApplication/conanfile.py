@@ -86,4 +86,5 @@ class MdtCommandLineArgumentsConan(ConanFile):
   def package_info(self):
     self.cpp_info.set_property("cmake_file_name", "Mdt0ConsoleApplication")
     self.cpp_info.set_property("cmake_target_name", "Mdt0::ConsoleApplication")
+    self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig", "qt::qtCore"]
     self.cpp_info.libs = ["Mdt0ConsoleApplication"]

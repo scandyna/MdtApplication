@@ -349,7 +349,11 @@ build_api_doc:
   script:
     - mkdir build
     - cd build
-    - conan install --profile linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules -s build_type=Debug -o MdtApplication:build_only_doc=True ..
+    - conan install
+      --profile:build linux_gcc8_x86_64 --profile:host linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules
+      --settings:build build_type=Release --settings:host build_type=Debug
+      --options:host MdtApplication:build_only_doc=True
+      ..
     - cmake -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_CPP_API_DOC=ON ..
     - make documentation
   artifacts:

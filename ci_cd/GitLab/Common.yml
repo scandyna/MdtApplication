@@ -7,5 +7,6 @@
 stages:
   - build
   - test
+  - PushTo_AnalysisServices
   - deploy
 

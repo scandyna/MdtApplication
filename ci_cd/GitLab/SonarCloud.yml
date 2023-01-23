@@ -41,7 +41,7 @@ sonar-build:
 # (At least the compiler should be the same)
 sonarcloud-check:
   image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-gcc-8-sonar:latest
-  stage: test
+  stage: PushTo_AnalysisServices
   cache:
     policy: pull
     key: "${CI_COMMIT_SHORT_SHA}"

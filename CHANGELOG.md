@@ -1,4 +1,10 @@
 
+# [0.4.5] - 2023-01-09
+
+## Fixed
+
+- https://gitlab.com/scandyna/mdtapplication/-/issues/4
+
 
 # [0.4.4] - 2022-10-13
 

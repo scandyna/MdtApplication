@@ -1,0 +1,21 @@
+
+include:
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildApiDoc@0.0.10
+    inputs:
+      build_command: 'make documentation'
+
+
+pages:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+    - when: never
+  dependencies:
+    - BuildApiDoc
+  script:
+    - mkdir public
+    - mv build/doc/html public
+  artifacts:
+    paths:
+      - public

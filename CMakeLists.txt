@@ -71,14 +71,14 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
 option(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE "Enable the CoreApplicationForNonQtUsage component" ON)
-option(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE "Enable the GuiApplicationForNonQtUsage component" OFF)
+option(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE "Enable the GuiApplicationForNonQtUsage component" ON)
 
 # CoreApplicationForNonQtUsage and GuiApplicationForNonQtUsage depends on CommandLineArguments
 # When working on MdtApplication, we should enable CommandLineArguments
 # When creating packages, we don't depend on CommandLineArguments subdirectory,
 # but on the MdtCommandLineArguments package.
 # In that case, don't add CommandLineArguments's subdirectory
-option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArguments" OFF)
+option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArguments" ON)
 option(USE_COMMAND_LINE_ARGUMENTS_IMPORT_TARGET "Use MdtCommandLineArguments IMPORT TARGET (relevant only while creating packages)" OFF)
 
 # set(CommandLineArgumentsOptional TRUE)
@@ -87,7 +87,7 @@ option(USE_COMMAND_LINE_ARGUMENTS_IMPORT_TARGET "Use MdtCommandLineArguments IMP
 # endif()
 # cmake_dependent_option(ENABLE_COMMAND_LINE_ARGUMENTS "Enable CommandLineArguments" OFF "CommandLineArgumentsOptional" ON)
 
-option(ENABLE_CONSOLE_APPLICATION "Enable ConsoleApplication" OFF)
+option(ENABLE_CONSOLE_APPLICATION "Enable ConsoleApplication" ON)
 
 if(ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE OR ENABLE_CONSOLE_APPLICATION)
   set(REQUIRES_QT TRUE)

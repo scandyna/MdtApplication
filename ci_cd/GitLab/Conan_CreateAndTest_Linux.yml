@@ -13,7 +13,17 @@ include:
         - 'Debug'
       shared_libs:
         - 'True'
-
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_CreateAndTest_Ubuntu-18-04_gcc8_x86_64@0.0.11
+    inputs:
+      job_name_suffix: '_Tier2'
+      components:
+        - 'MdtCoreApplicationForNonQtUsage'
+        - 'MdtGuiApplicationForNonQtUsage'
+      build_types:
+        - 'Debug'
+        - 'Release'
+      needs:
+        - 'Conan_CreateAndTest_NoArch'
 
 
 #include:

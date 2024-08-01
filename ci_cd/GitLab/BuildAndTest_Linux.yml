@@ -21,47 +21,6 @@ include:
       build_type: 'Release'
       shared_libs: 'True'
 
-#.buildAndTest_linux_clang10_x86_64_libc++:
-  #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-clang-10:latest
-  #variables:
-    #CONAN_PROFILE_BUILD: linux_clang10_x86_64_libc++
-    #CONAN_PROFILE_HOST: linux_ubuntu-18.04_clang10_x86_64_libc++_qt_widgets_modules
-    #BUILD_SHARED_LIBS: "True"
-
-#build_linux_clang10_x86_64_libc++_Debug:
-  #variables:
-    #BUILD_TYPE: Debug
-  #extends:
-    #- .buildAndTest_linux_clang10_x86_64_libc++
-    #- .build_linux
-
-#test_linux_clang10_x86_64_libc++_Debug:
-  #variables:
-    #BUILD_TYPE: Debug
-  #extends:
-    #- .buildAndTest_linux_clang10_x86_64_libc++
-    #- .test_linux
-  #dependencies:
-    #- build_linux_clang10_x86_64_libc++_Debug
-  #needs: ["build_linux_clang10_x86_64_libc++_Debug"]
-
-#build_linux_clang10_x86_64_libc++_Release:
-  #variables:
-    #BUILD_TYPE: Release
-  #extends:
-    #- .buildAndTest_linux_clang10_x86_64_libc++
-    #- .build_linux
-
-#test_linux_clang10_x86_64_libc++_Release:
-  #variables:
-    #BUILD_TYPE: Release
-  #extends:
-    #- .buildAndTest_linux_clang10_x86_64_libc++
-    #- .test_linux
-  #dependencies:
-    #- build_linux_clang10_x86_64_libc++_Release
-  #needs: ["build_linux_clang10_x86_64_libc++_Release"]
-
 ############################################
 # Build & test Linux Clang 10 X86_64 - TSan
 ############################################

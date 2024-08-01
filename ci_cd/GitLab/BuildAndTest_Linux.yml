@@ -20,6 +20,7 @@ include:
     inputs:
       build_type: 'Release'
       shared_libs: 'True'
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-18-04_clang10_x86_64_libcxx_TSan@0.0.11 # TODO: specify build_type
 
 ############################################
 # Build & test Linux Clang 10 X86_64 - TSan

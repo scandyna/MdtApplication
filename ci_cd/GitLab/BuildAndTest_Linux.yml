@@ -23,8 +23,9 @@ include:
 # TODO: Enable once this is fixed: https://gitlab.com/scandyna/gitlab-ci-cd-cpp-components/-/issues/4
 #       specifiy build_type once new release is available
 # - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-18-04_clang10_x86_64_libcxx_TSan@0.0.11
-# TODO: specifiy build_type once available
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-18-04_gcc8_x86_64_ASanUBSan@0.0.11
+# TODO: Enable once this is fixed: https://gitlab.com/scandyna/mdtapplication/-/issues/6
+#       specifiy build_type once available
+# - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-18-04_gcc8_x86_64_ASanUBSan@0.0.11
 
 
 ############################################

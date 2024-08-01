@@ -27,6 +27,16 @@ include:
 # Build & test Linux Clang 10 X86_64
 ########################################
 
+include:
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-18-04_clang10_x86_64_libcxx@0.0.11
+    inputs:
+      build_type: 'Debug'
+      shared_libs: 'True'
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-18-04_clang10_x86_64_libcxx@0.0.11
+    inputs:
+      build_type: 'Release'
+      shared_libs: 'True'
+
 #.buildAndTest_linux_clang10_x86_64_libc++:
   #image: registry.gitlab.com/scandyna/docker-images-ubuntu/ubuntu-18.04-clang-10:latest
   #variables:

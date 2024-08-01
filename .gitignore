@@ -21,12 +21,7 @@ test_package/build
 test_cmakedeps/build
 
 packaging/conan/MdtCommandLineArguments/test_package/build
-
-packaging/conan/ConsoleApplication/test_package/*
-!packaging/conan/ConsoleApplication/test_package/CMakeLists.txt
-!packaging/conan/ConsoleApplication/test_package/conanfile.py
-!packaging/conan/ConsoleApplication/test_package/*.h
-!packaging/conan/ConsoleApplication/test_package/*.cpp
+packaging/conan/MdtConsoleApplication/test_package/build
 
 packaging/conan/CoreApplicationForNonQtUsage/test_package/build
 

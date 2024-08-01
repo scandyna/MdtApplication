@@ -1,13 +1,4 @@
 
-#include:
-  #- local: 'ci_cd/GitLab/Common.yml'
-  #- local: 'ci_cd/GitLab/BuildAndTest_Templates.yml'
-
-
-########################################
-# Build & test Linux Gcc 8 X86_64
-########################################
-
 include:
   - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-18-04_gcc8_x86_64@0.0.11
     inputs:
@@ -21,13 +12,6 @@ include:
     inputs:
       build_type: 'Release'
       shared_libs: 'False'
-
-
-########################################
-# Build & test Linux Clang 10 X86_64
-########################################
-
-include:
   - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-18-04_clang10_x86_64_libcxx@0.0.11
     inputs:
       build_type: 'Debug'

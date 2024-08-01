@@ -20,9 +20,7 @@ CMakeLists.txt.user
 test_package/build
 test_cmakedeps/build
 
-packaging/conan/CommandLineArguments/test_package/build
-packaging/conan/CommandLineArguments/test_cmakedeps/*
-!packaging/conan/CommandLineArguments/test_cmakedeps/conanfile.py
+packaging/conan/MdtCommandLineArguments/test_package/build
 
 packaging/conan/ConsoleApplication/test_package/*
 !packaging/conan/ConsoleApplication/test_package/CMakeLists.txt

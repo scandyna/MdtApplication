@@ -1,9 +1,24 @@
 
 include:
   - local: 'ci_cd/GitLab/Common.yml'
-  - local: 'ci_cd/GitLab/BuildAndTest_Templates.yml'
+  #- local: 'ci_cd/GitLab/BuildAndTest_Templates.yml'
 
 
+.sonar_BuildAndCheck_rules:
+  rules:
+    - changes:
+      - "*.cpp"
+      - CMakeLists.txt
+      - conanfile.py
+      - examples/**/*
+      - libs/**/*
+      - .gitlab-ci.yml
+      - ci_cd/GitLab/*
+      - sonar-project.properties
+      when: on_success
+
+
+# TODO: GIT_DEPTH should not be global
 variables:
   SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
   GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
@@ -19,19 +34,31 @@ sonar-build:
     paths:
       - bw-output/
   rules:
-    - !reference [.buildAndTest_rules, rules]
+    - !reference [.sonar_BuildAndCheck_rules, rules]
   # BUILD_TYPE and BUILD_SHARED_LIBS variables will be required by .cmake_configure
   variables:
     BUILD_TYPE: Debug
     BUILD_SHARED_LIBS: "True"
   before_script:
-    - !reference [.setup_conan, script]
+    #- !reference [.setup_conan, script]
+    - conan remote remove conancenter
+    - conan remote add scandyna https://gitlab.com/api/v4/projects/25668674/packages/conan
+    - conan config install --source-folder conan https://gitlab.com/api/v4/projects/16304913/packages/generic/conan1_config/0.1.6/conan_config.zip
   script:
     - mkdir build
     - cd build
     - conan install --profile:build linux_gcc8_x86_64 --profile:host linux_ubuntu-18.04_gcc8_x86_64_qt_widgets_modules -s build_type=$BUILD_TYPE -o shared=$BUILD_SHARED_LIBS ..
     - source conanbuild.sh || true  # Workaround to https://gitlab.com/gitlab-org/ci-cd/pipeline-authoring-stack-rank/-/issues/1
-    - !reference [.cmake_configure, script]
+    #- !reference [.cmake_configure, script]
+    - cmake "-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake"
+      "-DCMAKE_BUILD_TYPE=$BUILD_TYPE"
+      -DBUILD_APPS=ON
+      -DBUILD_EXAMPLES=ON
+      -DBUILD_TESTS=ON -DBUILD_BENCHMARKS=ON
+      "-DBUILD_USE_IPO_LTO_IF_AVAILABLE=$BUILD_USE_IPO_LTO_IF_AVAILABLE"
+      -DWARNING_AS_ERROR=ON
+      -DCMAKE_MESSAGE_LOG_LEVEL=DEBUG
+      ..
     # Run the build inside the build wrapper - Seems to not work if we stay in build subdirectory
     - cd ..
     - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/
@@ -48,6 +75,6 @@ sonarcloud-check:
     paths:
       - bw-output/
   rules:
-    - !reference [.buildAndTest_rules, rules]
+    - !reference [.sonar_BuildAndCheck_rules, rules]
   script:
     - sonar-scanner -X -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=bw-output

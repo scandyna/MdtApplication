@@ -25,12 +25,12 @@ class MdtCommandLineArgumentsConan(ConanFile):
   # conan install path/to/srouces ...
   # But it can be required. See https://docs.conan.io/en/latest/reference/conanfile/attributes.html#version
   def set_version(self):
-    if not self.version:
-      if os.path.exists(".git"):
-        git = tools.Git()
-        self.version = "%s" % (git.get_tag())
-      else:
-        self.version = "0.0.0"
+    #if not self.version:
+      #if os.path.exists(".git"):
+        #git = tools.Git()
+        #self.version = "%s" % (git.get_tag())
+      #else:
+        #self.version = "0.0.0"
     self.output.info( "%s: version is %s" % (self.name, self.version) )
 
   def requirements(self):

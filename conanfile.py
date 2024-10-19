@@ -1,4 +1,5 @@
-from conans import ConanFile, tools
+from conan import ConanFile
+from conan.tools.env import VirtualBuildEnv
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
 import os
 
@@ -15,12 +16,7 @@ class MdtApplicationConan(ConanFile):
              "build_only_doc": [True, False]}
   default_options = {"shared": True,
                      "build_only_doc": False}
-  generators = "CMakeDeps", "CMakeToolchain", "VirtualBuildEnv"
-
-  # If no_copy_source is False, conan copies sources to build directory and does in-source build,
-  # resulting having build files installed in the package
-  # See also: https://github.com/conan-io/conan/issues/350
-  no_copy_source = True
+  generators = "CMakeDeps", "VirtualBuildEnv"
 
   # See: https://docs.conan.io/en/latest/reference/conanfile/attributes.html#short-paths
   short_paths = True
@@ -52,33 +48,17 @@ class MdtApplicationConan(ConanFile):
     return True
 
   def requirements(self):
-
     if self._requires_qt():
       # Building 5.14.x causes currently problems (8.04.2020)
       # As workaround, try fix a known version that we can build
       # Take a Qt version that we have in our Docker images
       # Hmm, now try to use package from conan-center (20.04.2022)
       self.requires("qt/5.15.6")
-      #self.requires("qt/5.14.2@bincrafters/stable")
-      #self.requires("qt/5.12.7@bincrafters/stable")
-      #if self.options.gui:
-        #self.options["qt"].GUI = True
 
-  # When using --profile:build xx and --profile:host xx ,
-  # the dependencies declared in build_requires and tool_requires
-  # will not generate the required files.
-  # see:
-  # - https://github.com/conan-io/conan/issues/10272
-  # - https://github.com/conan-io/conan/issues/9951
   def build_requirements(self):
-    # TODO fix once issue solved
-    # Due to a issue using GitLab Conan repository,
-    # version ranges are not possible.
-    # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
     if self._requires_catch():
-      self.tool_requires("catch2/2.13.9", force_host_context=True)
-
-    self.tool_requires("MdtCMakeModules/0.19.1@scandyna/testing", force_host_context=True)
+      self.test_requires("catch2/2.13.9")
+    self.test_requires("MdtCMakeModules/0.19.1@scandyna/testing")
 
   def generate(self):
     tc = CMakeToolchain(self)

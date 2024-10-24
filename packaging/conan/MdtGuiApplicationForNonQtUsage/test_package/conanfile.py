@@ -1,13 +1,12 @@
-from conans import ConanFile, tools
-from conan.tools.cmake import CMake, CMakeToolchain
-import os
+from conan import ConanFile
+from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
 
 class MdtGuiApplicationForNonQtUsageTest(ConanFile):
   settings = "os", "compiler", "build_type", "arch"
   generators = "CMakeDeps"
 
   def build_requirements(self):
-    self.tool_requires("MdtCMakeModules/0.19.1@scandyna/testing", force_host_context=True)
+    self.test_requires("MdtCMakeModules/0.19.3@scandyna/testing")
 
   def generate(self):
     tc = CMakeToolchain(self)

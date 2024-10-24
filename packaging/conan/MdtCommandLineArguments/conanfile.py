@@ -1,7 +1,5 @@
-from conans import ConanFile, tools
+from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
-#from conan.tools.env import VirtualBuildEnv
-import os
 
 class MdtCommandLineArgumentsConan(ConanFile):
   name = "MdtCommandLineArguments"
@@ -16,6 +14,7 @@ class MdtCommandLineArgumentsConan(ConanFile):
   # If no_copy_source is False, conan copies sources to build directory and does in-source build,
   # resulting having build files installed in the package
   # See also: https://github.com/conan-io/conan/issues/350
+  # TODO: see docs about layout
   no_copy_source = True
 
   # The version can be set on the command line:
@@ -36,18 +35,8 @@ class MdtCommandLineArgumentsConan(ConanFile):
   def requirements(self):
     self.requires("MdtCMakeConfig/0.0.5@scandyna/testing")
 
-  # When using --profile:build xx and --profile:host xx ,
-  # the dependencies declared in build_requires and tool_requires
-  # will not generate the required files.
-  # see:
-  # - https://github.com/conan-io/conan/issues/10272
-  # - https://github.com/conan-io/conan/issues/9951
   def build_requirements(self):
-    # TODO fix once issue solved
-    # Due to a issue using GitLab Conan repository,
-    # version ranges are not possible.
-    # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
-    self.tool_requires("MdtCMakeModules/0.19.1@scandyna/testing", force_host_context=True)
+    self.test_requires("MdtCMakeModules/0.19.3@scandyna/testing")
 
   # The export exports_sources attributes does not work if the conanfile.py is in a sub-folder.
   # See https://github.com/conan-io/conan/issues/3635
@@ -85,4 +74,4 @@ class MdtCommandLineArgumentsConan(ConanFile):
     self.cpp_info.libs = []
     self.cpp_info.set_property("cmake_file_name", "Mdt0CommandLineArguments")
     self.cpp_info.set_property("cmake_target_name", "Mdt0::CommandLineArguments")
-    self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig"]
+    #self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig"]

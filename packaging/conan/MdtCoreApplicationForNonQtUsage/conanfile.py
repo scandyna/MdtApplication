@@ -1,7 +1,5 @@
-from conans import ConanFile, tools
+from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
-#from conan.tools.env import VirtualBuildEnv
-import os
 
 class MdtCoreApplicationForNonQtUsageConan(ConanFile):
   name = "MdtCoreApplicationForNonQtUsage"
@@ -40,18 +38,8 @@ class MdtCoreApplicationForNonQtUsageConan(ConanFile):
     self.requires("MdtCMakeConfig/0.0.5@scandyna/testing")
     self.requires("qt/5.15.6")
 
-  # When using --profile:build xx and --profile:host xx ,
-  # the dependencies declared in build_requires and tool_requires
-  # will not generate the required files.
-  # see:
-  # - https://github.com/conan-io/conan/issues/10272
-  # - https://github.com/conan-io/conan/issues/9951
   def build_requirements(self):
-    # TODO fix once issue solved
-    # Due to a issue using GitLab Conan repository,
-    # version ranges are not possible.
-    # See https://gitlab.com/gitlab-org/gitlab/-/issues/333638
-    self.tool_requires("MdtCMakeModules/0.19.1@scandyna/testing", force_host_context=True)
+    self.test_requires("MdtCMakeModules/0.19.3@scandyna/testing")
 
   # The export exports_sources attributes does not work if the conanfile.py is in a sub-folder.
   # See https://github.com/conan-io/conan/issues/3635
@@ -89,5 +77,5 @@ class MdtCoreApplicationForNonQtUsageConan(ConanFile):
   def package_info(self):
     self.cpp_info.set_property("cmake_file_name", "Mdt0CoreApplicationForNonQtUsage")
     self.cpp_info.set_property("cmake_target_name", "Mdt0::CoreApplicationForNonQtUsage")
-    self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig", "MdtCommandLineArguments::MdtCommandLineArguments", "qt::qtCore"]
+    #self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig", "MdtCommandLineArguments::MdtCommandLineArguments", "qt::qtCore"]
     self.cpp_info.libs = ["Mdt0CoreApplicationForNonQtUsage"]

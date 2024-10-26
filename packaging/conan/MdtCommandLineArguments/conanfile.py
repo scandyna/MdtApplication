@@ -1,5 +1,7 @@
 from conan import ConanFile
-from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
+from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake, cmake_layout
+from conan.tools.files import copy
+import os
 
 class MdtCommandLineArgumentsConan(ConanFile):
   name = "MdtCommandLineArguments"
@@ -11,11 +13,6 @@ class MdtCommandLineArgumentsConan(ConanFile):
   # TODO: is it CMakeToolchain or CMakeDeps  or both ?
   settings = "os", "compiler", "build_type", "arch"
   generators = "CMakeDeps", "VirtualBuildEnv"
-  # If no_copy_source is False, conan copies sources to build directory and does in-source build,
-  # resulting having build files installed in the package
-  # See also: https://github.com/conan-io/conan/issues/350
-  # TODO: see docs about layout
-  no_copy_source = True
 
   # The version can be set on the command line:
   # conan create . x.y.z@scandyna/testing ...
@@ -38,14 +35,15 @@ class MdtCommandLineArgumentsConan(ConanFile):
   def build_requirements(self):
     self.test_requires("MdtCMakeModules/0.19.3@scandyna/testing")
 
-  # The export exports_sources attributes does not work if the conanfile.py is in a sub-folder.
-  # See https://github.com/conan-io/conan/issues/3635
-  # and https://github.com/conan-io/conan/pull/2676
   def export_sources(self):
-    self.copy("CMakeLists.txt", src="../../../", dst=".")
-    self.copy("COPYING", src="../../../", dst=".")
-    self.copy("COPYING.LESSER", src="../../../", dst=".")
-    self.copy("libs/CommandLineArguments/*", src="../../../", dst=".")
+    source_root = os.path.join(self.recipe_folder, "../../../")
+    copy(self, "CMakeLists.txt", source_root, self.export_sources_folder)
+    copy(self, "COPYING", source_root, self.export_sources_folder)
+    copy(self, "COPYING.LESSER", source_root, self.export_sources_folder)
+    copy(self, "libs/CommandLineArguments/*", source_root, self.export_sources_folder)
+
+  def layout(self):
+    cmake_layout(self)
 
   def generate(self):
     tc = CMakeToolchain(self)

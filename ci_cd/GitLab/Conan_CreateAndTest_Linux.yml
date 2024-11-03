@@ -1,10 +1,10 @@
 
 include:
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_CreateAndTest_NoArch@0.0.12
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_CreateAndTest_NoArch@0.0.13
     inputs:
       components:
         - 'mdtcommandlinearguments'
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_CreateAndTest_Ubuntu-18-04_gcc8_x86_64@0.0.12
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_CreateAndTest_Ubuntu-18-04_gcc8_x86_64@0.0.13
     inputs:
       job_name_suffix: '_Tier1'
       components:
@@ -13,7 +13,7 @@ include:
         - 'Debug'
       shared_libs:
         - 'True'
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_CreateAndTest_Ubuntu-18-04_gcc8_x86_64@0.0.12
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_CreateAndTest_Ubuntu-18-04_gcc8_x86_64@0.0.13
     inputs:
       job_name_suffix: '_Tier2'
       components:

@@ -1,10 +1,10 @@
 
 include:
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_NoArch@0.0.12
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_NoArch@0.0.13
     inputs:
       components:
         - 'mdtcommandlinearguments'
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-18-04_gcc8_x86_64@0.0.12
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-18-04_gcc8_x86_64@0.0.13
     inputs:
       job_name_suffix: '_Tier1'
       components:
@@ -15,7 +15,7 @@ include:
       shared_libs:
         - 'True'
         - 'False'
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-18-04_gcc8_x86_64@0.0.12
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-18-04_gcc8_x86_64@0.0.13
     inputs:
       job_name_suffix: '_Tier2'
       components:
@@ -27,7 +27,7 @@ include:
       shared_libs:
         - 'True'
         - 'False'
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-18-04_clang10_x86_64_libcxx@0.0.12
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-18-04_clang10_x86_64_libcxx@0.0.13
     inputs:
       job_name_suffix: '_Tier1'
       components:
@@ -38,7 +38,7 @@ include:
       shared_libs:
         - 'True'
         - 'False'
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-18-04_clang10_x86_64_libcxx@0.0.12
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/Conan_Deploy_Ubuntu-18-04_clang10_x86_64_libcxx@0.0.13
     inputs:
       job_name_suffix: '_Tier2'
       components:

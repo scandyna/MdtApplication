@@ -3,11 +3,11 @@ from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake, cmake_layout
 from conan.tools.files import copy
 import os
 
-class MdtCommandLineArgumentsConan(ConanFile):
-  name = "MdtConsoleApplication"
+class MdtCoreApplicationForNonQtUsageConan(ConanFile):
+  name = "mdtcoreapplicationfornonqtusage"
   license = "BSD 3-Clause"
   url = "https://gitlab.com/scandyna/mdtapplication"
-  description = "Helpers to create console application with Qt"
+  description = "Provide a QCoreApplication for a non Qt application"
   settings = "os", "compiler", "build_type", "arch"
   options = {"shared": [True, False]}
   default_options = {"shared": True}
@@ -32,6 +32,7 @@ class MdtCommandLineArgumentsConan(ConanFile):
     self.output.info( "%s: version is %s" % (self.name, self.version) )
 
   def requirements(self):
+    self.requires("mdtcommandlinearguments/%s@scandyna/testing" % (self.version) )
     self.requires("MdtCMakeConfig/0.0.5@scandyna/testing")
     self.requires("qt/5.15.6")
 
@@ -43,7 +44,8 @@ class MdtCommandLineArgumentsConan(ConanFile):
     copy(self, "CMakeLists.txt", source_root, self.export_sources_folder)
     copy(self, "COPYING", source_root, self.export_sources_folder)
     copy(self, "COPYING.LESSER", source_root, self.export_sources_folder)
-    copy(self, "libs/ConsoleApplication/*", source_root, self.export_sources_folder)
+    copy(self, "libs/CoreApplicationForNonQtUsage/*", source_root, self.export_sources_folder)
+    copy(self, "libs/Impl_ApplicationForNonQtUsage/*", source_root, self.export_sources_folder)
 
   def layout(self):
     cmake_layout(self)
@@ -51,10 +53,11 @@ class MdtCommandLineArgumentsConan(ConanFile):
   def generate(self):
     tc = CMakeToolchain(self)
     tc.variables["FROM_CONAN_PROJECT_VERSION"] = self.version
-    tc.variables["ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE"] = "OFF"
+    tc.variables["ENABLE_CORE_APPLICATION_FOR_NON_QT_USAGE"] = "ON"
     tc.variables["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "OFF"
     tc.variables["ENABLE_COMMAND_LINE_ARGUMENTS"] = "OFF"
-    tc.variables["ENABLE_CONSOLE_APPLICATION"] = "ON"
+    tc.variables["ENABLE_CONSOLE_APPLICATION"] = "OFF"
+    tc.variables["USE_COMMAND_LINE_ARGUMENTS_IMPORT_TARGET"] = "ON"
     #tc.variables["INSTALL_CONAN_PACKAGE_FILES"] = "ON"
     tc.generate()
 
@@ -71,7 +74,6 @@ class MdtCommandLineArgumentsConan(ConanFile):
   # https://docs.conan.io/en/latest/creating_packages/define_abi_compatibility.html#define-abi-compatibility
 
   def package_info(self):
-    self.cpp_info.set_property("cmake_file_name", "Mdt0ConsoleApplication")
-    self.cpp_info.set_property("cmake_target_name", "Mdt0::ConsoleApplication")
-    #self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig", "qt::qtCore"]
-    self.cpp_info.libs = ["Mdt0ConsoleApplication"]
+    self.cpp_info.set_property("cmake_file_name", "Mdt0CoreApplicationForNonQtUsage")
+    self.cpp_info.set_property("cmake_target_name", "Mdt0::CoreApplicationForNonQtUsage")
+    self.cpp_info.libs = ["Mdt0CoreApplicationForNonQtUsage"]

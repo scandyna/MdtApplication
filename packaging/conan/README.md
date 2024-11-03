@@ -15,7 +15,7 @@ For more details, see [Conan and CMake](https://scandyna.gitlab.io/mdt-cmake-mod
 Conanfile:
 ```conan
 [requires]
-MdtCoreApplicationForNonQtUsage/x.y.z@scandyna/testing
+mdtcoreapplicationfornonqtusage/x.y.z@scandyna/testing
 ```
 
 Options:
@@ -28,7 +28,7 @@ Options:
 Conanfile:
 ```conan
 [requires]
-MdtGuiApplicationForNonQtUsage/x.y.z@scandyna/testing
+mdtguiapplicationfornonqtusage/x.y.z@scandyna/testing
 ```
 
 Options:
@@ -41,7 +41,7 @@ Options:
 Conanfile:
 ```conan
 [requires]
-MdtConsoleApplication/x.y.z@scandyna/testing
+mdtconsoleapplication/x.y.z@scandyna/testing
 ```
 
 Options:
@@ -54,7 +54,7 @@ Options:
 Conanfile:
 ```conan
 [requires]
-MdtCommandLineArguments/x.y.z@scandyna/testing
+mdtcommandlinearguments/x.y.z@scandyna/testing
 ```
 
 Options: none

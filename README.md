@@ -44,7 +44,7 @@ If you use [Conan](https://conan.io/),
 add MdtConsoleApplication as requirement in your `conanfile.txt`:
 ```conan
 [requires]
-MdtConsoleApplication/x.y.z@scandyna/testing
+mdtconsoleapplication/x.y.z@scandyna/testing
 
 [generators]
 CMakeDeps

@@ -1,4 +1,11 @@
 
+# [0.5.0] - 2024-11-09
+
+## Changed
+
+- Make Conan package names lowercase (https://gitlab.com/scandyna/mdtapplication/-/issues/7)
+
+
 # [0.4.5] - 2023-01-09
 
 ## Fixed

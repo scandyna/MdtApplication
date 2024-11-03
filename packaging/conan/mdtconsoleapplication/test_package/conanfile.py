@@ -1,9 +1,12 @@
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
 
-class MdtCoreApplicationForNonQtUsageTest(ConanFile):
+class MdtConsoleApplicationTest(ConanFile):
   settings = "os", "compiler", "build_type", "arch"
-  generators = "CMakeDeps"
+  generators = "CMakeToolchain", "CMakeDeps"
+
+  def requirements(self):
+    self.requires(self.tested_reference_str)
 
   def build_requirements(self):
     self.test_requires("MdtCMakeModules/0.19.3@scandyna/testing")

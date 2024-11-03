@@ -6,7 +6,7 @@ import os
 # This recipe is only to install dependencies to build MdtApplication
 # The recipes to create packages are in packaging/conan/ subfolder
 class MdtApplicationConan(ConanFile):
-  name = "MdtApplication"
+  name = "mdtapplication"
   #version = "0.1"
   license = "BSD 3-Clause"
   url = "https://gitlab.com/scandyna/mdtapplication"

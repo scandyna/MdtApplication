@@ -1,4 +1,10 @@
 
+# [0.5.2] - 2024-11-11
+
+## Changed
+
+- Updates in Conan packages (https://gitlab.com/scandyna/mdtapplication/-/issues/7)
+
 # [0.5.1] - 2024-11-09
 
 ## Changed

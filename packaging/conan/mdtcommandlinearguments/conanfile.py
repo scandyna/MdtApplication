@@ -8,9 +8,12 @@ class MdtCommandLineArgumentsConan(ConanFile):
   license = "BSD 3-Clause"
   url = "https://gitlab.com/scandyna/mdtapplication"
   description = "Helper class to init and copy command line arguments"
-  # CMakeToolchain requires the settings.
-  # So, add them here and erase them in the package_id()
-  # TODO: is it CMakeToolchain or CMakeDeps  or both ?
+  # We use CMake to configure/build/(test)/install
+  # We also have dependencies we manage with Conan
+  # We then use CMakeDeps and CMakeToolchain generators.
+  # This requires the settings.
+  # We will remove them in the package_id()
+  # See: https://docs.conan.io/2/tutorial/creating_packages/other_types_of_packages/header_only_packages.html
   settings = "os", "compiler", "build_type", "arch"
   generators = "CMakeDeps", "VirtualBuildEnv"
 
@@ -65,11 +68,12 @@ class MdtCommandLineArgumentsConan(ConanFile):
     cmake.install()
 
   def package_id(self):
-    self.info.header_only()
+    self.info.clear()
 
   def package_info(self):
+    self.cpp_info.bindirs = []
+    self.cpp_info.libdirs = []
     self.cpp_info.includedirs = ['include']
     self.cpp_info.libs = []
     self.cpp_info.set_property("cmake_file_name", "Mdt0CommandLineArguments")
     self.cpp_info.set_property("cmake_target_name", "Mdt0::CommandLineArguments")
-    #self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig"]

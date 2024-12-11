@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2022 Philippe Steinmann.
+# Copyright (C) 2019-2024 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #

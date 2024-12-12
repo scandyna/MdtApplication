@@ -3,7 +3,7 @@ from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake, cmake_layout
 from conan.tools.files import copy
 import os
 
-class MdtCommandLineArgumentsConan(ConanFile):
+class MdtConsoleApplicationConan(ConanFile):
   name = "mdtconsoleapplication"
   license = "BSD 3-Clause"
   url = "https://gitlab.com/scandyna/mdtapplication"
@@ -73,5 +73,7 @@ class MdtCommandLineArgumentsConan(ConanFile):
   def package_info(self):
     self.cpp_info.set_property("cmake_file_name", "Mdt0ConsoleApplication")
     self.cpp_info.set_property("cmake_target_name", "Mdt0::ConsoleApplication")
-    #self.cpp_info.requires = ["MdtCMakeConfig::MdtCMakeConfig", "qt::qtCore"]
+    # We have to specify the components of Qt to use, otherwise we will depend on all
+    # See also https://gitlab.com/scandyna/mdtapplication/-/issues/4
+    self.cpp_info.requires = ["qt::qtCore"]
     self.cpp_info.libs = ["Mdt0ConsoleApplication"]

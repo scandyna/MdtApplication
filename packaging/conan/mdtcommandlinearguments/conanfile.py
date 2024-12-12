@@ -36,7 +36,7 @@ class MdtCommandLineArgumentsConan(ConanFile):
     self.requires("mdtcmakeconfig/0.1.0@scandyna/testing")
 
   def build_requirements(self):
-    self.test_requires("MdtCMakeModules/0.19.3@scandyna/testing")
+    self.test_requires("mdtcmakemodules/0.20.0@scandyna/testing")
 
   def export_sources(self):
     source_root = os.path.join(self.recipe_folder, "../../../")

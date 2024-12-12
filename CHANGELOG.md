@@ -1,4 +1,12 @@
 
+# [0.5.3] - 2024-12-XX
+
+## Fixed
+
+- Conan packages: define Qt components in `package_info()` (https://gitlab.com/scandyna/mdtapplication/-/issues/4)
+- Use `mdtcmakemodules` v0.20.0 (https://gitlab.com/scandyna/mdtapplication/-/issues/7)
+
+
 # [0.5.2] - 2024-11-11
 
 ## Changed

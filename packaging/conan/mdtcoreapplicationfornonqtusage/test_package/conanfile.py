@@ -9,7 +9,7 @@ class MdtCoreApplicationForNonQtUsageTest(ConanFile):
     self.requires(self.tested_reference_str)
 
   def build_requirements(self):
-    self.test_requires("MdtCMakeModules/0.19.3@scandyna/testing")
+    self.test_requires("mdtcmakemodules/0.20.0@scandyna/testing")
 
   # source() and export_source() are not called
   #def layout(self):

@@ -37,7 +37,7 @@ class MdtGuiApplicationForNonQtUsageConan(ConanFile):
     self.requires("qt/5.15.6")
 
   def build_requirements(self):
-    self.test_requires("MdtCMakeModules/0.19.3@scandyna/testing")
+    self.test_requires("mdtcmakemodules/0.20.0@scandyna/testing")
 
   def export_sources(self):
     source_root = os.path.join(self.recipe_folder, "../../../")

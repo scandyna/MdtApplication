@@ -1,7 +1,7 @@
 
-.windows_runner:
-  tags:
-    - docker-windows
+#.windows_runner:
+  #tags:
+    #- docker-windows
 
 
 stages:

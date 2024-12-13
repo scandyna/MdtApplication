@@ -71,7 +71,7 @@ class MdtApplicationConan(ConanFile):
       tc.variables["ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE"] = "ON"
       tc.variables["ENABLE_COMMAND_LINE_ARGUMENTS"] = "ON"
       tc.variables["ENABLE_CONSOLE_APPLICATION"] = "ON"
-      tc.variables["BUILD_EXAMPLES"] = "OFF"
+      tc.variables["BUILD_EXAMPLES"] = "ON"
       tc.variables["BUILD_CPP_API_DOC"] = "ON"
     else:
       if self.settings.compiler == "gcc" or self.settings.compiler == "clang":

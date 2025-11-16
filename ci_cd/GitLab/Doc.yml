@@ -1,8 +1,8 @@
 
 include:
-  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildApiDoc@0.0.15
+  - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildApiDoc@0.0.21
     inputs:
-      conan_extra_arguments: '-o MdtApplication:build_only_doc=True'
+      conan_extra_arguments: '-o mdtapplication:build_only_doc=True'
       build_command: 'make documentation'
 
 
@@ -16,7 +16,7 @@ pages:
     - BuildApiDoc
   script:
     - mkdir public
-    - mv build/doc/html public
+    - mv build/doc/html/* public/
   artifacts:
     paths:
       - public

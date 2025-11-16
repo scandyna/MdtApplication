@@ -4,12 +4,6 @@
 
 Below is a list of available packages for the various components of MdtApplication.
 
-Note that only the [CMakeDeps](https://docs.conan.io/en/latest/reference/conanfile/tools/cmake/cmakedeps.html)
-generator, and its associated tools is supported.
-This is mainly because the Qt package from [Conan center](https://conan.io/center/) is used,
-which does not support the legacy generators like [cmake](https://docs.conan.io/en/latest/reference/generators/cmake.html).
-For more details, see [Conan and CMake](https://scandyna.gitlab.io/mdt-cmake-modules/ConanAndCMake.html).
-
 ## CoreApplicationForNonQtUsage
 
 Conanfile:
@@ -61,16 +55,9 @@ Options: none
 
 # Create Conan packages for MdtApplication libraries
 
-The package version is picked up from git tag.
 If working on MdtApplication, go to the root of the source tree:
 ```bash
-git tag x.y.z
-conan create packaging/conan/$LIBRARY scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE
-```
-
-To create a package without having a git tag:
-```bash
-conan create packaging/conan/$LIBRARY x.y.z@scandyna/testing --profile $CONAN_PROFILE -s build_type=$BUILD_TYPE
+conan create --version x.y.z --user scandyna --channel testing packaging/conan/$LIBRARY --profile:build $CONAN_PROFILE_BUILD --profile:host $CONAN_PROFILE_HOST --settings:build build_type=Release --settings:host build_type=$BUILD_TYPE -o "&:$OPTION=$OPTION_VALUE"
 ```
 
 # Rationale

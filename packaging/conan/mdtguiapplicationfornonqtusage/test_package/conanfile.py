@@ -12,7 +12,7 @@ class MdtGuiApplicationForNonQtUsageTest(ConanFile):
     self.requires(self.tested_reference_str)
 
   def build_requirements(self):
-    self.test_requires("mdtcmakemodules/0.20.2@scandyna/testing")
+    self.test_requires("mdtcmakemodules/0.21.0@scandyna/testing")
 
   def generate(self):
     tc = CMakeToolchain(self)

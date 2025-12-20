@@ -28,14 +28,31 @@ mdt_add_test(
     src/MyNonQtGuiLibrary_NonQtApi_Test.cpp
 )
 
-# Exceptions are not supported by TSan
+# TODO: remove once test fixed
+# See https://gitlab.com/scandyna/mdtapplication/-/issues/6
+if(SANITIZER_ENABLE_ADDRESS)
+  set_tests_properties(MyNonQtGuiLibrary_NonQtApi_Test
+    PROPERTIES
+      DISABLED True
+  )
+endif()
+
+
+mdt_add_test(
+  NAME MyNonQtGuiLibrary_NonQtApi_ErrorTest
+  TARGET myNonQtGuiLibrary_NonQtApi_ErrorTest
+  DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt6::Gui
+  SOURCE_FILES
+    src/MyNonQtGuiLibrary_NonQtApi_ErrorTest.cpp
+)
+
+# TODO: remove once test fixed
+# See https://gitlab.com/scandyna/mdtapplication/-/issues/6
+# Exceptions are not supported by TSan - TODO: check that
 # https://github.com/google/sanitizers/issues/485
-if(NOT SANITIZER_ENABLE_THREAD)
-  mdt_add_test(
-    NAME MyNonQtGuiLibrary_NonQtApi_ErrorTest
-    TARGET myNonQtGuiLibrary_NonQtApi_ErrorTest
-    DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt6::Gui
-    SOURCE_FILES
-      src/MyNonQtGuiLibrary_NonQtApi_ErrorTest.cpp
+if(SANITIZER_ENABLE_ADDRESS OR SANITIZER_ENABLE_THREAD)
+  set_tests_properties(MyNonQtGuiLibrary_NonQtApi_ErrorTest
+    PROPERTIES
+      DISABLED True
   )
 endif()

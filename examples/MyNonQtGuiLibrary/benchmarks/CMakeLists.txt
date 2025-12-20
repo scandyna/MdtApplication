@@ -28,6 +28,16 @@ mdt_add_test(
     src/MyNonQtGuiLibrary_Benchmark.cpp
 )
 
+# TODO: remove once test fixed
+# See https://gitlab.com/scandyna/mdtapplication/-/issues/6
+if(SANITIZER_ENABLE_ADDRESS)
+  set_tests_properties(MyNonQtGuiLibrary_Benchmark
+    PROPERTIES
+      DISABLED True
+  )
+endif()
+
+
 mdt_add_test(
   NAME MyNonQtGuiLibrary_NonQtApi_Benchmark
   TARGET myNonQtGuiLibrary_NonQtApi_Benchmark
@@ -35,3 +45,12 @@ mdt_add_test(
   SOURCE_FILES
     src/MyNonQtGuiLibrary_NonQtApi_Benchmark.cpp
 )
+
+# TODO: remove once test fixed
+# See https://gitlab.com/scandyna/mdtapplication/-/issues/6
+if(SANITIZER_ENABLE_ADDRESS)
+  set_tests_properties(MyNonQtGuiLibrary_NonQtApi_Benchmark
+    PROPERTIES
+      DISABLED True
+  )
+endif()

@@ -24,6 +24,4 @@ include:
   # - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-24-04_clang18_x86_64_libcxx_TSan@0.0.21
   #   inputs:
   #     build_type: 'Debug'
-# TODO: Enable once this is fixed: https://gitlab.com/scandyna/mdtapplication/-/issues/6
-#       specifiy build_type once available
-# - component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-24-04_gcc13_x86_64_ASanUBSan@0.0.23
+- component: $CI_SERVER_FQDN/scandyna/gitlab-ci-cd-cpp-components/BuildAndTest_Ubuntu-24-04_gcc13_x86_64_ASanUBSan@0.0.23

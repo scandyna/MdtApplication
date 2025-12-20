@@ -27,3 +27,12 @@ mdt_add_test(
   SOURCE_FILES
     src/GuiApplicationForNonQtUsageTest.cpp
 )
+
+# TODO: remove once test fixed
+# See https://gitlab.com/scandyna/mdtapplication/-/issues/6
+if(SANITIZER_ENABLE_ADDRESS)
+  set_tests_properties(GuiApplicationForNonQtUsageTest
+    PROPERTIES
+      DISABLED True
+  )
+endif()

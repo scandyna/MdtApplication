@@ -1,9 +1,24 @@
-###############################
-# Runners + global parts
-###############################
+# GitLab shared new Windows runners
+# They currently not support Docker engine
+#.windows_runner:
+  #tags:
+    #- shared-windows
+    #- windows
+    #- windows-1809
+
+#.windows_runner:
+  #tags:
+    #- docker-windows
+
+
+stages:
+  - build
+  - test
+  - PushTo_AnalysisServices
+  - deploy
+
 
 include:
-  - local: 'ci_cd/GitLab/Common.yml'
   - local: 'ci_cd/GitLab/Doc.yml'
   #- local: 'ci_cd/GitLab/BuildAndTest_Templates.yml'
   - local: 'ci_cd/GitLab/BuildAndTest_Linux.yml'
@@ -15,11 +30,3 @@ include:
   # - local: 'ci_cd/GitLab/Deploy_Conan_Windows.yml'
   - local: 'ci_cd/GitLab/Release.yml'
   #- local: 'ci_cd/GitLab/SonarCloud.yml'
-
-# GitLab shared new Windows runners
-# They currently not support Docker engine
-#.windows_runner:
-  #tags:
-    #- shared-windows
-    #- windows
-    #- windows-1809

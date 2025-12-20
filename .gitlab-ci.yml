@@ -11,7 +11,8 @@ include:
   #- local: 'ci_cd/GitLab/ConanTemplates.yml'
   - local: 'ci_cd/GitLab/Conan_CreateAndTest_Linux.yml'
   #- local: 'ci_cd/GitLab/Conan_CreateAndTest_Windows.yml'
-  - local: 'ci_cd/GitLab/Deploy_Conan.yml'
+  - local: 'ci_cd/GitLab/Deploy_Conan_Linux.yml'
+  # - local: 'ci_cd/GitLab/Deploy_Conan_Windows.yml'
   - local: 'ci_cd/GitLab/Release.yml'
   #- local: 'ci_cd/GitLab/SonarCloud.yml'
 

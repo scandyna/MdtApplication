@@ -53,7 +53,7 @@ class MdtApplicationConan(ConanFile):
       # As workaround, try fix a known version that we can build
       # Take a Qt version that we have in our Docker images
       # Hmm, now try to use package from conan-center (20.04.2022)
-      self.requires("qt/5.15.16")
+      self.requires("qt/6.8.3")
 
   def build_requirements(self):
     if self._requires_catch():

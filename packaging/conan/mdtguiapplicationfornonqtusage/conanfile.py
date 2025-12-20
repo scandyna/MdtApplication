@@ -15,7 +15,7 @@ class MdtGuiApplicationForNonQtUsageConan(ConanFile):
   generators = "CMakeDeps", "VirtualBuildEnv"
 
   # See: https://docs.conan.io/en/latest/reference/conanfile/attributes.html#short-paths
-  short_paths = True
+  # short_paths = True
 
   # The version can be set on the command line:
   # conan create . x.y.z@scandyna/testing ...
@@ -35,7 +35,7 @@ class MdtGuiApplicationForNonQtUsageConan(ConanFile):
   def requirements(self):
     self.requires("mdtcommandlinearguments/%s@scandyna/testing" % (self.version), transitive_headers=True)
     self.requires("mdtcmakeconfig/0.2.3@scandyna/testing")
-    self.requires("qt/5.15.16", transitive_headers=True, transitive_libs=True)
+    self.requires("qt/6.8.3", transitive_headers=True, transitive_libs=True)
 
   def build_requirements(self):
     self.test_requires("mdtcmakemodules/0.21.0@scandyna/testing")

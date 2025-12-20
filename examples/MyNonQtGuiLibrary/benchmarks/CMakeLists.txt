@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2020-2020 Philippe Steinmann.
+# Copyright (C) 2020-2025 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -23,7 +23,7 @@ include(MdtAddTest)
 mdt_add_test(
   NAME MyNonQtGuiLibrary_Benchmark
   TARGET myNonQtGuiLibrary_Benchmark
-  DEPENDENCIES MyNonQtGuiLibrary Qt5::Test Qt5::Gui
+  DEPENDENCIES MyNonQtGuiLibrary Qt6::Test Qt6::Gui
   SOURCE_FILES
     src/MyNonQtGuiLibrary_Benchmark.cpp
 )
@@ -31,7 +31,7 @@ mdt_add_test(
 mdt_add_test(
   NAME MyNonQtGuiLibrary_NonQtApi_Benchmark
   TARGET myNonQtGuiLibrary_NonQtApi_Benchmark
-  DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt5::Gui
+  DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt6::Gui
   SOURCE_FILES
     src/MyNonQtGuiLibrary_NonQtApi_Benchmark.cpp
 )

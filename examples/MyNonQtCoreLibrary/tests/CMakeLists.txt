@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2020 Philippe Steinmann.
+# Copyright (C) 2019-2025 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -23,7 +23,7 @@ include(MdtAddTest)
 mdt_add_test(
   NAME MyNonQtCoreLibraryTest
   TARGET myNonQtCoreLibraryTest
-  DEPENDENCIES MyNonQtCoreLibrary Qt5::Test
+  DEPENDENCIES MyNonQtCoreLibrary Qt6::Test
   SOURCE_FILES
     src/MyLibraryTest.cpp
 )

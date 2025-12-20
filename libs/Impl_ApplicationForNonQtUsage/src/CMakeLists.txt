@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2020-2022 Philippe Steinmann.
+# Copyright (C) 2020-2025 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -46,7 +46,7 @@ target_compile_features(Mdt_Impl_ApplicationForNonQtUsage INTERFACE cxx_std_14)
 target_link_libraries(Mdt_Impl_ApplicationForNonQtUsage
   INTERFACE
     Mdt::CommandLineArguments
-    Qt5::Core
+    Qt6::Core
 #     Threads::Threads
 )
 

@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2020-2020 Philippe Steinmann.
+# Copyright (C) 2020-2025 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -23,7 +23,7 @@ include(MdtAddTest)
 mdt_add_test(
   NAME MyNonQtGuiLibrary_NonQtApi_Test
   TARGET myNonQtGuiLibrary_NonQtApi_Test
-  DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt5::Gui
+  DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt6::Gui
   SOURCE_FILES
     src/MyNonQtGuiLibrary_NonQtApi_Test.cpp
 )
@@ -34,7 +34,7 @@ if(NOT SANITIZER_ENABLE_THREAD)
   mdt_add_test(
     NAME MyNonQtGuiLibrary_NonQtApi_ErrorTest
     TARGET myNonQtGuiLibrary_NonQtApi_ErrorTest
-    DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt5::Gui
+    DEPENDENCIES MyNonQtGuiLibrary Mdt::Catch2Main Qt6::Gui
     SOURCE_FILES
       src/MyNonQtGuiLibrary_NonQtApi_ErrorTest.cpp
   )

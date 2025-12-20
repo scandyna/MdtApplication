@@ -1,11 +1,11 @@
 
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.22)
 
 project(MdtConsoleApplicationTest)
 
 find_package(MdtCMakeModules REQUIRED)
 find_package(Mdt0 REQUIRED COMPONENTS ConsoleApplication)
-find_package(Qt5 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 # message("Mdt0ConsoleApplication_DIR: ${Mdt0ConsoleApplication_DIR}")
 # message("Qt5Core_DIR: ${Qt5Core_DIR}")

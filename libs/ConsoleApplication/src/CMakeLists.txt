@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2020 Philippe Steinmann.
+# Copyright (C) 2019-2025 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -35,7 +35,7 @@ endif()
 
 target_link_libraries(Mdt_ConsoleApplication
   PUBLIC
-    Qt5::Core
+    Qt6::Core
 )
 
 target_include_directories(Mdt_ConsoleApplication

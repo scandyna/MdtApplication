@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2022 Philippe Steinmann.
+# Copyright (C) 2019-2025 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -39,8 +39,7 @@ endif()
 target_link_libraries(Mdt_GuiApplicationForNonQtUsage
   PUBLIC
     Mdt::Impl_ApplicationForNonQtUsage
-    Qt5::Gui
-#     Threads::Threads
+    Qt6::Gui
 )
 
 target_include_directories(Mdt_GuiApplicationForNonQtUsage

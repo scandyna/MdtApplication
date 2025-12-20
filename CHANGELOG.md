@@ -1,4 +1,11 @@
 
+# [0.6.0] - 2025-12-20
+
+## Changed
+
+- Use Qt 6.8.3 (https://gitlab.com/scandyna/mdtapplication/-/issues/9)
+
+
 # [0.5.3] - 2025-11-16
 
 ## Fixed

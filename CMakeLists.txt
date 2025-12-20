@@ -1,6 +1,6 @@
 ########################################################################################
 #
-# Copyright (C) 2019-2024 Philippe Steinmann.
+# Copyright (C) 2019-2025 Philippe Steinmann.
 #
 # This file is part of MdtApplication library.
 #
@@ -18,7 +18,7 @@
 # along with MdtApplication. If not, see <http://www.gnu.org/licenses/>.
 #
 ########################################################################################
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.22)
 
 # CMAKE_PREFIX_PATH is empty before any call to project()
 # Because set_project_version() does not exist,
@@ -164,10 +164,10 @@ endif()
 # Paths to dependencies
 #######################
 
-include(AddQt5ToCMakePrefixPath)
+# include(AddQt5ToCMakePrefixPath)
 
-set(QT_PREFIX_PATH CACHE PATH "Path to the root of Qt distribution. (For example: /opt/qt/Qt5/5.13.0/gcc_64). If empty, system distribution is considered.")
-add_qt5_to_cmake_prefix_path("${QT_PREFIX_PATH}")
+# set(QT_PREFIX_PATH CACHE PATH "Path to the root of Qt distribution. (For example: /opt/qt/Qt5/5.13.0/gcc_64). If empty, system distribution is considered.")
+# add_qt5_to_cmake_prefix_path("${QT_PREFIX_PATH}")
 
 #######################
 # Dependencies
@@ -175,11 +175,11 @@ add_qt5_to_cmake_prefix_path("${QT_PREFIX_PATH}")
 
 if(REQUIRES_QT)
   find_package(Threads REQUIRED)
-  find_package(Qt5 COMPONENTS Core REQUIRED)
+  find_package(Qt6 COMPONENTS Core REQUIRED)
 endif()
 
 if(ENABLE_GUI_APPLICATION_FOR_NON_QT_USAGE)
-  find_package(Qt5 COMPONENTS Gui REQUIRED)
+  find_package(Qt6 COMPONENTS Gui REQUIRED)
 endif()
 
 if(USE_COMMAND_LINE_ARGUMENTS_IMPORT_TARGET)
@@ -189,7 +189,7 @@ endif()
 
 if(BUILD_TESTS)
   find_package(Catch2 REQUIRED)
-  find_package(Qt5 COMPONENTS Test REQUIRED)
+  find_package(Qt6 COMPONENTS Test REQUIRED)
 endif()
 
 if(BUILD_CPP_API_DOC)

@@ -1,5 +1,5 @@
 
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.22)
 
 project(MdtCoreApplicationForNonQtUsageTest)
 
@@ -8,7 +8,6 @@ find_package(MdtCMakeModules REQUIRED)
 find_package(Mdt0 REQUIRED COMPONENTS CoreApplicationForNonQtUsage)
 # find_package(Mdt0CoreApplicationForNonQtUsage REQUIRED)
 
-find_package(Qt5 REQUIRED COMPONENTS Core)
 
 message("Mdt0_FOUND: ${Mdt0_FOUND}")
 message("Mdt0CoreApplicationForNonQtUsage_DIR: ${Mdt0CoreApplicationForNonQtUsage_DIR}")
